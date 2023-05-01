@@ -31,6 +31,7 @@ String FastfeedLogo = "assets/logo.png";
 String Tick = "assets/Tick.png";
 String Zabdar = "assets/zabdar.png";
 String RestaurantLogoDef = "assets/restarauntLogo.png";
+String WhiteLogo = "assets/logo_white.png";
 // Fonts
 String IranSansWeb = "IranSansWeb";
 String FugazOne = "FugazOne";
@@ -107,5 +108,13 @@ Widget loading(){
           },
       ),
     ),
+  );
+}
+AppBar AppBarMenu(){
+  return AppBar(
+    title: Image.asset(WhiteLogo, width: 90.w, height: 90.h,),
+    //actions: [],
+    leading: BackButton(color: WhiteColor,),
+    backgroundColor: RedColor,
   );
 }
