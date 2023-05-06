@@ -13,7 +13,7 @@ class _RatingScreenState extends State<RatingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(412, 915));
+    ScreenUtil.init(context, designSize: const Size(412, 914));
     return Scaffold(
       backgroundColor: BaseColor,
       appBar: PreferredSize(
@@ -75,8 +75,8 @@ class _RatingScreenState extends State<RatingScreen> {
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 45, 0, 0),
                 child: Image.asset(
                   RatingLogo,
-                  width: 148.44,
-                  height: 82.53,
+                  width: ScreenUtil().setWidth(144),
+                  height: ScreenUtil().setHeight(80),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -86,14 +86,14 @@ class _RatingScreenState extends State<RatingScreen> {
               style: TextStyle(
                   color: BlackColor,
                   fontFamily: IranSansWeb,
-                  fontSize: ScreenUtil().setSp(22),
+                  fontSize: ScreenUtil().setSp(20),
                   fontWeight: FontWeight.bold),
             ),
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
               child: Container(
-                  width: 312,
-                  height: 169,
+                  width: ScreenUtil().setWidth(310),
+                  height: ScreenUtil().setHeight(170),
                   decoration: BoxDecoration(
                     color: const Color(0xFFEBEBEB),
                     borderRadius: BorderRadius.circular(10),
@@ -112,7 +112,7 @@ class _RatingScreenState extends State<RatingScreen> {
                             style: TextStyle(
                                 color: BlackColor,
                                 fontFamily: IranSansWeb,
-                                fontSize: ScreenUtil().setSp(20),
+                                fontSize: ScreenUtil().setSp(18),
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -162,7 +162,7 @@ class _RatingScreenState extends State<RatingScreen> {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: YellowColor,
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                   minimumSize: const Size(145, 55),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
