@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/constants.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class RatingScreen extends StatefulWidget {
-  const RatingScreen({Key? key}) : super(key: key);
-
   @override
   _RatingScreenState createState() => _RatingScreenState();
 }
 
 class _RatingScreenState extends State<RatingScreen> {
+  late double stars = 1;
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: const Size(412, 915));
@@ -20,7 +21,8 @@ class _RatingScreenState extends State<RatingScreen> {
         child: AppBar(
           backgroundColor: YellowColor,
           automaticallyImplyLeading: false,
-          flexibleSpace: Stack( // changed
+          flexibleSpace: Stack(
+            // changed
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -40,7 +42,7 @@ class _RatingScreenState extends State<RatingScreen> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: BlackColor,
-                          fontFamily: "IranSansWeb",
+                          fontFamily: IranSansWeb,
                           fontSize: ScreenUtil().setSp(24),
                         ),
                       ),
@@ -48,15 +50,16 @@ class _RatingScreenState extends State<RatingScreen> {
                   ),
                 ],
               ),
-          Positioned(
-            right: ScreenUtil().setWidth(30),
-            top: ScreenUtil().setHeight(130),
-            child: InkWell( // added InkWell to make it clickable
-              onTap: () {
-                //TODO
-              },
-              child: const Icon(Icons.arrow_back_ios),
-            )),
+              Positioned(
+                  right: ScreenUtil().setWidth(30),
+                  top: ScreenUtil().setHeight(130),
+                  child: InkWell(
+                    // added InkWell to make it clickable
+                    onTap: () {
+                      //TODO
+                    },
+                    child: const Icon(Icons.arrow_back_ios),
+                  )),
             ],
           ),
           elevation: 0.0,
@@ -80,129 +83,85 @@ class _RatingScreenState extends State<RatingScreen> {
             ),
             Text(
               'امتیاز به سفارش',
-              style:  TextStyle(
-                color: BlackColor,
-                fontFamily: "IranSansWeb",
-                fontSize: ScreenUtil().setSp(22),
-                fontWeight: FontWeight.bold
-              ),
+              style: TextStyle(
+                  color: BlackColor,
+                  fontFamily: IranSansWeb,
+                  fontSize: ScreenUtil().setSp(22),
+                  fontWeight: FontWeight.bold),
             ),
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
               child: Container(
-                width: 312,
-                height: 169,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFEBEBEB),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Align(
+                  width: 312,
+                  height: 169,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFEBEBEB),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Align(
                         alignment: const AlignmentDirectional(0, 0),
                         child: Padding(
                           padding:
-                          const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                              const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Text(
                             'به سفارشتان چه امتیازی می دهید؟',
-                            style:  TextStyle(
-                              color: const Color(0xFF5E5D5D),
-                              fontFamily: "IranSansWeb",
-                              fontSize: ScreenUtil().setSp(16),
-                            ),
+                            style: TextStyle(
+                                color: BlackColor,
+                                fontFamily: IranSansWeb,
+                                fontSize: ScreenUtil().setSp(20),
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
-                    ),
-                    Align(
-                      alignment: const AlignmentDirectional(0, 0),
-                      child: Padding(
+                      Padding(
                         padding:
-                        const EdgeInsetsDirectional.fromSTEB(35, 0, 50, 70),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.star_outlined,
-                                  color: BlackColor,
-                                  size: 50,
-                                ),
-                                onPressed: () {
-                                  print('IconButton pressed ...');
-                                },
+                            const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                        child: Theme(
+                          data: ThemeData(
+                            textTheme: const TextTheme(
+                              headlineSmall: TextStyle(
+                                color: BlackColor,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Expanded(
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.star_outlined,
-                                  color: BlackColor,
-                                  size: 50,
-                                ),
-                                onPressed: () {
-                                  print('IconButton pressed ...');
-                                },
-                              ),
+                            colorScheme: ColorScheme.fromSwatch()
+                                .copyWith(secondary: YellowColor)
+                                .copyWith(background: WhiteColor),
+                          ),
+                          child: RatingBar.builder(
+                            onRatingUpdate: (newValue) =>
+                                setState(() => stars = newValue),
+                            itemBuilder: (context, index) => const Icon(
+                              Icons.star_sharp,
+                              color: YellowColor,
                             ),
-                            Expanded(
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.star_outlined,
-                                  color: BlackColor,
-                                  size: 50,
-                                ),
-                                onPressed: () {
-                                  print('IconButton pressed ...');
-                                },
-                              ),
-                            ),
-                            Expanded(
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.star_outlined,
-                                  color: BlackColor,
-                                  size: 50,
-                                ),
-                                onPressed: () {
-                                  print('IconButton pressed ...');
-                                },
-                              ),
-                            ),
-                            Expanded(
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.star_outlined,
-                                  color: BlackColor,
-                                  size: 50,
-                                ),
-                                onPressed: () {
-                                  print('IconButton pressed ...');
-                                },
-                              ),
-                            ),
-                          ],
+                            direction: Axis.horizontal,
+                            initialRating: stars ??= 1,
+                            unratedColor: Colors.grey,
+                            itemCount: 5,
+                            itemSize: 45,
+                            glowColor: YellowColor,
+                            textDirection: TextDirection.ltr,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
+                    ],
+                  )),
             ),
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
               child: ElevatedButton(
                 onPressed: () {
-                  print('Button pressed ...');
+                  //TODO
+                  print(stars);
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: YellowColor,
+                  backgroundColor: YellowColor,
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                   minimumSize: const Size(145, 55),
                   shape: RoundedRectangleBorder(
@@ -217,7 +176,7 @@ class _RatingScreenState extends State<RatingScreen> {
                   'ادامه',
                   style: TextStyle(
                     color: BlackColor,
-                    fontFamily: "IranSansWeb",
+                    fontFamily: IranSansWeb,
                     fontSize: ScreenUtil().setSp(24),
                   ),
                 ),
