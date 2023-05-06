@@ -33,6 +33,8 @@ String Tick = "assets/Tick.png";
 String Zabdar = "assets/zabdar.png";
 String RestaurantLogoDef = "assets/restarauntLogo.png";
 String WhiteLogo = "assets/logo_white.png";
+String BlackLogo = "logo_black.png";
+String RatingLogo = "rating.png";
 // Fonts
 String IranSansWeb = "IranSansWeb";
 String FugazOne = "FugazOne";
@@ -119,3 +121,5 @@ AppBar AppBarMenu(){
     backgroundColor: RedColor,
   );
 }
+double screenWidth = ScreenUtil().screenWidth;
+double screenHeight = ScreenUtil().screenHeight;
