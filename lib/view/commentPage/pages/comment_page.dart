@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/constants.dart';
+import '../components/successful_commented.dart';
 
 class SendCommentScreen extends StatefulWidget {
   @override
@@ -130,6 +131,7 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
                         contentPadding:
                             const EdgeInsetsDirectional.fromSTEB(8, 12, 8, 12),
                         prefixIcon: const Icon(
+                          size:20,
                           Icons.tag_faces_sharp,
                         ),
                       ),
@@ -147,71 +149,86 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
                 alignment: AlignmentDirectional.centerStart,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(40, 20, 40, 0),
-                  child: Container(
-                    child: TextFormField(
-                      textDirection: TextDirection.rtl,
-                      // controller: _model.textController2,
-                      autofocus: true,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        hintTextDirection:TextDirection.rtl,
-                        hintText: 'نظرتان را اینجا بنویسید',
-                        hintStyle: TextStyle(
-                            color: const Color(0xFF5E5D5D),
-                            fontFamily: IranSansWeb,
-                            fontSize: ScreenUtil().setSp(16),
-                            fontWeight: FontWeight.bold),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Color(0xFF3A3A3A),
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
+                  child: TextFormField(
+                    textDirection: TextDirection.rtl,
+                    // controller: _model.textController2,
+                    autofocus: true,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      hintTextDirection: TextDirection.rtl,
+                      hintText: 'نظرتان را اینجا بنویسید',
+                      hintStyle: TextStyle(
+                          color: const Color(0xFF5E5D5D),
+                          fontFamily: IranSansWeb,
+                          fontSize: ScreenUtil().setSp(16),
+                          fontWeight: FontWeight.bold),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color(0xFF3A3A3A),
+                          width: 1,
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: BlackColor,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: BlackColor,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: BlackColor,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        filled: true,
-                        fillColor: const Color(0xFFEBEBEB),
-                        contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                            12, 12, 12, 12),
+                        borderRadius: BorderRadius.circular(5),
                       ),
-                      style: TextStyle(
-                        color: BlackColor,
-                        fontFamily: IranSansWeb,
-                        fontSize: ScreenUtil().setSp(18),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: BlackColor,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
                       ),
-                      textAlign: TextAlign.start,
-                      maxLines: 6,
-                      maxLength: 255,
-                      // validator: _model.textController2Validator.asValidator(context),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: BlackColor,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: BlackColor,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      filled: true,
+                      fillColor: const Color(0xFFEBEBEB),
+                      contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                          12, 12, 12, 12),
                     ),
+                    style: TextStyle(
+                      color: BlackColor,
+                      fontFamily: IranSansWeb,
+                      fontSize: ScreenUtil().setSp(18),
+                    ),
+                    textAlign: TextAlign.start,
+                    maxLines: 6,
+                    maxLength: 255,
+                    // validator: _model.textController2Validator.asValidator(context),
                   ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
                 child: ElevatedButton(
-                  onPressed: () {
-                    print('Button pressed ...');
+                  onPressed: () async {
+                    await showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (dialogContext) {
+                          return GestureDetector(
+                            onTap: () => FocusScope.of(context)
+                                .requestFocus(_unfocusNode),
+                            child: Dialog(
+                              insetPadding:
+                              MediaQuery.of(dialogContext).viewInsets,
+                              child: SizedBox(
+                                height:ScreenUtil().setHeight(200) ,
+                                width: ScreenUtil().setWidth(240),
+                                child: SuccessfulCommentedWidget(),
+                              ),
+                            ),
+                          );
+                        });
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: YellowColor,
@@ -233,8 +250,25 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                 child: ElevatedButton(
-                  onPressed: () {
-                    print('Button pressed ...');
+                  onPressed: () async {
+                    await showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (dialogContext) {
+                          return GestureDetector(
+                            onTap: () => FocusScope.of(context)
+                                .requestFocus(_unfocusNode),
+                            child: Dialog(
+                              insetPadding:
+                                  MediaQuery.of(dialogContext).viewInsets,
+                              child: SizedBox(
+                                height:ScreenUtil().setHeight(200) ,
+                                width: ScreenUtil().setWidth(240),
+                                child: SuccessfulCommentedWidget(),
+                              ),
+                            ),
+                          );
+                        });
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: RedColor,

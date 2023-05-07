@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:material_color_gen/material_color_gen.dart';
-import 'view/commentPage/components/comment_page.dart';
 import 'utils/constants.dart';
+import 'view/commentPage/pages/comment_page.dart';
 
 void main() async {
   runApp(const MyApp());
