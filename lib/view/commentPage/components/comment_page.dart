@@ -75,7 +75,7 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
         body: SafeArea(
           child: Column(
             textDirection: TextDirection.rtl,
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.max,
             children: [
               Align(
                 alignment: AlignmentDirectional.centerStart,
