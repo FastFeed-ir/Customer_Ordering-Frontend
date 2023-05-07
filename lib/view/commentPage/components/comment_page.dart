@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/constants.dart';
 
-class CommentScreen extends StatefulWidget {
+class SendCommentScreen extends StatefulWidget {
   @override
-  _CommentScreenState createState() => _CommentScreenState();
+  _SendCommentScreenState createState() => _SendCommentScreenState();
 }
 
-class _CommentScreenState extends State<CommentScreen> {
+class _SendCommentScreenState extends State<SendCommentScreen> {
   final _unfocusNode = FocusNode();
 
   @override
