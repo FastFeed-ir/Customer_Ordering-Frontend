@@ -3,17 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/constants.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class RatingScreen extends StatefulWidget {
+class ScoringScreen extends StatefulWidget {
   @override
-  _RatingScreenState createState() => _RatingScreenState();
+  _ScoringScreenState createState() => _ScoringScreenState();
 }
 
-class _RatingScreenState extends State<RatingScreen> {
+class _ScoringScreenState extends State<ScoringScreen> {
   late double stars = 1;
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(412, 914));
+    ScreenUtil.init(context, designSize: const Size(360, 800));
     return Scaffold(
       backgroundColor: BaseColor,
       appBar: PreferredSize(
@@ -22,7 +22,6 @@ class _RatingScreenState extends State<RatingScreen> {
           backgroundColor: YellowColor,
           automaticallyImplyLeading: false,
           flexibleSpace: Stack(
-            // changed
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

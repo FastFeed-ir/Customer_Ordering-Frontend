@@ -19,7 +19,6 @@ String InformationsPage = "/informationsPage";
 String CommentsPage = "/commentsPage";
 String ScoringPage = "/scoringPage";
 String SendCommentPage = "/sendCommentPage";
-String RatingPage = "/ratingPage";
 //String Page = "/Page";
 
 //Strings, Names, Address
