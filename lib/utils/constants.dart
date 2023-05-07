@@ -29,6 +29,7 @@ late String InstagramPage ;
 // Images
 String FastfeedLogo = "assets/logo.png";
 String Tick = "assets/Tick.png";
+String Tick2 = "assets/tick2.png";
 String Zabdar = "assets/zabdar.png";
 String RestaurantLogoDef = "assets/restarauntLogo.png";
 String WhiteLogo = "assets/logo_white.png";
