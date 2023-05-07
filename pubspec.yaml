@@ -78,6 +78,7 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
+    - assets/logo_black.png
     - assets/logo.png
     - assets/Tick.png
     - assets/zabdar.png
