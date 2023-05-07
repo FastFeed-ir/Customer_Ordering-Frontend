@@ -176,7 +176,7 @@ class _ScoringScreenState extends State<ScoringScreen> {
                   style: TextStyle(
                     color: BlackColor,
                     fontFamily: IranSansWeb,
-                    fontSize: ScreenUtil().setSp(24),
+                    fontSize: ScreenUtil().setSp(20),
                   ),
                 ),
               ),
