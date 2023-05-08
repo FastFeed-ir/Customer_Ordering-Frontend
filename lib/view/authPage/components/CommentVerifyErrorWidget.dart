@@ -54,7 +54,10 @@ class _CommentVerifyErrorWidgetState extends State<CommentVerifyErrorWidget> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: YellowColor,
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    minimumSize: const Size(100, 40),
+                    minimumSize : Size(
+                        ScreenUtil().setWidth(100),
+                        ScreenUtil().setHeight(40)
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -78,7 +81,10 @@ class _CommentVerifyErrorWidgetState extends State<CommentVerifyErrorWidget> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: YellowColor,
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    minimumSize: const Size(100, 40),
+                    minimumSize: Size(
+    ScreenUtil().setWidth(100),
+    ScreenUtil().setHeight(40)
+    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),

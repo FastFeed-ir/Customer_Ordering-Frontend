@@ -59,7 +59,10 @@ class _TestScreenState extends State<TestScreen> {
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.blue,
-                      minimumSize: const Size(130, 40),
+                      minimumSize: Size(
+                          ScreenUtil().setWidth(130),
+                          ScreenUtil().setHeight(40)
+                      ),
                       padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -91,7 +94,10 @@ class _TestScreenState extends State<TestScreen> {
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor: Colors.blue,
-                    minimumSize: const Size(130, 40),
+                    minimumSize: Size(
+                        ScreenUtil().setWidth(130),
+                        ScreenUtil().setHeight(40)
+                    ),
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
