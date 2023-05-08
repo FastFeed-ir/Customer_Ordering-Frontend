@@ -162,7 +162,10 @@ class _ScoringScreenState extends State<ScoringScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: YellowColor,
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                  minimumSize: const Size(145, 55),
+                  minimumSize: Size(
+                      ScreenUtil().setWidth(145),
+                      ScreenUtil().setHeight(55)
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
