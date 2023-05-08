@@ -235,7 +235,10 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    minimumSize: const Size(144, 56),
+                    minimumSize:Size(
+                        ScreenUtil().setWidth(144),
+                        ScreenUtil().setHeight(56)
+                    ),
                   ),
                   child: Text(
                     'ثبت نظر',
@@ -275,7 +278,10 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    minimumSize: const Size(90, 36),
+                    minimumSize: Size(
+                        ScreenUtil().setWidth(90),
+                        ScreenUtil().setHeight(36)
+                    ),
                   ),
                   child: Text(
                     'رد شدن',
