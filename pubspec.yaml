@@ -78,6 +78,8 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
+    - assets/error.png
+    - assets/verify.png
     - assets/logo.png
     - assets/Tick.png
     - assets/zabdar.png
