@@ -46,9 +46,9 @@ class _TestScreenState extends State<TestScreen> {
                             onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
                             child: Dialog(
                               insetPadding: MediaQuery.of(dialogContext).viewInsets,
-                              child: const SizedBox(
-                                height: 280,
-                                width: 280,
+                              child:  SizedBox(
+                                height: ScreenUtil().setHeight(280),
+                                width: ScreenUtil().setWidth(280),
                                 child: CommentVerifyWidget(),
                               ),
                             ),

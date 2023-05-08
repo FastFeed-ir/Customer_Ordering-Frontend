@@ -111,9 +111,9 @@ class _CommentVerifyWidgetState extends State<CommentVerifyWidget> {
                 builder: (dialogContext) {
                   return Dialog(
                     insetPadding: MediaQuery.of(dialogContext).viewInsets,
-                    child: const SizedBox(
-                      height: 240,
-                      width: 280,
+                    child:  SizedBox(
+                      height: ScreenUtil().setHeight(240),
+                      width: ScreenUtil().setWidth(280),
                       child: CommentVerifyErrorWidget(),
                     ),
                   );
