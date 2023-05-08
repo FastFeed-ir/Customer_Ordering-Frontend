@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../utils/constants.dart';
+import '../components/CommentVerifyWidget.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({Key? key}) : super(key: key);
@@ -11,9 +13,9 @@ class TestScreen extends StatefulWidget {
 
 class _TestScreenState extends State<TestScreen> {
   final _unfocusNode = FocusNode();
-
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: const Size(360, 800));
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
       child: Scaffold(
@@ -41,12 +43,14 @@ class _TestScreenState extends State<TestScreen> {
                         context: context,
                         builder: (dialogContext) {
                           return GestureDetector(
-                            onTap: () => FocusScope.of(context)
-                                .requestFocus(_unfocusNode),
+                            onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
                             child: Dialog(
-                              insetPadding:
-                                  MediaQuery.of(dialogContext).viewInsets,
-                              // child: CommentVerifyWidgetWidget(),
+                              insetPadding: MediaQuery.of(dialogContext).viewInsets,
+                              child: const SizedBox(
+                                height: 280,
+                                width: 280,
+                                child: CommentVerifyWidget(),
+                              ),
                             ),
                           );
                         },
