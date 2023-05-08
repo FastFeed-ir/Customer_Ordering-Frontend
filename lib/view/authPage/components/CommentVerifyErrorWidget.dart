@@ -1,0 +1,102 @@
+import '../../../utils/constants.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:flutter/material.dart';
+
+class CommentVerifyErrorWidget extends StatefulWidget {
+  const CommentVerifyErrorWidget({Key? key}) : super(key: key);
+
+  @override
+  _CommentVerifyErrorWidgetState createState() =>
+      _CommentVerifyErrorWidgetState();
+}
+
+class _CommentVerifyErrorWidgetState extends State<CommentVerifyErrorWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Align(
+          alignment: const AlignmentDirectional(0, 0),
+          child: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+            child: Image.asset(
+              ErrotLogo,
+              width: ScreenUtil().setWidth(60),
+              height: ScreenUtil().setHeight(60),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+          child: Text('کد وارد شده معتبر نیست !',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: IranSansWeb,
+                fontSize: ScreenUtil().setSp(16),
+              )),
+        ),
+        Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    print('Button pressed ...');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: YellowColor,
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                    minimumSize: const Size(100, 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: Text(
+                    'انصراف',
+                    style: TextStyle(
+                      fontFamily: IranSansWeb,
+                      fontSize: ScreenUtil().setSp(12),
+                      color: BlackColor,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: YellowColor,
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                    minimumSize: const Size(100, 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: Text(
+                    'تلاش  مجدد',
+                    style: TextStyle(
+                      fontFamily: IranSansWeb,
+                      fontSize: ScreenUtil().setSp(12),
+                      color: BlackColor,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
