@@ -8,6 +8,7 @@ import '../../../utils/constants.dart';
 
 class PhoneNumberScreen extends StatefulWidget {
   @override
+  PhoneNumberScreen({Key? key}) : super(key: key);
   _PhoneNumberScreenState createState() => _PhoneNumberScreenState();
 }
 
@@ -17,6 +18,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: const Size(360, 800));
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(24),
