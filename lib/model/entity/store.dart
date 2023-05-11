@@ -2,10 +2,10 @@
 class Store{
   int? id;
   int? business_owner;
-  String? title;
+  String title;
   String? logo;
   int? business_type;
-  int? state;
+  int state;
   String? city ;
   String? address ;
   String? owner_phone_number;
