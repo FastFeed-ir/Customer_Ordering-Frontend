@@ -1,8 +1,11 @@
+import 'package:customer_ordering_frontend/view/customerLogin/components/verifyCode.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:FastFeed/view/verifyCode/components/verifyCode.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../../utils/constants.dart';
 
@@ -113,15 +116,10 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                               },
                               codeSent: ((String verificationId, int? resendToken) async {
                                 await Future.delayed(Duration(seconds: 2));
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) => ConfirmationScreen(
-                                //       phoneNumber: '+98${_phoneController}',
-                                //       verificationId: verificationId,
-                                //     ),
-                                //   ),
-                                // );
+                                Get.to(() => ConfirmationScreen(
+                                  phoneNumber: '+98${_phoneController}',
+                                  verificationId: verificationId,
+                                ));
                               }),
                               codeAutoRetrievalTimeout: (String verificationId) {},
                             );
