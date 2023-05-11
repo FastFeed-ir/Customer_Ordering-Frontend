@@ -9,7 +9,7 @@ class Store{
   String? city ;
   String? address ;
   String? owner_phone_number;
-  String? telephone_number;
+  String telephone_number;
   int? tables_count;
   String? instagram_page_link;
 

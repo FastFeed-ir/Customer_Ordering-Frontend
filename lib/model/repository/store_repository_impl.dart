@@ -16,7 +16,7 @@ class StoreRepositoryImpl extends StoreRepository {
       for (var data in dataList) {
         if (data is Map<String, dynamic>) {
           var store = Store.fromJson(data);
-          if(store.business_owner == id)
+          if(store.id == id)
           stores.add(store);
         }
       }
