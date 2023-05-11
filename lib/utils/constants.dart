@@ -20,6 +20,7 @@ String CommentsPage = "/commentsPage";
 String ScoringPage = "/scoringPage";
 String SendCommentPage = "/sendCommentPage";
 String LoginSignUp = "/login&signUp";
+String VerifyCode = '/verifyCode';
 //String Page = "/Page";
 
 //Strings, Names, Address
