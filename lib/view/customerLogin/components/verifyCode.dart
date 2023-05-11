@@ -8,6 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../../model/entity/owner.dart';
 import '../../../utils/constants.dart';
 import '../../../view_model/owner_viewmodel.dart';
+import 'login&signUp.dart';
 
 class ConfirmationScreen extends StatefulWidget {
   String? phoneNumber;
@@ -95,6 +96,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
         id = owner.id;
         loading();
       }
+      //TODO got to subscription
       // Get.toNamed(HomePage, arguments: id);----------------------------------------------
     });
   }
@@ -214,7 +216,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                   ),
                 ),
                 onPressed: () async {
-                  //TODO got back to loginpage
+                  Get.to(() => PhoneNumberScreen());
                 }),
           ),
         ],
