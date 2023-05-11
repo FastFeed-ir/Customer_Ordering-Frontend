@@ -130,8 +130,8 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
                         fillColor: const Color(0xFFEBEBEB),
                         contentPadding:
                             const EdgeInsetsDirectional.fromSTEB(8, 12, 8, 12),
-                        prefixIcon: const Icon(
-                          size:20,
+                        prefixIcon:  Icon(
+                          size:ScreenUtil().setSp(20),
                           Icons.tag_faces_sharp,
                         ),
                       ),
