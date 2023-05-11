@@ -27,92 +27,120 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextFormField(
-                decoration: InputDecoration(
-                  suffixIcon: Icon(
-                    Icons.phone,
-                    color: Colors.black,
-                  ),
-                  border: OutlineInputBorder(),
-                  labelStyle: TextStyle(
-                    color: Colors.black,
-                    fontFamily: "IranSansWeb",
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: YellowColor),
-                  ),
-                  labelText: "شماره تلفن همراه",
-                  helperText: "شماره با ۹ شروع می‌شود",
-                  hintText: "9123456789",
-                  helperStyle: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-                style: TextStyle(
+              Center(
+                child: Text("لطفا شماره تلفن همراه خود را وارد کنید",style: TextStyle(
                   color: Colors.black,
+                  fontSize: 20,
                   fontFamily: IranSansWeb,
-                ),
-                keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                ],
-                onChanged: (value) {
-                  _phoneController = value;
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty || value.length != 10) {
-                    return "لطفا شماره خود را وارد کنید";
-                  }
-                  return null;
-                },
+                ),),
               ),
-              SizedBox(height: 24),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: YellowColor,
-                  fixedSize: Size.fromHeight(50),
-                ),
-                onPressed: () async {
-                  print('+98${_phoneController}');
-                  if (_formKey.currentState?.validate() == true) {
-                    FirebaseAuth auth = FirebaseAuth.instance;
-                    try {
-                      await auth.verifyPhoneNumber(
-                        phoneNumber: '+98${_phoneController}',
-                        verificationCompleted: (PhoneAuthCredential credential) async {},
-                        verificationFailed: (e) {
-                          throw Exception(e.toString());
-                        },
-                        codeSent: ((String verificationId, int? resendToken) async {
-                          await Future.delayed(Duration(seconds: 2));
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => ConfirmationScreen(
-                          //       phoneNumber: '+98${_phoneController}',
-                          //       verificationId: verificationId,
-                          //     ),
-                          //   ),
-                          // );
-                        }),
-                        codeAutoRetrievalTimeout: (String verificationId) {},
-                      );
-                    } on FirebaseAuthException catch (e) {
-                      print(e.toString());
-                    }
-                  }
-                },
-                child: Text(
-                  "ادامه",
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.black,
-                    fontFamily: "IranSansWeb",
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ConstrainedBox(
+                    constraints: BoxConstraints.tightFor(width: 300, height: 80),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        suffixIcon: Icon(
+                          Icons.phone,
+                          color: Colors.black,
+                        ),
+                        border: OutlineInputBorder(),
+                        labelStyle: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "IranSansWeb",
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: YellowColor),
+                        ),
+                        labelText: "شماره تلفن همراه",
+                        helperText: "شماره با ۹ شروع می‌شود",
+                        hintText: "9123456789",
+                        helperStyle: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                      style: TextStyle(
+
+                        color: Colors.black,
+                        fontFamily: IranSansWeb,
+                      ),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
+                      onChanged: (value) {
+                        _phoneController = value;
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty || value.length != 10) {
+                          return "لطفا شماره خود را وارد کنید";
+                        }
+                        return null;
+                      },
+                    ),
                   ),
-                ),
+                ],
+              ),
+              SizedBox(height: 32),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ConstrainedBox(
+                    constraints: BoxConstraints.tightFor(width: 150, height: 30),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: YellowColor,
+                        // fixedSize: Size.fromHeight(30),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),),
+                      ),
+                      onPressed: () async {
+                        print('+98${_phoneController}');
+                        if (_formKey.currentState?.validate() == true) {
+                          FirebaseAuth auth = FirebaseAuth.instance;
+                          try {
+                            await auth.verifyPhoneNumber(
+                              phoneNumber: '+98${_phoneController}',
+                              verificationCompleted: (PhoneAuthCredential credential) async {},
+                              verificationFailed: (e) {
+                                throw Exception(e.toString());
+                              },
+                              codeSent: ((String verificationId, int? resendToken) async {
+                                await Future.delayed(Duration(seconds: 2));
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => ConfirmationScreen(
+                                //       phoneNumber: '+98${_phoneController}',
+                                //       verificationId: verificationId,
+                                //     ),
+                                //   ),
+                                // );
+                              }),
+                              codeAutoRetrievalTimeout: (String verificationId) {},
+                            );
+                          } on FirebaseAuthException catch (e) {
+                            print(e.toString());
+                          }
+                        }
+                      },
+                      child: Text(
+                        "تایید",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                          fontFamily: "IranSansWeb",
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
