@@ -25,18 +25,30 @@ class _CommentShowState extends State<CommentShow> {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(
-                  Icons.keyboard_arrow_right,
-                  color: Colors.white,
+              Expanded(
+                flex: 1,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.keyboard_arrow_right,
+                    color: Colors.white,
+                  ),
+                  iconSize: 32.0,
                 ),
               ),
-              Image.asset(
-                'assets/logo_white.png',
-                height: 120.0,
+              Expanded(
+                flex: 2,
+                child: Center(
+                  child: Image.asset(
+                    'assets/logo_white.png',
+                    height: 120.0,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 88,
               ),
             ],
           ),
