@@ -1,4 +1,5 @@
 import 'package:customer_ordering_frontend/utils/constants.dart';
+import 'package:customer_ordering_frontend/view/store_profile/components/information_section.dart';
 import 'package:customer_ordering_frontend/view/store_profile/components/profile_app_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -17,53 +18,54 @@ class _StoreProfileState extends State<StoreProfile> {
     return Scaffold(
       appBar: profileAppBar(context),
       body: Material(
-        color: RedColor,
         child: DefaultTabController(
           length: 2,
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(16.0),
-                child: TabBar(
-                  tabs: const [
-                    Tab(
-                      child: Text(
-                        'اطلاعات',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+          child: Container(
+            color: Colors.white,
+            child: Column(
+              children: [
+                Container(
+                  color: RedColor,
+                  padding: const EdgeInsets.all(16.0),
+                  child: TabBar(
+                    tabs: const [
+                      Tab(
+                        child: Text(
+                          'اطلاعات',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                    Tab(
-                      child: Text(
-                        'نظرات',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                      Tab(
+                        child: Text(
+                          'نظرات',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
+                    ],
+                    indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32.0),
+                      color: Colors.white,
                     ),
-                  ],
-                  indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(32.0),
-                    color: Colors.white,
+                    labelColor: Colors.black,
+                    unselectedLabelColor: Colors.white,
                   ),
-                  labelColor: Colors.black,
-                  unselectedLabelColor: Colors.white,
                 ),
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    const Center(
-                      child: Text('This is Tab 2'),
-                    ),
-                    commentSection(),
-                  ],
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      informationSection(),
+                      commentSection(),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
