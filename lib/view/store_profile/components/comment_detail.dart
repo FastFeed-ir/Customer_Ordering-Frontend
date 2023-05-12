@@ -16,7 +16,7 @@ Widget commentDetail(int score, String author, String date, String comment,
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: 18.0,
+                fontSize: 16.0,
               ),
             ),
             Container(
@@ -32,7 +32,7 @@ Widget commentDetail(int score, String author, String date, String comment,
                 children: [
                   Icon(
                     Icons.star_border,
-                    size: 18.0,
+                    size: 16.0,
                     color: score >= 3 ? Colors.green : Colors.red,
                   ),
                   const SizedBox(width: 4.0),
@@ -41,7 +41,7 @@ Widget commentDetail(int score, String author, String date, String comment,
                     style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                     ),
                   ),
                 ],

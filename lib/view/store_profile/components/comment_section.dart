@@ -24,7 +24,7 @@ Widget commentSection() {
               const Text(
                 'نظرات',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -33,7 +33,7 @@ Widget commentSection() {
                   Text(
                     scoresAverage.toString(),
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: scoresAverage >= 3.0 ? Colors.green : Colors.red,
                     ),
@@ -41,7 +41,7 @@ Widget commentSection() {
                   Text(
                     'از $scoresNumber امتیاز',
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
