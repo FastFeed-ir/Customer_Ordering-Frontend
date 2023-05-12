@@ -1,11 +1,16 @@
+import 'package:customer_ordering_frontend/view/store_profile/components/comment_detail.dart';
 import 'package:flutter/material.dart';
-
-import 'comment_detail.dart';
 
 Widget commentSection() {
   var commentCount = 3;
   var scoresNumber = 5555;
   var scoresAverage = 4.6;
+  var score = 3;
+  var author = "نام";
+  var date = "1400/12/12";
+  var orders = ['سفارش ۱', 'سفارش ۲', 'سفارش ۳'];
+  var comment =
+      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،";
 
   return Column(
     children: [
@@ -50,14 +55,14 @@ Widget commentSection() {
         child: ListView.builder(
           itemCount: commentCount,
           itemBuilder: (context, index) {
-            return const Column(
+            return Column(
               children: [
-                Divider(
+                const Divider(
                   thickness: 2,
                   height: 2,
                   color: Colors.black,
                 ),
-                CommentDetail(),
+                commentDetail(score, author, date, comment, orders),
               ],
             );
           },
