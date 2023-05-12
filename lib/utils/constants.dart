@@ -20,7 +20,7 @@ String InformationsPage = "/informationsPage";
 String CommentsPage = "/commentsPage";
 String ScoringPage = "/scoringPage";
 String SendCommentPage = "/sendCommentPage";
-String CommentShowPage = "/commentShowPage";
+String StoreProfilePage = "/StoreProfilePage";
 //String Page = "/Page";
 
 //Strings, Names, Address

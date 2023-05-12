@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'components/comment_detail.dart';
 
-class CommentShow extends StatefulWidget {
-  const CommentShow({Key? key}) : super(key: key);
+class StoreProfile extends StatefulWidget {
+  const StoreProfile({Key? key}) : super(key: key);
 
   @override
-  State<CommentShow> createState() => _CommentShowState();
+  State<StoreProfile> createState() => _StoreProfileState();
 }
 
-class _CommentShowState extends State<CommentShow> {
+class _StoreProfileState extends State<StoreProfile> {
   var commentCount = 3;
   var scoresNumber = 5555;
   var scoresAverage = 4.6;

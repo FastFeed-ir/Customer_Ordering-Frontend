@@ -1,4 +1,4 @@
-import 'package:customer_ordering_frontend/view/comment_show/comment_show_screen.dart';
+import 'package:customer_ordering_frontend/view/store_profile/store_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -32,11 +32,11 @@ class MyApp extends StatelessWidget {
             //GetPage(name: ScoringPage, page: () => ScoringScreen()),
             //GetPage(name: SendCommentPage, page: () => SendCommentScreen()),
             GetPage(
-                name: CommentShowPage,
-                page: () => const SafeArea(child: CommentShow()))
+                name: StoreProfilePage,
+                page: () => const SafeArea(child: StoreProfile()))
           ],
           // title: 'FastFeed',
-          initialRoute: CommentShowPage,
+          initialRoute: StoreProfilePage,
           textDirection: TextDirection.rtl,
           defaultTransition: Transition.noTransition,
           theme: ThemeData(
