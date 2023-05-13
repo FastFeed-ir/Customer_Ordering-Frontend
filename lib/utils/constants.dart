@@ -20,7 +20,6 @@ String CommentsPage = "/commentsPage";
 String ScoringPage = "/scoringPage";
 String SendCommentPage = "/sendCommentPage";
 String RatingPage = "/ratingPage";
-String XPage = "/xPage";
 //String Page = "/Page";
 
 //Strings, Names, Address
@@ -34,7 +33,6 @@ String Tick = "assets/Tick.png";
 String Zabdar = "assets/zabdar.png";
 String RestaurantLogoDef = "assets/restarauntLogo.png";
 String WhiteLogo = "assets/logo_white.png";
-String BlackLogo = "logo_black.png";
 String landingPage = "LandingPage.png";
 // Fonts
 String IranSansWeb = "IranSansWeb";
@@ -122,5 +120,3 @@ AppBar AppBarMenu(){
     backgroundColor: RedColor,
   );
 }
-double screenWidth = ScreenUtil().screenWidth;
-double screenHeight = ScreenUtil().screenHeight;
