@@ -28,7 +28,7 @@ class _XScreenState extends State<XScreen> {
               Align(
                 alignment: const AlignmentDirectional(0, 0),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 86, 0, 0),
+                  padding: EdgeInsets.only(top: ScreenUtil().setHeight(65)),
                   child: Text(
                     'خوش آمدید',
                     textAlign: TextAlign.center,
@@ -44,23 +44,36 @@ class _XScreenState extends State<XScreen> {
               Align(
                 alignment: const AlignmentDirectional(0, 0),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 58, 0, 0),
-                  child: Image.asset(
-                    FastfeedLogo,
-                    width: 214,
-                    height: 240,
-                    fit: BoxFit.cover,
+                  padding: EdgeInsets.fromLTRB(
+                    ScreenUtil().setWidth(65),
+                    ScreenUtil().setHeight(50),
+                    ScreenUtil().setWidth(65),
+                    0,
+                  ),
+                  child: AspectRatio(
+                    aspectRatio: 1.0,
+                    child: Expanded(
+                      child: Flexible(
+                        child: Image.asset(
+                          FastfeedLogo,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 75, 0, 0),
+                padding: EdgeInsets.only(top: ScreenUtil().setHeight(75)),
                 child: ElevatedButton(
                   onPressed: () {
                     print('Button pressed ...');
                   },
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(145, 45),
+                    minimumSize: Size(
+                      ScreenUtil().setWidth(145),
+                      ScreenUtil().setHeight(50),
+                    ),
                     padding: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -82,13 +95,16 @@ class _XScreenState extends State<XScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 75, 0, 0),
+                padding: EdgeInsets.only(top: ScreenUtil().setHeight(45)),
                 child: ElevatedButton(
                   onPressed: () {
                     print('Button pressed ...');
                   },
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(145, 45),
+                    minimumSize: Size(
+                      ScreenUtil().setWidth(145),
+                      ScreenUtil().setHeight(50),
+                    ),
                     padding: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
