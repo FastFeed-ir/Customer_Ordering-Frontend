@@ -12,67 +12,67 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
   final _unfocusNode = FocusNode();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {}
-
-  @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: const Size(360, 800));
     return Scaffold(
         backgroundColor: BaseColor,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(ScreenUtil().setHeight(180)),
-          child: AppBar(
-            backgroundColor: YellowColor,
-            automaticallyImplyLeading: false,
-            flexibleSpace: Stack(
-              // changed
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          BlackLogo,
-                          width: ScreenUtil().setWidth(92.4),
-                          height: ScreenUtil().setHeight(100),
-                          fit: BoxFit.cover,
-                        ),
-                        SizedBox(height: ScreenUtil().setHeight(10)),
-                        Text(
-                          'ثبت نظر',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: BlackColor,
-                            fontFamily: IranSansWeb,
-                            fontSize: ScreenUtil().setSp(24),
+            preferredSize: Size.fromHeight(ScreenUtil().setHeight(180)),
+            child: AppBar(
+              backgroundColor: YellowColor,
+              automaticallyImplyLeading: false,
+              flexibleSpace: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  final double availableWidth = constraints.maxWidth;
+                  final double availableHeight = constraints.maxHeight;
+
+                  final double logoHeight = availableHeight * 0.5;
+                  final double titleFontSize = availableHeight * 0.12;
+                  final double backIconSize = availableHeight * 0.10;
+
+                  return Stack(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                BlackLogo,
+                                height: logoHeight,
+                                fit: BoxFit.cover,
+                              ),
+                              SizedBox(height: availableHeight * 0.05),
+                              Text(
+                                'ثبت نظر',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: BlackColor,
+                                  fontFamily: IranSansWeb,
+                                  fontSize: titleFontSize,
+                                ),
+                              ),
+                            ],
                           ),
+                        ],
+                      ),
+                      Positioned(
+                        right: availableWidth * 0.10,
+                        top: availableHeight * 0.72,
+                        child: InkWell(
+                          onTap: () {
+                            // TODO: Handle back button tap
+                          },
+                          child: Icon(Icons.arrow_back_ios, size: backIconSize),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-                Positioned(
-                    right: ScreenUtil().setWidth(30),
-                    top: ScreenUtil().setHeight(130),
-                    child: InkWell(
-                      // added InkWell to make it clickable
-                      onTap: () {
-                        //TODO
-                      },
-                      child: const Icon(Icons.arrow_back_ios),
-                    )),
-              ],
-            ),
-            elevation: 0.0,
-          ),
-        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+              elevation: 0.0,
+            )),
         body: SafeArea(
           child: Column(
             textDirection: TextDirection.rtl,
@@ -81,7 +81,12 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(40, 40, 40, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(
+                    ScreenUtil().setWidth(40),
+                    ScreenUtil().setHeight(40),
+                    ScreenUtil().setWidth(40),
+                    0,
+                  ),
                   child: SizedBox(
                     width: ScreenUtil().setWidth(240),
                     child: TextFormField(
@@ -130,8 +135,8 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
                         fillColor: const Color(0xFFEBEBEB),
                         contentPadding:
                             const EdgeInsetsDirectional.fromSTEB(8, 12, 8, 12),
-                        prefixIcon:  Icon(
-                          size:ScreenUtil().setSp(20),
+                        prefixIcon: Icon(
+                          size: ScreenUtil().setSp(20),
                           Icons.tag_faces_sharp,
                         ),
                       ),
@@ -148,7 +153,12 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 20, 40, 0),
+                  padding: EdgeInsets.fromLTRB(
+                    ScreenUtil().setWidth(40),
+                    ScreenUtil().setHeight(20),
+                    ScreenUtil().setWidth(40),
+                    0,
+                  ),
                   child: TextFormField(
                     textDirection: TextDirection.rtl,
                     // controller: _model.textController2,
@@ -192,8 +202,8 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
                       ),
                       filled: true,
                       fillColor: const Color(0xFFEBEBEB),
-                      contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                          12, 12, 12, 12),
+                      contentPadding:
+                          const EdgeInsetsDirectional.fromSTEB(12, 12, 12, 12),
                     ),
                     style: TextStyle(
                       color: BlackColor,
@@ -208,50 +218,8 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    await showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (dialogContext) {
-                          return GestureDetector(
-                            onTap: () => FocusScope.of(context)
-                                .requestFocus(_unfocusNode),
-                            child: Dialog(
-                              insetPadding:
-                              MediaQuery.of(dialogContext).viewInsets,
-                              child: SizedBox(
-                                height:ScreenUtil().setHeight(200) ,
-                                width: ScreenUtil().setWidth(240),
-                                child: SuccessfulCommentedWidget(),
-                              ),
-                            ),
-                          );
-                        });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: YellowColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    minimumSize:Size(
-                        ScreenUtil().setWidth(144),
-                        ScreenUtil().setHeight(56)
-                    ),
-                  ),
-                  child: Text(
-                    'ثبت نظر',
-                    style: TextStyle(
-                      color: BlackColor,
-                      fontFamily: IranSansWeb,
-                      fontSize: ScreenUtil().setSp(20),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(
+                    0, ScreenUtil().setHeight(40), 0, 0),
                 child: ElevatedButton(
                   onPressed: () async {
                     await showDialog(
@@ -265,9 +233,52 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
                               insetPadding:
                                   MediaQuery.of(dialogContext).viewInsets,
                               child: SizedBox(
-                                height:ScreenUtil().setHeight(200) ,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.3,
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: const SuccessfulCommentedWidget(),
+                              ),
+                            ),
+                          );
+                        });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: YellowColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    minimumSize: Size(
+                        ScreenUtil().setWidth(144), ScreenUtil().setHeight(56)),
+                  ),
+                  child: Text(
+                    'ثبت نظر',
+                    style: TextStyle(
+                      color: BlackColor,
+                      fontFamily: IranSansWeb,
+                      fontSize: ScreenUtil().setSp(20),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(
+                    0, ScreenUtil().setHeight(20), 0, 0),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (dialogContext) {
+                          return GestureDetector(
+                            onTap: () => FocusScope.of(context)
+                                .requestFocus(_unfocusNode),
+                            child: Dialog(
+                              insetPadding:
+                                  MediaQuery.of(dialogContext).viewInsets,
+                              child: SizedBox(
+                                height: ScreenUtil().setHeight(200),
                                 width: ScreenUtil().setWidth(240),
-                                child: SuccessfulCommentedWidget(),
+                                child: const SuccessfulCommentedWidget(),
                               ),
                             ),
                           );
@@ -279,9 +290,7 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     minimumSize: Size(
-                        ScreenUtil().setWidth(90),
-                        ScreenUtil().setHeight(36)
-                    ),
+                        ScreenUtil().setWidth(90), ScreenUtil().setHeight(36)),
                   ),
                   child: Text(
                     'رد شدن',
