@@ -4,11 +4,12 @@ import 'package:get/get.dart';
 import 'package:material_color_gen/material_color_gen.dart';
 
 import 'utils/constants.dart';
-import 'view/ratingPage/components/rating_page.dart';
+import 'view/ratingPage/pages/rating_page.dart';
 
 void main() async {
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
