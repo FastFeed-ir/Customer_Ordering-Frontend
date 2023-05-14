@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:material_color_gen/material_color_gen.dart';
 
 import 'utils/constants.dart';
-import 'view/ratingPage/pages/rating_page.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -29,11 +28,11 @@ class MyApp extends StatelessWidget {
             //GetPage(name: SuccessfulPage, page: () => SuccessfulScreen()),
             //GetPage(name: InformationsPage, page: () => InformationsScreen()),
             //GetPage(name: CommentsPage, page: () => CommentsScreen(),),
-            GetPage(name: ScoringPage, page: () => ScoringScreen()),
+            //GetPage(name: ScoringPage, page: () => ScoringScreen()),
             //GetPage(name: SendCommentPage, page: () => SendCommentScreen()),
           ],
           // title: 'FastFeed',
-          initialRoute: ScoringPage,
+          initialRoute: LandingPage,
           textDirection: TextDirection.rtl,
           defaultTransition: Transition.noTransition,
           theme: ThemeData(

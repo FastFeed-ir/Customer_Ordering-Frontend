@@ -17,53 +17,62 @@ class _ScoringScreenState extends State<ScoringScreen> {
     return Scaffold(
       backgroundColor: BaseColor,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(ScreenUtil().setHeight(180)),
-        child: AppBar(
-          backgroundColor: YellowColor,
-          automaticallyImplyLeading: false,
-          flexibleSpace: Stack(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        BlackLogo,
-                        width: ScreenUtil().setWidth(92.4),
-                        height: ScreenUtil().setHeight(100),
-                        fit: BoxFit.cover,
-                      ),
-                      SizedBox(height: ScreenUtil().setHeight(10)),
-                      Text(
-                        'ثبت امتیاز',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: BlackColor,
-                          fontFamily: IranSansWeb,
-                          fontSize: ScreenUtil().setSp(24),
+          preferredSize: Size.fromHeight(ScreenUtil().setHeight(180)),
+          child: AppBar(
+            backgroundColor: YellowColor,
+            automaticallyImplyLeading: false,
+            flexibleSpace: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                final double availableWidth = constraints.maxWidth;
+                final double availableHeight = constraints.maxHeight;
+
+                final double logoHeight = availableHeight * 0.6;
+                final double titleFontSize = availableHeight * 0.12;
+                final double backIconSize = availableHeight * 0.10;
+
+                return Stack(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              BlackLogo,
+                              height: logoHeight,
+                              fit: BoxFit.cover,
+                            ),
+                            SizedBox(height: availableHeight * 0.05),
+                            Text(
+                              'ثبت امتیاز',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: BlackColor,
+                                fontFamily: IranSansWeb,
+                                fontSize: titleFontSize,
+                              ),
+                            ),
+                          ],
                         ),
+                      ],
+                    ),
+                    Positioned(
+                      right: availableWidth * 0.10,
+                      top: availableHeight * 0.77,
+                      child: InkWell(
+                        onTap: () {
+                          // TODO: Handle back button tap
+                        },
+                        child: Icon(Icons.arrow_back_ios, size: backIconSize),
                       ),
-                    ],
-                  ),
-                ],
-              ),
-              Positioned(
-                  right: ScreenUtil().setWidth(30),
-                  top: ScreenUtil().setHeight(130),
-                  child: InkWell(
-                    // added InkWell to make it clickable
-                    onTap: () {
-                      //TODO
-                    },
-                    child: const Icon(Icons.arrow_back_ios),
-                  )),
-            ],
-          ),
-          elevation: 0.0,
-        ),
-      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+            elevation: 0.0,
+          )),
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -74,7 +83,6 @@ class _ScoringScreenState extends State<ScoringScreen> {
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 45, 0, 0),
                 child: Image.asset(
                   RatingLogo,
-                  width: ScreenUtil().setWidth(144),
                   height: ScreenUtil().setHeight(80),
                   fit: BoxFit.cover,
                 ),
@@ -121,10 +129,10 @@ class _ScoringScreenState extends State<ScoringScreen> {
                             const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                         child: Theme(
                           data: ThemeData(
-                            textTheme: const TextTheme(
+                            textTheme: TextTheme(
                               headlineSmall: TextStyle(
                                 color: BlackColor,
-                                fontSize: 24,
+                                fontSize: ScreenUtil().setSp(24),
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -140,10 +148,10 @@ class _ScoringScreenState extends State<ScoringScreen> {
                               color: YellowColor,
                             ),
                             direction: Axis.horizontal,
-                            initialRating: stars ??= 1,
+                            initialRating: stars,
                             unratedColor: Colors.grey,
                             itemCount: 5,
-                            itemSize: 45,
+                            itemSize: ScreenUtil().setSp(45),
                             glowColor: YellowColor,
                             textDirection: TextDirection.ltr,
                           ),
@@ -163,9 +171,7 @@ class _ScoringScreenState extends State<ScoringScreen> {
                   backgroundColor: YellowColor,
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                   minimumSize: Size(
-                      ScreenUtil().setWidth(145),
-                      ScreenUtil().setHeight(55)
-                  ),
+                      ScreenUtil().setWidth(145), ScreenUtil().setHeight(55)),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
