@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:material_color_gen/material_color_gen.dart';
+
 import 'utils/constants.dart';
-import 'view/commentPage/pages/comment_page.dart';
 
 void main() async {
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -28,10 +29,10 @@ class MyApp extends StatelessWidget {
             //GetPage(name: InformationsPage, page: () => InformationsScreen()),
             //GetPage(name: CommentsPage, page: () => CommentsScreen(),),
             //GetPage(name: ScoringPage, page: () => ScoringScreen()),
-            GetPage(name: SendCommentPage, page: () => SendCommentScreen()),
+            //GetPage(name: SendCommentPage, page: () => SendCommentScreen()),
           ],
           // title: 'FastFeed',
-          initialRoute: SendCommentPage,
+          initialRoute: LandingPage,
           textDirection: TextDirection.rtl,
           defaultTransition: Transition.noTransition,
           theme: ThemeData(
