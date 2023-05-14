@@ -43,13 +43,16 @@ class _TestScreenState extends State<TestScreen> {
                         context: context,
                         builder: (dialogContext) {
                           return GestureDetector(
-                            onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                            onTap: () => FocusScope.of(context)
+                                .requestFocus(_unfocusNode),
                             child: Dialog(
-                              insetPadding: MediaQuery.of(dialogContext).viewInsets,
-                              child:  SizedBox(
-                                height: ScreenUtil().setHeight(280),
-                                width: ScreenUtil().setWidth(280),
-                                child: CommentVerifyWidget(),
+                              insetPadding:
+                                  MediaQuery.of(dialogContext).viewInsets,
+                              child: SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.35,
+                                width: MediaQuery.of(context).size.width * 0.75,
+                                child: const CommentVerifyWidget(),
                               ),
                             ),
                           );
@@ -59,10 +62,8 @@ class _TestScreenState extends State<TestScreen> {
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.blue,
-                      minimumSize: Size(
-                          ScreenUtil().setWidth(130),
-                          ScreenUtil().setHeight(40)
-                      ),
+                      minimumSize: Size(ScreenUtil().setWidth(130),
+                          ScreenUtil().setHeight(40)),
                       padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -95,9 +96,7 @@ class _TestScreenState extends State<TestScreen> {
                     foregroundColor: Colors.white,
                     backgroundColor: Colors.blue,
                     minimumSize: Size(
-                        ScreenUtil().setWidth(130),
-                        ScreenUtil().setHeight(40)
-                    ),
+                        ScreenUtil().setWidth(130), ScreenUtil().setHeight(40)),
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),

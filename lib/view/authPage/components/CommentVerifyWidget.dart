@@ -22,17 +22,26 @@ class _CommentVerifyWidgetState extends State<CommentVerifyWidget> {
         Align(
           alignment: const AlignmentDirectional(0, 0),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+            padding: EdgeInsetsDirectional.fromSTEB(
+              0,
+              ScreenUtil().setHeight(30),
+              0,
+              0,
+            ),
             child: Image.asset(
               VerifyLogo,
-              width: ScreenUtil().setWidth(60),
               height: ScreenUtil().setHeight(60),
               fit: BoxFit.cover,
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+          padding: EdgeInsetsDirectional.fromSTEB(
+            0,
+            ScreenUtil().setHeight(15),
+            0,
+            0,
+          ),
           child: Text('لطفا کد احراز هویت خود را وارد کنید',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -41,7 +50,12 @@ class _CommentVerifyWidgetState extends State<CommentVerifyWidget> {
               )),
         ),
         Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(45, 15, 45, 0),
+          padding: EdgeInsetsDirectional.fromSTEB(
+            ScreenUtil().setWidth(45),
+            ScreenUtil().setHeight(15),
+            ScreenUtil().setWidth(45),
+            0,
+          ),
           child: Directionality(
             textDirection: TextDirection.ltr,
             child: PinCodeTextField(
@@ -61,8 +75,8 @@ class _CommentVerifyWidgetState extends State<CommentVerifyWidget> {
               cursorColor: BlackColor,
               obscureText: false,
               pinTheme: PinTheme(
-                fieldHeight: 35,
-                fieldWidth: 35,
+                fieldHeight: ScreenUtil().setHeight(35),
+                fieldWidth: ScreenUtil().setWidth(35),
                 borderWidth: 2,
                 borderRadius: BorderRadius.circular(12),
                 shape: PinCodeFieldShape.box,
@@ -95,7 +109,12 @@ class _CommentVerifyWidgetState extends State<CommentVerifyWidget> {
           ),
         ),
         Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+          padding: EdgeInsetsDirectional.fromSTEB(
+            0,
+            ScreenUtil().setHeight(20),
+            0,
+            0,
+          ),
           child: ElevatedButton(
             onPressed: () async {
               if (pincode.length != 3) {
@@ -111,10 +130,10 @@ class _CommentVerifyWidgetState extends State<CommentVerifyWidget> {
                 builder: (dialogContext) {
                   return Dialog(
                     insetPadding: MediaQuery.of(dialogContext).viewInsets,
-                    child:  SizedBox(
-                      height: ScreenUtil().setHeight(240),
-                      width: ScreenUtil().setWidth(280),
-                      child: CommentVerifyErrorWidget(),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.35,
+                      width: MediaQuery.of(context).size.width * 0.75,
+                      child: const CommentVerifyErrorWidget(),
                     ),
                   );
                 },

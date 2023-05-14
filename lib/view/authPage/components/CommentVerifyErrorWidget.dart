@@ -23,7 +23,6 @@ class _CommentVerifyErrorWidgetState extends State<CommentVerifyErrorWidget> {
             padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
             child: Image.asset(
               ErrotLogo,
-              width: ScreenUtil().setWidth(60),
               height: ScreenUtil().setHeight(60),
               fit: BoxFit.cover,
             ),
@@ -54,10 +53,8 @@ class _CommentVerifyErrorWidgetState extends State<CommentVerifyErrorWidget> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: YellowColor,
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    minimumSize : Size(
-                        ScreenUtil().setWidth(100),
-                        ScreenUtil().setHeight(40)
-                    ),
+                    minimumSize: Size(
+                        ScreenUtil().setWidth(100), ScreenUtil().setHeight(40)),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -82,9 +79,7 @@ class _CommentVerifyErrorWidgetState extends State<CommentVerifyErrorWidget> {
                     backgroundColor: YellowColor,
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                     minimumSize: Size(
-    ScreenUtil().setWidth(100),
-    ScreenUtil().setHeight(40)
-    ),
+                        ScreenUtil().setWidth(100), ScreenUtil().setHeight(40)),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
