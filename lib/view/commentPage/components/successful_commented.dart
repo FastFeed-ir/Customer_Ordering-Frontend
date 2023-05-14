@@ -20,17 +20,20 @@ class _SuccessfulCommentedWidgetState extends State<SuccessfulCommentedWidget> {
         Align(
           alignment: const AlignmentDirectional(0, 0),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+            padding: EdgeInsets.only(
+              top: ScreenUtil().setHeight(20),
+            ),
             child: Image.asset(
               Tick2,
-              width: ScreenUtil().setWidth(45),
-              height: ScreenUtil().setHeight(45),
+              height: ScreenUtil().setHeight(60),
               fit: BoxFit.cover,
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+          padding: EdgeInsets.only(
+            top: ScreenUtil().setHeight(10),
+          ),
           child: Text(
             'تبریک!\n نظرتون با موفقیت ثبت شد!',
             textAlign: TextAlign.center,
@@ -41,43 +44,49 @@ class _SuccessfulCommentedWidgetState extends State<SuccessfulCommentedWidget> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-          child: ElevatedButton(
-            onPressed: () {
-              print('Button pressed ...');
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: BlackColor,
-              backgroundColor: YellowColor,
-              padding: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+        Expanded(
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: ScreenUtil().setHeight(10),
               ),
-              side: const BorderSide(
-                color: Colors.transparent,
-                width: 1,
-              ),
-            ),
-            child: SizedBox(
-              width: ScreenUtil().setWidth(80),
-              height: ScreenUtil().setHeight(30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.home,
-                    size: 16,
+              child: ElevatedButton(
+                onPressed: () {
+                  print('Button pressed ...');
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: BlackColor,
+                  backgroundColor: YellowColor,
+                  padding: EdgeInsets.zero,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  const SizedBox(width: 5),
-                  Text(
-                    'خانه',
-                    style: TextStyle(
-                      fontFamily: IranSansWeb,
-                      fontSize: ScreenUtil().setSp(16),
-                    ),
+                  side: const BorderSide(
+                    color: Colors.transparent,
+                    width: 1,
                   ),
-                ],
+                ),
+                child: SizedBox(
+                  width: ScreenUtil().setWidth(80),
+                  height: ScreenUtil().setHeight(30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.home,
+                        size: ScreenUtil().setSp(16),
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        'خانه',
+                        style: TextStyle(
+                          fontFamily: IranSansWeb,
+                          fontSize: ScreenUtil().setSp(16),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
