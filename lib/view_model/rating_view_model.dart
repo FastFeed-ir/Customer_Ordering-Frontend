@@ -16,7 +16,7 @@ class RatingViewModel extends ChangeNotifier {
   }
 
   Future<int> addRating(Rating rating) async {
-    var newCollection = await repository.addComment(rating);
+    var newCollection = await repository.addRating(rating);
     notifyListeners();
     return newCollection.id ?? 0;
   }
