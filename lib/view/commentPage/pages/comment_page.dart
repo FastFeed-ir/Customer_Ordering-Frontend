@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../model/entity/comment.dart';
 import '../../../utils/constants.dart';
+import '../../../view_model/comment_view_model.dart';
 import '../components/successful_commented.dart';
 
 class SendCommentScreen extends StatefulWidget {
+  SendCommentScreen({Key? key, required this.orderId}) : super(key: key);
+  var orderId;
   @override
   _SendCommentScreenState createState() => _SendCommentScreenState();
 }
 
 class _SendCommentScreenState extends State<SendCommentScreen> {
+//form field variables
+  var _orderId;
+  String _name = "ناشناس";
+  String _content = "";
+  final _formKey = GlobalKey<FormState>();
+  final _viewModel = CommentViewModel();
   final _unfocusNode = FocusNode();
-
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: const Size(360, 800));
@@ -74,6 +83,8 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
               elevation: 0.0,
             )),
         body: SafeArea(
+            child: Form(
+          key: _formKey,
           child: Column(
             textDirection: TextDirection.rtl,
             mainAxisSize: MainAxisSize.max,
@@ -90,63 +101,68 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
                   child: SizedBox(
                     width: ScreenUtil().setWidth(240),
                     child: TextFormField(
-                      textAlign: TextAlign.start,
-                      textDirection: TextDirection.rtl,
-                      // controller: _model.textController1,
-                      autofocus: true,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        hintTextDirection: TextDirection.rtl,
-                        hintText: 'نام (اختیاری)',
-                        hintStyle: TextStyle(
-                          color: const Color(0xFF5E5D5D),
+                        textAlign: TextAlign.start,
+                        textDirection: TextDirection.rtl,
+                        // controller: _model.textController1,
+                        autofocus: true,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          hintTextDirection: TextDirection.rtl,
+                          hintText: 'نام (اختیاری)',
+                          hintStyle: TextStyle(
+                            color: const Color(0xFF5E5D5D),
+                            fontFamily: IranSansWeb,
+                            fontSize: ScreenUtil().setSp(16),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFF3A3A3A),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: BlackColor,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: BlackColor,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: BlackColor,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          filled: true,
+                          fillColor: const Color(0xFFEBEBEB),
+                          contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                              8, 12, 8, 12),
+                          prefixIcon: Icon(
+                            size: ScreenUtil().setSp(20),
+                            Icons.tag_faces_sharp,
+                          ),
+                        ),
+                        style: TextStyle(
+                          color: BlackColor,
                           fontFamily: IranSansWeb,
                           fontSize: ScreenUtil().setSp(16),
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Color(0xFF3A3A3A),
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
+                        onChanged: (value) {
+                          setState(() {
+                            _name = value;
+                          });
+                        }
+                        // validator: _model.textController1Validator.asValidator(context),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: BlackColor,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: BlackColor,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: BlackColor,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        filled: true,
-                        fillColor: const Color(0xFFEBEBEB),
-                        contentPadding:
-                            const EdgeInsetsDirectional.fromSTEB(8, 12, 8, 12),
-                        prefixIcon: Icon(
-                          size: ScreenUtil().setSp(20),
-                          Icons.tag_faces_sharp,
-                        ),
-                      ),
-                      style: TextStyle(
-                        color: BlackColor,
-                        fontFamily: IranSansWeb,
-                        fontSize: ScreenUtil().setSp(16),
-                      ),
-                      // validator: _model.textController1Validator.asValidator(context),
-                    ),
                   ),
                 ),
               ),
@@ -213,7 +229,17 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
                     textAlign: TextAlign.start,
                     maxLines: 6,
                     maxLength: 255,
-                    // validator: _model.textController2Validator.asValidator(context),
+                    onChanged: (value) {
+                      setState(() {
+                        _content = value;
+                      });
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'لطفا متن نظر خود را وارد کنید';
+                      }
+                      return null;
+                    },
                   ),
                 ),
               ),
@@ -222,6 +248,25 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
                     0, ScreenUtil().setHeight(40), 0, 0),
                 child: ElevatedButton(
                   onPressed: () async {
+                    if (_content.length < 2) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                            'متن نظر بیش از حد کوتاه است. لطفا حداقل 2 کارکتر بنویسید یا از دکمه رد شدن استفاده کنید.'),
+                      ));
+                      return;
+                    }
+                    _orderId = widget.orderId;
+                    Comment comment = Comment(
+                      content: _content,
+                      orderId: _orderId,
+                      name: _name,
+                    );
+                    _viewModel
+                        .addComment(comment)
+                        .asStream()
+                        .listen((commentId) {
+                      comment.id = commentId;
+                    });
                     await showDialog(
                         barrierDismissible: false,
                         context: context,
@@ -304,6 +349,6 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
               ),
             ],
           ),
-        ));
+        )));
   }
 }
