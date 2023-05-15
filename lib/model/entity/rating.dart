@@ -8,11 +8,11 @@ class Rating {
     return Rating(
       id: json['id'],
       score: json['score'],
-      productId: json['productId'],
+      productId: json['product'],
     );
   }
   Map<String, dynamic> toJson() => {
         'score': score,
-        'productId': productId,
+        'product': productId,
       };
 }
