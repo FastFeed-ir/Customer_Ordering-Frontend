@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../model/repository/comment_repository_impl.dart';
 
-class CmmentViewModel extends ChangeNotifier {
+class CommentViewModel extends ChangeNotifier {
   var repository = CommentRepositoryImpl();
 
   StreamController<List<Comment>> collections =
