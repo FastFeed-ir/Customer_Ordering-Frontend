@@ -29,7 +29,7 @@ class CommentRepositoryImpl extends CommentRepository {
       data: comment,
     );
     print('response: ${response.statusMessage}');
-    final newCollection = Comment.fromJson(response.data);
-    return newCollection;
+    final newComment = Comment.fromJson(response.data);
+    return newComment;
   }
 }
