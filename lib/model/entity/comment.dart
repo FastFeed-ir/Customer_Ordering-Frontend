@@ -1,16 +1,16 @@
 class Comment {
   int? id;
-  String? name;
+  String name;
   String content;
   int orderId;
-  int storeId;
+  int? storeId;
 
   Comment({
     this.id,
-    this.name,
+    required this.name,
     required this.content,
     required this.orderId,
-    required this.storeId,
+    this.storeId,
   });
 
   factory Comment.fromJson(Map<String, dynamic> json) {
