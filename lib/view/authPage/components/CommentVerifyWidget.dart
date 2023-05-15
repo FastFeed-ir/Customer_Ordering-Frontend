@@ -6,14 +6,16 @@ import '../../../utils/constants.dart';
 import 'CommentVerifyErrorWidget.dart';
 
 class CommentVerifyWidget extends StatefulWidget {
-  const CommentVerifyWidget({Key? key}) : super(key: key);
-
+  const CommentVerifyWidget({Key? key, required this.authCode})
+      : super(key: key);
+  final authCode;
   @override
   _CommentVerifyWidgetState createState() => _CommentVerifyWidgetState();
 }
 
 class _CommentVerifyWidgetState extends State<CommentVerifyWidget> {
   String pincode = '';
+  var _authcode;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -123,21 +125,23 @@ class _CommentVerifyWidgetState extends State<CommentVerifyWidget> {
                 ));
                 return;
               }
-              // TODO
-              print(pincode);
-              await showDialog(
-                context: context,
-                builder: (dialogContext) {
-                  return Dialog(
-                    insetPadding: MediaQuery.of(dialogContext).viewInsets,
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.35,
-                      width: MediaQuery.of(context).size.width * 0.75,
-                      child: const CommentVerifyErrorWidget(),
-                    ),
-                  );
-                },
-              ).then((value) => setState(() {}));
+              if (int.parse(pincode) == widget.authCode) {
+                //TODO
+              } else {
+                await showDialog(
+                  context: context,
+                  builder: (dialogContext) {
+                    return Dialog(
+                      insetPadding: MediaQuery.of(dialogContext).viewInsets,
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.35,
+                        width: MediaQuery.of(context).size.width * 0.75,
+                        child: const CommentVerifyErrorWidget(),
+                      ),
+                    );
+                  },
+                ).then((value) => setState(() {}));
+              }
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: BlackColor,

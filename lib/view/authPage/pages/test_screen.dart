@@ -52,7 +52,9 @@ class _TestScreenState extends State<TestScreen> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.35,
                                 width: MediaQuery.of(context).size.width * 0.75,
-                                child: const CommentVerifyWidget(),
+                                child: const CommentVerifyWidget(
+                                  authCode: 123,
+                                ),
                               ),
                             ),
                           );
