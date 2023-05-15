@@ -1,15 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../model/entity/rating.dart';
 import '../../../utils/constants.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import '../../../view_model/order_view_model.dart';
+import '../../../view_model/rating_view_model.dart';
+
 class ScoringScreen extends StatefulWidget {
+  ScoringScreen({Key? key, required this.orderId}) : super(key: key);
+  var orderId;
   @override
   _ScoringScreenState createState() => _ScoringScreenState();
 }
 
 class _ScoringScreenState extends State<ScoringScreen> {
-  late double stars = 1;
+  double _stars = 1;
+  late List<int> _Ids = [];
+  var _orderId;
+  final _formKey = GlobalKey<FormState>();
+  final _ratingViewModel = RatingViewModel();
+  final _orderViewModel = OrderViewModel();
+  @override
+  void initState() {
+    _orderId = widget.orderId;
+    _orderViewModel.getProductsIds(_orderId);
+    _orderViewModel.Ids.stream.listen((ids) {
+      setState(() {
+        _Ids.addAll(ids);
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,13 +164,13 @@ class _ScoringScreenState extends State<ScoringScreen> {
                           ),
                           child: RatingBar.builder(
                             onRatingUpdate: (newValue) =>
-                                setState(() => stars = newValue),
+                                setState(() => _stars = newValue),
                             itemBuilder: (context, index) => const Icon(
                               Icons.star_sharp,
                               color: YellowColor,
                             ),
                             direction: Axis.horizontal,
-                            initialRating: stars,
+                            initialRating: _stars,
                             unratedColor: Colors.grey,
                             itemCount: 5,
                             itemSize: ScreenUtil().setSp(45),
@@ -164,8 +186,15 @@ class _ScoringScreenState extends State<ScoringScreen> {
               padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
               child: ElevatedButton(
                 onPressed: () {
-                  //TODO
-                  print(stars);
+                  for (var id in _Ids) {
+                    Rating rating = Rating(productId: id, score: _stars as int);
+                    _ratingViewModel
+                        .addRating(rating)
+                        .asStream()
+                        .listen((ratingId) {
+                      rating.id = ratingId;
+                    });
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: YellowColor,
