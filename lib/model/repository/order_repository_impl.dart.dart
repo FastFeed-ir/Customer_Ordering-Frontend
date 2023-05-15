@@ -7,11 +7,10 @@ class OrderRepositoryImplDart extends OrderRepository {
     var response = await dio.get('orders/$orderId/productsID/');
     print('response: ${response.statusMessage}');
     if (response.statusCode == 200) {
-      final dataList = response.data;
-      List<int> ids = List<int>.from(dataList['product_names']);
+      final List<dynamic> productIds = response.data['product_ids'];
       // Remove duplicates from the list
-      List<int> uniqueIds = ids.toSet().toList();
-      return uniqueIds;
+      final List<dynamic> uniqueProductIds = productIds.toSet().toList();
+      return uniqueProductIds.cast<int>();
     } else {
       throw Exception('Invalid response');
     }
