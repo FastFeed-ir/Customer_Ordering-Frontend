@@ -5,7 +5,7 @@ import 'rating_repository.dart';
 
 class RatingRepositoryImpl extends RatingRepository {
   @override
-  Future<Rating> addComment(Rating rating) async {
+  Future<Rating> addRating(Rating rating) async {
     var response = await dio.post(
       'ratings/',
       data: rating,
