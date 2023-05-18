@@ -79,10 +79,6 @@ class _XScreenState extends State<XScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     backgroundColor: RedColor,
-                    side: const BorderSide(
-                      color: WhiteColor,
-                      width: 1,
-                    ),
                   ),
                   child: Text(
                     'سفارش جدید',
@@ -110,10 +106,6 @@ class _XScreenState extends State<XScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     backgroundColor: RedColor,
-                    side: const BorderSide(
-                      color: WhiteColor,
-                      width: 1,
-                    ),
                   ),
                   child: Text(
                     'ثبت نظر',
