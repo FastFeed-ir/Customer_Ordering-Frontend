@@ -9,7 +9,6 @@ class SelectTablePageScreen extends StatefulWidget {
   _SelectTablePageScreenState createState() => _SelectTablePageScreenState();
 }
 
-
 class _SelectTablePageScreenState extends State<SelectTablePageScreen> {
   @override
   Widget build(BuildContext context) {
@@ -43,6 +42,29 @@ class _SelectTablePageScreenState extends State<SelectTablePageScreen> {
               ],
             ),
             elevation: 0.0,
+          ),
+        ),
+        body: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Align(
+                alignment: AlignmentDirectional(0, 0),
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                  child: Text(
+                    'انتخاب میز',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                    color: BlackColor,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: IranSansWeb,
+                    fontSize: ScreenUtil().setSp(28),
+                  ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
