@@ -64,6 +64,30 @@ class _SelectTablePageScreenState extends State<SelectTablePageScreen> {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 56, 0, 0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    print('Button pressed ...');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(145, 45),
+                    padding: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    backgroundColor: YellowColor,
+                  ),
+                  child: Text(
+                    'تایید',
+                    style: TextStyle(
+                      color: BlackColor,
+                      fontFamily: IranSansWeb,
+                      fontSize: ScreenUtil().setSp(20),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
