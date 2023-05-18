@@ -22,6 +22,27 @@ class _ScanScreenState extends State<ScanScreen> {
               fit: BoxFit.cover,
             ),
           ),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Align(
+                alignment: const AlignmentDirectional(0, 0),
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 86, 0, 0),
+                  child: Text(
+                    'خوش آمدید',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: RedColor,
+                      fontFamily: IranSansWeb,
+                      fontSize: ScreenUtil().setSp(46),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
