@@ -88,6 +88,18 @@ class _SelectTablePageScreenState extends State<SelectTablePageScreen> {
                   ),
                 ),
               ),
+              Align(
+                alignment: const AlignmentDirectional(0, 0),
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 58, 0, 0),
+                  child: Image.asset(
+                    FastfeedLogo,
+                    width: 214,
+                    height: 240,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
