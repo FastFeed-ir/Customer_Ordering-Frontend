@@ -11,6 +11,7 @@ const Color GreenColor = Color(0xff2CBA15);
 
 // Pages
 String LandingPage = "/landingPage";
+String ScanPage = "/scanPage";
 String MainMenuPage = "/mainMenuPage";
 String PaymentPage = "/PaymentPage";
 String SelectTablePage = "/selectTablePage";
@@ -27,6 +28,7 @@ late String Email ;
 late String Address ;
 late String InstagramPage ;
 // Images
+String ScaningPage = "assets/ScanPage.png";
 String FastfeedLogo = "assets/logo.png";
 String Tick = "assets/Tick.png";
 String Zabdar = "assets/zabdar.png";
