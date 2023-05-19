@@ -7,7 +7,7 @@ import '../util/constants.dart';
 class CommentRepositoryImpl extends CommentRepository {
   @override
   Future<List<Comment>> getComments(int storeId) async {
-    var response = await dio.get('comments/?store_id=$storeId/');
+    var response = await dio.get('comments/?store_id=$storeId');
     print('response: ${response.statusMessage}');
     if (response.data is List) {
       List<dynamic> dataList = response.data;
@@ -15,6 +15,8 @@ class CommentRepositoryImpl extends CommentRepository {
       for (var data in dataList) {
         if (data is Map<String, dynamic>) {
           var commentServer = Comment.fromJson(data);
+          //get just date from created at
+          commentServer.createdAt = commentServer.createdAt.split('T')[0];
           comments.add(commentServer);
         }
       }

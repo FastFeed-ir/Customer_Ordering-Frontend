@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-Widget commentDetail(int score, String author, String date, String comment,
-    List<String> orders) {
+Widget commentDetail(
+    String author, String date, String comment, List<String> orders) {
   return Container(
     padding: const EdgeInsets.all(24),
     color: Colors.white,
@@ -16,52 +16,24 @@ Widget commentDetail(int score, String author, String date, String comment,
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
+                fontSize: 24.0,
+              ),
+            ),
+            Text(
+              date,
+              style: const TextStyle(
+                color: Colors.black,
                 fontSize: 16.0,
               ),
             ),
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.grey,
-                  width: 1.0,
-                ),
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.star_border,
-                    size: 16.0,
-                    color: score >= 3 ? Colors.green : Colors.red,
-                  ),
-                  const SizedBox(width: 4.0),
-                  Text(
-                    score.toString(),
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ],
-              ),
-            )
           ],
-        ),
-        const SizedBox(height: 8.0),
-        Text(
-          date,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 12.0,
-          ),
         ),
         const SizedBox(height: 16.0),
         Text(
           comment,
           style: const TextStyle(
             color: Colors.black,
+            fontWeight: FontWeight.bold,
             fontSize: 16.0,
           ),
         ),
@@ -83,7 +55,7 @@ Widget commentDetail(int score, String author, String date, String comment,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.black,
-                        fontSize: 12.0,
+                        fontSize: 16.0,
                       ),
                     ),
                   ),

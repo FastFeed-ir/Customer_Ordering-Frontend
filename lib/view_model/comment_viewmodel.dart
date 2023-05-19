@@ -8,11 +8,10 @@ import '../model/repository/comment_repository_impl.dart';
 class CommentViewModel extends ChangeNotifier {
   var repository = CommentRepositoryImpl();
 
-  StreamController<List<Comment>> collections =
-      StreamController<List<Comment>>();
+  StreamController<List<Comment>> comments = StreamController<List<Comment>>();
 
   void getComments(int storeId) async {
-    collections.add(await repository.getComments(storeId));
+    comments.add(await repository.getComments(storeId));
     notifyListeners();
   }
 }
