@@ -1,7 +1,6 @@
-
 import '../entity/store.dart';
 
-abstract class StoreRepository{
+abstract class StoreRepository {
   Future<List<Store>> getStores(int id);
 
   Future<Store> addStore(Store store);
@@ -9,4 +8,6 @@ abstract class StoreRepository{
   Future<void> editStore(Store store);
 
   Future<void> deleteStore(Store store);
+
+  Future<Store> getStore(int storeId);
 }
