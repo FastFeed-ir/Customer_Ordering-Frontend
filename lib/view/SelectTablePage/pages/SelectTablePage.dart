@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/constants.dart';
 
-class SelectTablePageScreen extends StatefulWidget {
-  const SelectTablePageScreen({Key? key}) : super(key: key);
+class SelectTableScreen extends StatefulWidget {
+  const SelectTableScreen({Key? key}) : super(key: key);
 
   @override
-  _SelectTablePageScreenState createState() => _SelectTablePageScreenState();
+  _SelectTableScreenState createState() => _SelectTableScreenState();
 }
 
-class _SelectTablePageScreenState extends State<SelectTablePageScreen> {
+class _SelectTableScreenState extends State<SelectTableScreen> {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: const Size(360, 800));
@@ -49,29 +49,32 @@ class _SelectTablePageScreenState extends State<SelectTablePageScreen> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Align(
-                alignment: AlignmentDirectional(0, 0),
+                alignment: const AlignmentDirectional(0, 0),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                  padding: EdgeInsets.only(top: ScreenUtil().setHeight(40)),
                   child: Text(
                     'انتخاب میز',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                    color: BlackColor,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: IranSansWeb,
-                    fontSize: ScreenUtil().setSp(28),
-                  ),
+                      color: BlackColor,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: IranSansWeb,
+                      fontSize: ScreenUtil().setSp(28),
+                    ),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 56, 0, 0),
+                padding: EdgeInsets.only(top: ScreenUtil().setHeight(56)),
                 child: ElevatedButton(
                   onPressed: () {
-                    print('Button pressed ...');
+                    
                   },
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(145, 45),
+                    minimumSize: Size(
+                      ScreenUtil().setWidth(145),
+                      ScreenUtil().setHeight(45),
+                    ),
                     padding: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -91,12 +94,22 @@ class _SelectTablePageScreenState extends State<SelectTablePageScreen> {
               Align(
                 alignment: const AlignmentDirectional(0, 0),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 58, 0, 0),
-                  child: Image.asset(
-                    FastfeedLogo,
-                    width: 214,
-                    height: 240,
-                    fit: BoxFit.cover,
+                  padding: EdgeInsets.fromLTRB(
+                    ScreenUtil().setWidth(65),
+                    ScreenUtil().setHeight(50),
+                    ScreenUtil().setWidth(65),
+                    0,
+                  ),
+                  child: AspectRatio(
+                    aspectRatio: 1.0,
+                    child: Expanded(
+                      child: Flexible(
+                        child: Image.asset(
+                          FastfeedLogo,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
