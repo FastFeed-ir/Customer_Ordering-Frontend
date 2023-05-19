@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'components/comment_section.dart';
 
 class StoreProfile extends StatefulWidget {
-  const StoreProfile({Key? key}) : super(key: key);
+  const StoreProfile({super.key, required this.storeId});
+
+  final int storeId;
 
   @override
   State<StoreProfile> createState() => _StoreProfileState();
@@ -59,8 +61,8 @@ class _StoreProfileState extends State<StoreProfile> {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      informationSection(),
-                      commentSection(),
+                      informationSection(widget.storeId),
+                      commentSection(widget.storeId),
                     ],
                   ),
                 ),
