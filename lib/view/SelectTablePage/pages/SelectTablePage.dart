@@ -10,9 +10,16 @@ class SelectTableScreen extends StatefulWidget {
 }
 
 class _SelectTableScreenState extends State<SelectTableScreen> {
+  int numberOfOptions = 12;
+  String dropdownValue = 'میز شماره 1';
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: const Size(360, 800));
+    List<String> options = List.generate(
+      numberOfOptions,
+      (index) => 'میز شماره ${index + 1}',
+    );
+
     return GestureDetector(
       child: Scaffold(
         appBar: PreferredSize(
@@ -45,6 +52,7 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
           ),
         ),
         body: SafeArea(
+          top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -61,6 +69,43 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
                       fontFamily: IranSansWeb,
                       fontSize: ScreenUtil().setSp(28),
                     ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: const AlignmentDirectional(0, 0),
+                child: Padding(
+                  padding: EdgeInsets.only(top: ScreenUtil().setHeight(42)),
+                  child: DropdownButton<String>(
+                    value: dropdownValue,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownValue = newValue!;
+                      });
+                    },
+                    items: options.map((String option) {
+                      return DropdownMenuItem<String>(
+                        value: option,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(option),
+                        ),
+                      );
+                    }).toList(),
+                    style: TextStyle(
+                      color: BlackColor,
+                      fontFamily: IranSansWeb,
+                      fontSize: ScreenUtil().setSp(21),
+                    ),
+                    hint: const Text(
+                      'میز شماره 1',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 21,
+                      ),
+                    ),
+                    underline: Container(),
+                    dropdownColor: WhiteColor,
                   ),
                 ),
               ),
