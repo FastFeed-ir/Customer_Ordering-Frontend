@@ -37,11 +37,22 @@ class _StoreProfileState extends State<StoreProfile> {
   void loadData() {
     _viewModelStore.getStore(widget.storeId).asStream().listen((store) {
       setState(() {
-        title = store.title ?? noData;
-        city = store.city ?? noData;
-        address = store.address ?? noData;
-        telephoneNumber = store.telephone_number ?? noData;
-        instagramPageLink = store.instagram_page_link ?? noData;
+        title = store.title ?? '';
+        city = store.city ?? '';
+        address = store.address ?? '';
+        telephoneNumber = store.telephone_number ?? '';
+        instagramPageLink = store.instagram_page_link ?? '';
+        if (title == '') {
+          title = noData;
+        } else if (city == '') {
+          city = noData;
+        } else if (address == '') {
+          address = noData;
+        } else if (telephoneNumber == '') {
+          telephoneNumber = noData;
+        } else if (instagramPageLink == '') {
+          instagramPageLink = noData;
+        }
       });
     });
     _viewModelComment.getComments(widget.storeId);

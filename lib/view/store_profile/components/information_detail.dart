@@ -9,7 +9,7 @@ Widget informationDetail(
     padding: const EdgeInsets.all(24),
     color: Colors.white,
     child: Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Row(
           children: [
