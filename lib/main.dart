@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
             //GetPage(name: SendCommentPage, page: () => SendCommentScreen()),
             GetPage(
                 name: StoreProfilePage,
-                page: () => const SafeArea(child: StoreProfile()))
+                page: () => const SafeArea(child: StoreProfile(storeId: 1)))
           ],
           // title: 'FastFeed',
           initialRoute: StoreProfilePage,
