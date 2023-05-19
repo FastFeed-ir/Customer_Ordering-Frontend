@@ -28,7 +28,7 @@ late String Email ;
 late String Address ;
 late String InstagramPage ;
 // Images
-String ScaningPage = "assets/ScanPage.png";
+String ScaningPage = "assets/LandingPage.png";
 String FastfeedLogo = "assets/logo.png";
 String Tick = "assets/Tick.png";
 String Zabdar = "assets/zabdar.png";
