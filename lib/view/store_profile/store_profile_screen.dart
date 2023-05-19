@@ -2,6 +2,7 @@ import 'package:customer_ordering_frontend/utils/constants.dart';
 import 'package:customer_ordering_frontend/view/store_profile/components/information_section.dart';
 import 'package:customer_ordering_frontend/view/store_profile/components/profile_app_bar.dart';
 import 'package:customer_ordering_frontend/view_model/comment_viewmodel.dart';
+import 'package:customer_ordering_frontend/view_model/store_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/entity/comment.dart';
@@ -18,7 +19,14 @@ class StoreProfile extends StatefulWidget {
 
 class _StoreProfileState extends State<StoreProfile> {
   final _viewModelComment = CommentViewModel();
+  final _viewModelStore = StoreViewModel();
   final List<Comment> _comments = [];
+  String title = '';
+  String city = '';
+  String address = '';
+  String telephoneNumber = '';
+  String instagramPageLink = '';
+  String noData = 'بدون اطلاعات';
 
   @override
   void initState() {
@@ -27,6 +35,15 @@ class _StoreProfileState extends State<StoreProfile> {
   }
 
   void loadData() {
+    _viewModelStore.getStore(widget.storeId).asStream().listen((store) {
+      setState(() {
+        title = store.title ?? noData;
+        city = store.city ?? noData;
+        address = store.address ?? noData;
+        telephoneNumber = store.telephone_number ?? noData;
+        instagramPageLink = store.instagram_page_link ?? noData;
+      });
+    });
     _viewModelComment.getComments(widget.storeId);
     _viewModelComment.comments.stream.listen((commentsList) {
       setState(() {
@@ -81,7 +98,13 @@ class _StoreProfileState extends State<StoreProfile> {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      informationSection(),
+                      informationSection(
+                        title,
+                        city,
+                        address,
+                        telephoneNumber,
+                        instagramPageLink,
+                      ),
                       commentSection(_comments),
                     ],
                   ),
