@@ -15,7 +15,7 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: const Size(360, 800));
-    List<String> options = List.generate(
+     List<String> options = List.generate(
       numberOfOptions,
       (index) => 'میز شماره ${index + 1}',
     );
@@ -52,23 +52,23 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
           ),
         ),
         body: SafeArea(
-          top: true,
+           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               Align(
-                alignment: const AlignmentDirectional(0, 0),
+                alignment: AlignmentDirectional(0, 0),
                 child: Padding(
-                  padding: EdgeInsets.only(top: ScreenUtil().setHeight(40)),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
                   child: Text(
                     'انتخاب میز',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: BlackColor,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: IranSansWeb,
-                      fontSize: ScreenUtil().setSp(28),
-                    ),
+                    color: BlackColor,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: IranSansWeb,
+                    fontSize: ScreenUtil().setSp(28),
+                  ),
                   ),
                 ),
               ),
@@ -110,16 +110,13 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: ScreenUtil().setHeight(56)),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 56, 0, 0),
                 child: ElevatedButton(
                   onPressed: () {
-                    
+                    print('Button pressed ...');
                   },
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(
-                      ScreenUtil().setWidth(145),
-                      ScreenUtil().setHeight(45),
-                    ),
+                    minimumSize: Size(145, 45),
                     padding: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -139,22 +136,12 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
               Align(
                 alignment: const AlignmentDirectional(0, 0),
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                    ScreenUtil().setWidth(65),
-                    ScreenUtil().setHeight(50),
-                    ScreenUtil().setWidth(65),
-                    0,
-                  ),
-                  child: AspectRatio(
-                    aspectRatio: 1.0,
-                    child: Expanded(
-                      child: Flexible(
-                        child: Image.asset(
-                          FastfeedLogo,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 58, 0, 0),
+                  child: Image.asset(
+                    FastfeedLogo,
+                    width: 214,
+                    height: 240,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
