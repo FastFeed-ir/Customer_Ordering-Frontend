@@ -28,15 +28,27 @@ class StoreProfileRepositoryImpl extends StoreProfileRepository {
   }
 
   @override
-  Future<List<String>> getOrders(int storeId) async {
-    throw UnimplementedError();
+  Future<List<String>> getOrdersNamesOfComment(int orderId) async {
+    var response = await dio.get('orders/$orderId/productsName');
+    print('response: ${response.statusMessage}');
+    if (response.statusCode == 200) {
+      Map<String, dynamic> map = response.data;
+      List<String> ordersNames = List.from(map['product_names']);
+      return ordersNames;
+    } else {
+      throw Exception('Invalid response');
+    }
   }
 
   @override
   Future<Store> getStore(int storeId) async {
     var response = await dio.get('stores/$storeId');
     print('response: ${response.statusMessage}');
-    Store store = Store.fromJson(response.data as Map<String, dynamic>);
-    return store;
+    if (response.statusCode == 200) {
+      Store store = Store.fromJson(response.data as Map<String, dynamic>);
+      return store;
+    } else {
+      throw Exception('Invalid response');
+    }
   }
 }

@@ -18,8 +18,7 @@ class StoreProfile extends StatefulWidget {
 
 class _StoreProfileState extends State<StoreProfile> {
   final _viewModel = StoreProfileViewModel();
-  final List<Comment> _comments = [];
-  final List<String> _ordersNames = [];
+  final Map<Comment, List<String>> _commentsAndOrders = {};
   String title = '';
   String city = '';
   String address = '';
@@ -56,9 +55,14 @@ class _StoreProfileState extends State<StoreProfile> {
     });
     _viewModel.getComments(widget.storeId);
     _viewModel.comments.stream.listen((commentsList) {
-      setState(() {
-        _comments.addAll(commentsList);
-      });
+      for (var comment in commentsList) {
+        _viewModel.getOrdersNamesOfComment(comment.orderId);
+        _viewModel.ordersNames.stream.listen((orderNamesList) {
+          setState(() {
+            _commentsAndOrders.addAll({comment: orderNamesList});
+          });
+        });
+      }
     });
   }
 
@@ -115,7 +119,7 @@ class _StoreProfileState extends State<StoreProfile> {
                         telephoneNumber,
                         instagramPageLink,
                       ),
-                      commentSection(_comments),
+                      commentSection(_commentsAndOrders),
                     ],
                   ),
                 ),

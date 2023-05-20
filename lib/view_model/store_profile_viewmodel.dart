@@ -11,10 +11,11 @@ class StoreProfileViewModel extends ChangeNotifier {
 
   StreamController<List<Comment>> comments = StreamController<List<Comment>>();
 
-  StreamController<List<String>> ordersNames = StreamController<List<String>>();
+  StreamController<List<String>> ordersNames =
+      StreamController<List<String>>.broadcast();
 
-  void getOrders(int storeId) async {
-    ordersNames.add(await repository.getOrders(storeId));
+  void getOrdersNamesOfComment(int orderId) async {
+    ordersNames.add(await repository.getOrdersNamesOfComment(orderId));
     notifyListeners();
   }
 

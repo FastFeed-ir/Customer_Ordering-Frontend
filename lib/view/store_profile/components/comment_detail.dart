@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persian_number_utility/persian_number_utility.dart';
 
 Widget commentDetail(
     String author, String date, String comment, List<String> orders) {
@@ -20,9 +21,10 @@ Widget commentDetail(
               ),
             ),
             Text(
-              date,
+              date.toPersianDate(),
               style: const TextStyle(
                 color: Colors.black,
+                fontWeight: FontWeight.bold,
                 fontSize: 16.0,
               ),
             ),
@@ -38,11 +40,12 @@ Widget commentDetail(
           ),
         ),
         const SizedBox(height: 16.0),
-        Row(
-          children: [
-            for (final order in orders)
-              Expanded(
-                child: Padding(
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              for (final order in orders)
+                Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Container(
                     padding: const EdgeInsets.all(8.0),
@@ -60,8 +63,8 @@ Widget commentDetail(
                     ),
                   ),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ],
     ),

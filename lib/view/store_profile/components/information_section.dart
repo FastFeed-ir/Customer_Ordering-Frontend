@@ -1,5 +1,6 @@
 import 'package:customer_ordering_frontend/view/store_profile/components/information_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:persian_number_utility/persian_number_utility.dart';
 
 Widget informationSection(
   String title,
@@ -28,6 +29,7 @@ Widget informationSection(
           city,
           style: const TextStyle(
             color: Colors.black,
+            fontWeight: FontWeight.bold,
             fontSize: 16.0,
           ),
         ),
@@ -38,7 +40,8 @@ Widget informationSection(
         height: 2,
         color: Colors.black,
       ),
-      informationDetail(Icons.phone_outlined, 'تلفن', telephoneNumber),
+      informationDetail(
+          Icons.phone_outlined, 'تلفن', telephoneNumber.toPersianDigit()),
       const Divider(
         thickness: 2,
         height: 2,
