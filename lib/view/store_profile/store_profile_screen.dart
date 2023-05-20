@@ -1,11 +1,12 @@
 import 'package:customer_ordering_frontend/utils/constants.dart';
-import 'package:customer_ordering_frontend/view/store_profile/components/information_section.dart';
 import 'package:customer_ordering_frontend/view/store_profile/components/profile_app_bar.dart';
 import 'package:customer_ordering_frontend/view_model/store_profile_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../model/entity/comment.dart';
 import 'components/comment_section.dart';
+import 'components/information_section.dart';
 
 class StoreProfile extends StatefulWidget {
   const StoreProfile({super.key, required this.storeId});
@@ -19,6 +20,8 @@ class StoreProfile extends StatefulWidget {
 class _StoreProfileState extends State<StoreProfile> {
   final _viewModel = StoreProfileViewModel();
   final Map<Comment, List<String>> _commentsAndOrders = {};
+  var _gotFromServerStore = false;
+  var _gotFromServerComments = false;
   String title = '';
   String city = '';
   String address = '';
@@ -42,15 +45,20 @@ class _StoreProfileState extends State<StoreProfile> {
         instagramPageLink = store.instagram_page_link ?? '';
         if (title == '') {
           title = noData;
-        } else if (city == '') {
+        }
+        if (city == '') {
           city = noData;
-        } else if (address == '') {
+        }
+        if (address == '') {
           address = noData;
-        } else if (telephoneNumber == '') {
+        }
+        if (telephoneNumber == '') {
           telephoneNumber = noData;
-        } else if (instagramPageLink == '') {
+        }
+        if (instagramPageLink == '') {
           instagramPageLink = noData;
         }
+        _gotFromServerStore = true;
       });
     });
     _viewModel.getComments(widget.storeId);
@@ -63,6 +71,9 @@ class _StoreProfileState extends State<StoreProfile> {
           });
         });
       }
+      setState(() {
+        _gotFromServerComments = true;
+      });
     });
   }
 
@@ -112,20 +123,42 @@ class _StoreProfileState extends State<StoreProfile> {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      informationSection(
-                        title,
-                        city,
-                        address,
-                        telephoneNumber,
-                        instagramPageLink,
-                      ),
-                      commentSection(_commentsAndOrders),
+                      !_gotFromServerStore
+                          ? loading()
+                          : informationSection(
+                              title,
+                              city,
+                              address,
+                              telephoneNumber,
+                              instagramPageLink,
+                            ),
+                      !_gotFromServerComments
+                          ? loading()
+                          : commentSection(_commentsAndOrders),
                     ],
                   ),
                 ),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget loading() {
+    return Container(
+      padding: EdgeInsets.only(
+        left: 16.0.w,
+        top: 8.0.h,
+        right: 16.0.w,
+      ),
+      // width: 1920.w,
+      // height: 700.h,
+      child: const Center(
+        child: CircularProgressIndicator(
+          strokeWidth: 4.0,
+          valueColor: AlwaysStoppedAnimation<Color>(RedColor),
         ),
       ),
     );
