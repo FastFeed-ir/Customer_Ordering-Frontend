@@ -1,10 +1,11 @@
 import 'package:customer_ordering_frontend/model/entity/comment.dart';
-import 'package:customer_ordering_frontend/model/repository/comment_repository.dart';
+import 'package:customer_ordering_frontend/model/repository/store_profile_repository.dart';
 
+import '../entity/store.dart';
 import '../util/constants.dart';
 
 // ignore_for_file: avoid_print
-class CommentRepositoryImpl extends CommentRepository {
+class StoreProfileRepositoryImpl extends StoreProfileRepository {
   @override
   Future<List<Comment>> getComments(int storeId) async {
     var response = await dio.get('comments/?store_id=$storeId');
@@ -29,5 +30,13 @@ class CommentRepositoryImpl extends CommentRepository {
   @override
   Future<List<String>> getOrders(int storeId) async {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<Store> getStore(int storeId) async {
+    var response = await dio.get('stores/$storeId');
+    print('response: ${response.statusMessage}');
+    Store store = Store.fromJson(response.data as Map<String, dynamic>);
+    return store;
   }
 }

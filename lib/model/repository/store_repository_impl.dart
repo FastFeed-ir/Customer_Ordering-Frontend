@@ -56,12 +56,4 @@ class StoreRepositoryImpl extends StoreRepository {
     );
     print('response: ${response.statusMessage}');
   }
-
-  @override
-  Future<Store> getStore(int storeId) async {
-    var response = await dio.get('stores/$storeId');
-    print('response: ${response.statusMessage}');
-    Store store = Store.fromJson(response.data as Map<String, dynamic>);
-    return store;
-  }
 }

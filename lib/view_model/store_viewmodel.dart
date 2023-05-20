@@ -10,8 +10,6 @@ class StoreViewModel extends ChangeNotifier {
 
   StreamController<List<Store>> stores = StreamController<List<Store>>();
 
-  StreamController<Store> store = StreamController<Store>();
-
   void getStores(int id) async {
     stores.add(await repository.getStores(id));
     notifyListeners();
@@ -31,11 +29,5 @@ class StoreViewModel extends ChangeNotifier {
   void deleteStore(Store store) async {
     repository.deleteStore(store);
     notifyListeners();
-  }
-
-  Future<Store> getStore(int storeId) async {
-    var store = await repository.getStore(storeId);
-    notifyListeners();
-    return store;
   }
 }

@@ -1,8 +1,7 @@
 import 'package:customer_ordering_frontend/utils/constants.dart';
 import 'package:customer_ordering_frontend/view/store_profile/components/information_section.dart';
 import 'package:customer_ordering_frontend/view/store_profile/components/profile_app_bar.dart';
-import 'package:customer_ordering_frontend/view_model/comment_viewmodel.dart';
-import 'package:customer_ordering_frontend/view_model/store_viewmodel.dart';
+import 'package:customer_ordering_frontend/view_model/store_profile_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/entity/comment.dart';
@@ -18,9 +17,9 @@ class StoreProfile extends StatefulWidget {
 }
 
 class _StoreProfileState extends State<StoreProfile> {
-  final _viewModelComment = CommentViewModel();
-  final _viewModelStore = StoreViewModel();
+  final _viewModel = StoreProfileViewModel();
   final List<Comment> _comments = [];
+  final List<String> _ordersNames = [];
   String title = '';
   String city = '';
   String address = '';
@@ -35,7 +34,7 @@ class _StoreProfileState extends State<StoreProfile> {
   }
 
   void loadData() {
-    _viewModelStore.getStore(widget.storeId).asStream().listen((store) {
+    _viewModel.getStore(widget.storeId).asStream().listen((store) {
       setState(() {
         title = store.title ?? '';
         city = store.city ?? '';
@@ -55,8 +54,8 @@ class _StoreProfileState extends State<StoreProfile> {
         }
       });
     });
-    _viewModelComment.getComments(widget.storeId);
-    _viewModelComment.comments.stream.listen((commentsList) {
+    _viewModel.getComments(widget.storeId);
+    _viewModel.comments.stream.listen((commentsList) {
       setState(() {
         _comments.addAll(commentsList);
       });

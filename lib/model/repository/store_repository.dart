@@ -8,6 +8,4 @@ abstract class StoreRepository {
   Future<void> editStore(Store store);
 
   Future<void> deleteStore(Store store);
-
-  Future<Store> getStore(int storeId);
 }
