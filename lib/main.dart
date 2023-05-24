@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 import 'package:material_color_gen/material_color_gen.dart';
 
 import 'utils/constants.dart';
+import 'view/ScanPage/pages/ScanPage.dart';
 
 void main() async {
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -29,9 +31,10 @@ class MyApp extends StatelessWidget {
             //GetPage(name: CommentsPage, page: () => CommentsScreen(),),
             //GetPage(name: ScoringPage, page: () => ScoringScreen()),
             //GetPage(name: SendCommentPage, page: () => SendCommentScreen()),
+            GetPage(name: SendCommentPage, page: () => const ScanScreen()),
           ],
           // title: 'FastFeed',
-          initialRoute: LandingPage,
+          initialRoute: SendCommentPage,
           textDirection: TextDirection.rtl,
           defaultTransition: Transition.noTransition,
           theme: ThemeData(

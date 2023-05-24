@@ -65,12 +65,12 @@ class _ScanScreenState extends State<ScanScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    backgroundColor: YellowColor,
+                    backgroundColor: RedColor,
                   ),
                   child: Text(
                     'اسکن کنید',
                     style: TextStyle(
-                      color: BlackColor,
+                      color: WhiteColor,
                       fontFamily: IranSansWeb,
                       fontSize: ScreenUtil().setSp(20),
                     ),
