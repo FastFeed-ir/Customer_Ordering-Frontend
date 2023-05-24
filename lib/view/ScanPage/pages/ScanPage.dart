@@ -47,8 +47,7 @@ class _ScanScreenState extends State<ScanScreen> {
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 58, 0, 0),
                   child: Image.asset(
                     FastfeedLogo,
-                    width: 214,
-                    height: 240,
+                    height: ScreenUtil().setHeight(240),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -60,7 +59,8 @@ class _ScanScreenState extends State<ScanScreen> {
                     print('Button pressed ...');
                   },
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(145, 45),
+                    minimumSize: Size(
+                        ScreenUtil().setHeight(145), ScreenUtil().setWidth(45)),
                     padding: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
