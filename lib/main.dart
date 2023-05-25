@@ -1,3 +1,4 @@
+import 'package:customer_ordering_frontend/view/mainMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           getPages: [
             //GetPage(name: LandingPage, page: () => LandingScreen()),
-            //GetPage(name: MainMenuPage, page: () => MainMenuScreen()),
+            GetPage(name: MainMenuPage, page: () => MainMenuScreen()),
             //GetPage(name: PaymentPage, page: () => PaymentScreen()),
             //GetPage(name: SelectTablePage, page: () => SelectTableScreen()),
             //GetPage(name: SuccessfulPage, page: () => SuccessfulScreen()),
@@ -31,11 +32,12 @@ class MyApp extends StatelessWidget {
             //GetPage(name: SendCommentPage, page: () => SendCommentScreen()),
           ],
           // title: 'FastFeed',
-          initialRoute: LandingPage,
+          initialRoute: MainMenuPage,
           textDirection: TextDirection.rtl,
           defaultTransition: Transition.noTransition,
           theme: ThemeData(
             primarySwatch: RedColor.toMaterialColor(),
+            scaffoldBackgroundColor: Colors.white
           ),
           debugShowCheckedModeBanner: false,
           builder: (context, child) {
