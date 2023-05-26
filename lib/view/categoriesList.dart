@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:persian_number_utility/persian_number_utility.dart';
 import '../model/entity/Rating.dart';
 import '../model/entity/collection.dart';
 import '../model/entity/product.dart';
@@ -15,26 +17,92 @@ class CategoriesList extends StatefulWidget {
 }
 
 class _CategoriesListState extends State<CategoriesList> {
-  int _selectedCategoryId = 0;
+  late int _selectedCategoryId;
 
   // TODO initial storeId
   late int storeId;
-  final List<Collection> collections = [];
-  final List<Product> products = [];
-  final List<Rating> _rates = [];
+  final List<Collection> collections = [
+    Collection(
+      id: 1,
+      title: 'ایرانی',
+      storeId: 1,
+      products: [
+        Product(
+          id: 1,
+          title: 'آش',
+          unitPrice: 20000,
+          isAvailable: true,
+          collectionId: 1,
+          storeId: 1,
+          description:
+              'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،',
+        ),
+        Product(
+          id: 2,
+          title: 'کباب',
+          unitPrice: 20000,
+          isAvailable: true,
+          collectionId: 1,
+          storeId: 1,
+          description: 'خوشمزه است',
+        ),
+        Product(
+          id: 3,
+          title: 'حلیم',
+          unitPrice: 20000,
+          isAvailable: true,
+          collectionId: 1,
+          storeId: 1,
+          description: 'خوشمزه است',
+        ),
+      ],
+    ),
+    Collection(id: 2, title: 'فست فود', storeId: 1, products: [
+      Product(
+        id: 4,
+        title: 'پیتزا',
+        unitPrice: 20000,
+        isAvailable: true,
+        collectionId: 2,
+        storeId: 1,
+        description: 'خوشمزه است',
+      ),
+      Product(
+        id: 5,
+        title: 'اسنک',
+        unitPrice: 20000,
+        isAvailable: true,
+        collectionId: 2,
+        storeId: 1,
+        description: 'خوشمزه است',
+      ),
+    ]),
+  ];
+  late List<Product> products = [];
+  late List<Product> orderProducts = [];
+  late List<List<Product>> totalProducts = [[]];
+  final List<Rating> _rates = [
+    Rating(product: 1, score: 4),
+    Rating(product: 2, score: 5),
+    Rating(product: 3, score: 3),
+    Rating(product: 4, score: 1),
+    Rating(product: 5, score: 2),
+  ];
   final _collectionViewModel = CollectionViewModel();
   final _ratingViewModel = RatingViewModel();
-  var _gotFromServer = false;
+
+  // TODO false
+  var _gotFromServer = true;
 
   @override
   void initState() {
-    loadFood();
+    _selectedCategoryId = 0;
+    //loadFood();
     //getRate();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("products: ${products.length}");
     return !_gotFromServer
         ? loading()
         : Column(
@@ -50,8 +118,9 @@ class _CategoriesListState extends State<CategoriesList> {
                 ],
               ),
               SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  child: productsList()),
+                height: MediaQuery.of(context).size.height * 0.5,
+                child: productsList(),
+              ),
             ],
           );
   }
@@ -94,89 +163,249 @@ class _CategoriesListState extends State<CategoriesList> {
   }
 
   Widget productsList() {
-    return ListView.builder(
-      itemCount: collections[_selectedCategoryId].products!.length,
-      itemBuilder: (context, index) {
-        final product = collections[_selectedCategoryId].products![index];
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: Container(
-            color: Colors.yellow,
-            height: 150,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 200,
-                  height: 150,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return ListView(
+      children: [
+        Column(
+          children: List.generate(
+            collections[_selectedCategoryId].products!.length,
+            (index) {
+              products = collections[_selectedCategoryId].products!;
+              final product = collections[_selectedCategoryId].products![index];
+              //products.add(product);
+              return Directionality(
+                textDirection: TextDirection.ltr,
+                child: Container(
+                  padding: EdgeInsets.only(top: 10, right: 20),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: BlackColor,
+                      ),
+                    ),
+                  ),
+                  height: 200,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 100,
-                        height: 100,
-                        child: CachedNetworkImage(
-                          imageUrl: "",
-                          width: 100,
-                          height: 100,
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          errorWidget: (context, url, error) => Image.asset(
-                            EmptyImg,
-                            width: 100,
-                            height: 100,
-                          ),
+                        width: 200,
+                        height: 150,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: 100,
+                              height: 100,
+                              child: CachedNetworkImage(
+                                imageUrl: "",
+                                width: 100,
+                                height: 100,
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                  EmptyImg,
+                                  width: 100,
+                                  height: 100,
+                                ),
+                              ),
+                            ),
+                            foodCounter(product, index),
+                          ],
                         ),
                       ),
-                      FoodCounter(),
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: "${_rates[index].score}"
+                                            .toPersianDigit(),
+                                        style: TextStyle(
+                                          color: BlackColor,
+                                          fontFamily: IranSansWeb,
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      WidgetSpan(
+                                        child: Icon(
+                                          Icons.star_border,
+                                          color: YellowColor,
+                                          size: 24,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Text(
+                                  product.title,
+                                  style: TextStyle(
+                                      fontFamily: IranSansWeb,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                (product.description!),
+                                style: TextStyle(
+                                  fontFamily: IranSansWeb,
+                                  fontSize: 16,
+                                ),
+                                maxLines: 2,
+                                textAlign: TextAlign.right,
+                                textDirection: TextDirection.rtl,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              alignment: Alignment.centerRight,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "تومان",
+                                    style: TextStyle(
+                                      fontFamily: IranSansWeb,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    "${product.unitPrice}".toPersianDigit(),
+                                    style: TextStyle(
+                                      fontFamily: IranSansWeb,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            product.title,
-                            style: TextStyle(
-                                fontFamily: IranSansWeb,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          RichText(
-                            text: TextSpan(children: [
-                              WidgetSpan(
-                                  child: Icon(
-                                Icons.star,
-                                color: YellowColor,
-                                size: 10,
-                              )),
-                              TextSpan(text: "${_rates[index].score}"),
-                            ]),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          product.description!,
-                          style: TextStyle(
-                            fontFamily: IranSansWeb,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              );
+            },
+          ),
+        ),
+        SizedBox(
+          height: 50,
+          width: 5,
+          child: ElevatedButton(
+            onPressed: () {
+              print("products: ${products.length}");
+              orderProducts = products.where((item) => item.quantity > 0).toList();
+              print("order : ${orderProducts.length}");
+              totalProducts.add(orderProducts);
+              print("total: ${totalProducts.length}");
+              //for(var product in totalProducts){
+                for(var item in orderProducts){
+                  print("id: ${item.id}: ${item.Quantity}");
+                }
+              //}
+            },
+            child: Text("تکمیل خرید",
+                style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: IranSansWeb,
+                    fontWeight: FontWeight.bold)),
+            style: buttonStyle_build(5, 5, 10, RedColor),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget foodCounter(Product product, int index) {
+
+    return Container(
+      height: 40,
+      width: 170,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            width: 36,
+            height: 36,
+            child: ElevatedButton(
+              onPressed: () {
+                setState(() {
+                    if (product.quantity > 0) {
+                      product.quantity--;
+                    }
+                    products[index].Quantity = product.quantity;
+                  },
+                );
+              },
+              style: buttonStyle(5, 5, 10, WhiteColor),
+              child: Icon(
+                Icons.remove,
+                color: BlackColor,
+              ),
             ),
           ),
-        );
-      },
+          Text(
+            '${product.quantity}'.toPersianDigit(),
+            style: TextStyle(fontFamily: IranSansWeb, fontSize: 24),
+          ),
+          SizedBox(
+            width: 36,
+            height: 36,
+            child: ElevatedButton(
+              onPressed: () {
+                setState(
+                  () {
+                    product.quantity++;
+                  },
+                );
+                products[index].Quantity = product.quantity;
+              },
+              child: Icon(
+                Icons.add,
+              ),
+              style: buttonStyle(5, 5, 10, RedColor),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  ButtonStyle buttonStyle(
+      double width, double height, double radius, Color color) {
+    return ButtonStyle(
+      backgroundColor: MaterialStateProperty.all<Color>(color),
+      elevation: MaterialStateProperty.all<double>(0.0),
+      padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+      fixedSize: MaterialStateProperty.all<Size>(
+        Size(width, height),
+      ),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(radius),
+          side: BorderSide(color: BlackColor),
+        ),
+      ),
     );
   }
 
@@ -203,16 +432,17 @@ class _CategoriesListState extends State<CategoriesList> {
   }
 
   void getRate() {
-    for(var product in products) {
+    for (var product in products) {
       _ratingViewModel.getRatings(product.id!);
-      _ratingViewModel.ratings.stream.listen((list) async {
-        setState(() {
-          _gotFromServer = true;
-          for (var rating in list) {
-            _rates.add(rating as Rating);
-          }
-        });
-      },
+      _ratingViewModel.ratings.stream.listen(
+        (list) async {
+          setState(() {
+            _gotFromServer = true;
+            for (var rating in list) {
+              _rates.add(rating as Rating);
+            }
+          });
+        },
       );
     }
   }
