@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:persian_number_utility/persian_number_utility.dart';
 // Colors
 const Color WhiteColor = Color(0xFFFFFFFF);
 const Color BaseColor = Color(0xfff5f5f5);
@@ -52,17 +51,19 @@ Widget titleStyle(String title) {
   );
 }
 
-ButtonStyle buttonStyle_build(int width, int height, int radius, Color color) {
+ButtonStyle buttonStyle_build(double width, double height, double radius, Color color) {
   return ButtonStyle(
     backgroundColor: MaterialStateProperty.all<Color>(color),
     elevation: MaterialStateProperty.all<double>(0.0),
     padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
     fixedSize: MaterialStateProperty.all<Size>(
-      Size(width.w, height.h),
+      Size.fromHeight(height),
+      /*Size(width, height),*/
     ),
     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
       RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(radius.r),
+        borderRadius: BorderRadius.circular(radius),
+        side: BorderSide(color: BlackColor),
       ),
     ),
   );
@@ -140,40 +141,4 @@ AppBar AppBarMenu() {
     ),
     backgroundColor: RedColor,
   );
-}
-class FoodCounter extends StatefulWidget {
-  // TODO static counter for keep it for foods
-  int counter = 0;
-  int getCounter() => counter;
-  FoodCounter({Key? key}) : super(key: key);
-  @override
-  State<FoodCounter> createState() => _FoodCounterState();
-}
-
-class _FoodCounterState extends State<FoodCounter> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ElevatedButton(
-              onPressed: () => setState(() {
-                widget.counter == 0 ? print('counter at 0') : widget.counter--;
-              }),
-              child: Icon(Icons.remove, color: BlackColor),
-              style: buttonStyle_build(5, 5, 10,WhiteColor),
-          ),
-          Text('${widget.counter}'.toPersianDigit(), style: TextStyle(fontFamily: IranSansWeb, fontSize: 24),),
-          ElevatedButton(
-              onPressed: () {setState(() {
-                print('set');
-                widget.counter++;
-              });},
-              child: Icon(Icons.add,),
-              style: buttonStyle_build(5, 5, 10,RedColor),
-          ),
-          ],
-      ),);
-  }
 }
