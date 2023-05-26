@@ -1,12 +1,10 @@
-import 'package:flutter/foundation.dart';
-
 class OrderItem {
   int? id;
-  int product;
+  int? product;
   String? productTitle;
   double? productUnitPrice;
-  int quantity;
-  int order;
+  int? quantity;
+  int? order;
 
   OrderItem({
     this.id,
