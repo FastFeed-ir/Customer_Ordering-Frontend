@@ -80,7 +80,7 @@ class _CategoriesListState extends State<CategoriesList> {
   ];
   late List<Product> products = [];
   late List<Product> orderProducts = [];
-  late List<List<Product>> totalProducts = [[]];
+  late List<Product> totalProducts = [];
   final List<Rating> _rates = [
     Rating(product: 1, score: 4),
     Rating(product: 2, score: 5),
@@ -96,9 +96,14 @@ class _CategoriesListState extends State<CategoriesList> {
 
   @override
   void initState() {
-    _selectedCategoryId = 0;
+    _selectedCategoryId = collections[0].id ?? 0;
     //loadFood();
     //getRate();
+    for (var collection in collections) {
+      for (var product in collection.products!) {
+        products.add(product);
+      }
+    }
   }
 
   @override
@@ -167,11 +172,10 @@ class _CategoriesListState extends State<CategoriesList> {
       children: [
         Column(
           children: List.generate(
-            collections[_selectedCategoryId].products!.length,
+            collections[_selectedCategoryId - 1].products!.length,
             (index) {
-              products = collections[_selectedCategoryId].products!;
-              final product = collections[_selectedCategoryId].products![index];
-              //products.add(product);
+              final product =
+                  collections[_selectedCategoryId - 1].products![index];
               return Directionality(
                 textDirection: TextDirection.ltr,
                 child: Container(
@@ -210,7 +214,7 @@ class _CategoriesListState extends State<CategoriesList> {
                                 ),
                               ),
                             ),
-                            foodCounter(product, index),
+                            foodCounter(product),
                           ],
                         ),
                       ),
@@ -313,22 +317,23 @@ class _CategoriesListState extends State<CategoriesList> {
           width: 5,
           child: ElevatedButton(
             onPressed: () {
-              print("products: ${products.length}");
-              orderProducts = products.where((item) => item.quantity > 0).toList();
-              print("order : ${orderProducts.length}");
-              totalProducts.add(orderProducts);
-              print("total: ${totalProducts.length}");
-              //for(var product in totalProducts){
-                for(var item in orderProducts){
-                  print("id: ${item.id}: ${item.Quantity}");
-                }
-              //}
+              for(var product in products){
+                orderProducts.add(product);
+              }
+              orderProducts.removeWhere((element) => element.quantity == 0);
+              totalProducts = orderProducts;
+              orderProducts.clear();
+              //Get.toNamed(PaymentPage, arguments: totalProducts);
+              // print
+              //totalProducts.forEach((element) {print("${element.title}\t${element.quantity}");});
             },
-            child: Text("تکمیل خرید",
-                style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: IranSansWeb,
-                    fontWeight: FontWeight.bold)),
+            child: Text(
+              "تکمیل خرید",
+              style: TextStyle(
+                  fontSize: 16,
+                  fontFamily: IranSansWeb,
+                  fontWeight: FontWeight.bold),
+            ),
             style: buttonStyle_build(5, 5, 10, RedColor),
           ),
         ),
@@ -336,8 +341,7 @@ class _CategoriesListState extends State<CategoriesList> {
     );
   }
 
-  Widget foodCounter(Product product, int index) {
-
+  Widget foodCounter(Product product) {
     return Container(
       height: 40,
       width: 170,
@@ -349,11 +353,16 @@ class _CategoriesListState extends State<CategoriesList> {
             height: 36,
             child: ElevatedButton(
               onPressed: () {
-                setState(() {
+                setState(
+                  () {
                     if (product.quantity > 0) {
                       product.quantity--;
                     }
-                    products[index].Quantity = product.quantity;
+                    for (var element in products) {
+                      if (element.id == product.id) {
+                        products[products.indexOf(element)].Quantity = product.quantity;
+                      }
+                    }
                   },
                 );
               },
@@ -378,12 +387,16 @@ class _CategoriesListState extends State<CategoriesList> {
                     product.quantity++;
                   },
                 );
-                products[index].Quantity = product.quantity;
+                for (var element in products) {
+                  if (element.id == product.id) {
+                    products[products.indexOf(element)].Quantity = product.quantity;
+                  }
+                }
               },
+              style: buttonStyle(5, 5, 10, RedColor),
               child: Icon(
                 Icons.add,
               ),
-              style: buttonStyle(5, 5, 10, RedColor),
             ),
           ),
         ],
