@@ -1,5 +1,6 @@
 import 'package:customer_ordering_frontend/model/entity/order.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import '../../../model/entity/orderItem.dart';
 import '../../../model/entity/product.dart';
@@ -55,6 +56,7 @@ class _OrderListState extends State<OrderList> {
       collectionId: 1,
       storeId: 1,
       description: 'خوشمزه است',
+      Quantity: 5,
     ),
     Product(
       id: 3,
@@ -64,6 +66,7 @@ class _OrderListState extends State<OrderList> {
       collectionId: 1,
       storeId: 1,
       description: 'خوشمزه است',
+      Quantity: 2,
     ),
     Product(
       id: 4,
@@ -84,11 +87,18 @@ class _OrderListState extends State<OrderList> {
       description: 'خوشمزه است',
     ),
   ];
+  late double sum;
   late double totalCost = 0;
   late String explainText;
 
   @override
   void initState() {
+    sum = 0;
+    for(var product in products){
+      product.priceCount = (product.quantity ?? 0) * product.unitPrice;
+      sum += product.priceCount ?? 0;
+    }
+    totalCost = sum;
     super.initState();
   }
 
@@ -188,6 +198,7 @@ class _OrderListState extends State<OrderList> {
         ),
         explain(),
         checkOut(),
+        sendOrder(),
       ],
     );
   }
@@ -212,7 +223,11 @@ class _OrderListState extends State<OrderList> {
                           product.quantity--;
                         }
                         product.priceCount = product.quantity * product.unitPrice;
-                        totalCost -= product.priceCount ?? 0;
+                        sum = 0;
+                        for(var item in products){
+                          sum += item.priceCount ?? 0 ;
+                        }
+                        totalCost = sum;
                         products[index].Quantity = product.quantity;
                       },
                     );
@@ -239,7 +254,11 @@ class _OrderListState extends State<OrderList> {
                       },
                     );
                     product.priceCount = product.quantity * product.unitPrice;
-                    totalCost += product.priceCount ?? 0;
+                    sum = 0;
+                    for(var item in products){
+                      sum += item.priceCount ?? 0 ;
+                    }
+                    totalCost = sum;
                     products[index].Quantity = product.quantity;
                   },
                   child: Icon(
@@ -279,8 +298,7 @@ class _OrderListState extends State<OrderList> {
     );
   }
 
-  ButtonStyle buttonStyle(
-      double width, double height, double radius, Color color) {
+  ButtonStyle buttonStyle(double width, double height, double radius, Color color) {
     return ButtonStyle(
       backgroundColor: MaterialStateProperty.all<Color>(color),
       elevation: MaterialStateProperty.all<double>(0.0),
@@ -299,6 +317,7 @@ class _OrderListState extends State<OrderList> {
 
   Widget explain() {
     return Container(
+      padding: EdgeInsets.only(top: 20,right: 20),
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -306,33 +325,43 @@ class _OrderListState extends State<OrderList> {
           ),
         ),
       ),
+      height: 360,
       child: Column(
         children: [
-          Text(
-            "توضیحات",
-            style: TextStyle(
-                fontFamily: IranSansWeb,
-                fontSize: 30,
-                fontWeight: FontWeight.bold),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                "توضیحات",
+                style: TextStyle(
+                    fontFamily: IranSansWeb,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
+          SizedBox(height: 10,),
           SizedBox(
-            width: 310,
-            height: 155,
+            width: 300,
+            height: 200,
             child: TextFormField(
               decoration: const InputDecoration(
-                border: OutlineInputBorder(),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.all(20.0),
                 labelStyle: TextStyle(color: BlackColor),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: YellowColor),
+                  borderSide: BorderSide(color: RedColor),
                 ),
-                labelText: 'توضیحات سفارش خود را اینجا بنویسید',
+                hintText: 'توضیحات سفارش خود را اینجا بنویسید',
               ),
+              keyboardType: TextInputType.multiline,
+              maxLines: 10,
               style: TextStyle(
                 color: BlackColor,
-                fontFamily: "IranSansWeb",
+                fontFamily: IranSansWeb,
               ),
               onChanged: (value) {
                 setState(() {
@@ -349,6 +378,14 @@ class _OrderListState extends State<OrderList> {
   Widget checkOut() {
     return Container(
       padding: EdgeInsets.only(left: 20, right: 20),
+      height: 100,
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: BlackColor,
+          ),
+        ),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -378,6 +415,32 @@ class _OrderListState extends State<OrderList> {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget sendOrder() {
+    return Container(
+      padding: EdgeInsets.only(top: 10,right: 100,left: 100, bottom: 10,),
+      child: ElevatedButton(
+        onPressed: (){
+          products.removeWhere((element) => element.quantity == 0);
+          // TODO send total cost for payment
+          print(totalCost);
+          // TODO product -> orderItem
+          products.forEach((element) {print("${element.title} \t ${element.Quantity}");});
+          //Get.toNamed("");
+          products.clear();
+        },
+        child: Text(
+          "ثبت سفارش",
+          style: TextStyle(
+            fontFamily: IranSansWeb,
+            fontWeight: FontWeight.bold,
+            fontSize: 30,
+            color: WhiteColor,
+          ),
+        ),
       ),
     );
   }
