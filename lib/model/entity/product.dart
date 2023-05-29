@@ -11,6 +11,7 @@ class Product {
   int collectionId;
   int storeId;
   int? Quantity = 0;
+  double? priceCount = 0;
 
   Product({
     this.id,
@@ -25,8 +26,8 @@ class Product {
     required this.collectionId,
     required this.storeId,
     this.Quantity,
+    this.priceCount,
   });
-
   int get quantity => Quantity??0; // Add this getter
 
   set quantity(int value) {  // Add this setter
