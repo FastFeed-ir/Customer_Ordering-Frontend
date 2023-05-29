@@ -9,6 +9,9 @@ import '../utils/constants.dart';
 import '../view_model/collection_view_model.dart';
 import '../view_model/rating_view_model.dart';
 
+List<Collection> searchCollection = [];
+List<Product> searchProduct = [];
+List<Rating> searchRating = [];
 class CategoriesList extends StatefulWidget {
   const CategoriesList({Key? key}) : super(key: key);
 
@@ -114,7 +117,22 @@ class _CategoriesListState extends State<CategoriesList> {
             children: [
               Row(
                 children: [
-                  Icon(Icons.search, color: BlackColor, size: 30),
+                  SizedBox(
+                    width: 30,
+                    height: 30,
+                    child: IconButton(
+                        icon: Icon(
+                          Icons.search,
+                          size: 24,
+                          color: BlackColor,
+                        ),
+                        onPressed: () {
+                          searchProduct = products;
+                          searchRating = _rates;
+                          Get.toNamed(SearchPage);
+                        }
+                    ),
+                  ),
                   SizedBox(width: 5),
                   SizedBox(
                       height: 35,
@@ -143,11 +161,13 @@ class _CategoriesListState extends State<CategoriesList> {
           },
           child: Container(
             padding: const EdgeInsets.all(8.0),
+            margin: EdgeInsets.only(left: 10),
             width: 100,
             decoration: BoxDecoration(
               color: _selectedCategoryId == collections[index].id
                   ? RedColor
                   : WhiteColor,
+              border: Border.all(color: BlackColor),
               borderRadius: BorderRadius.circular(50),
             ),
             child: Center(
@@ -322,10 +342,11 @@ class _CategoriesListState extends State<CategoriesList> {
               }
               orderProducts.removeWhere((element) => element.quantity == 0);
               totalProducts = orderProducts;
+              //totalProducts.forEach((element) {print("${element.title}\t${element.quantity}");});
               orderProducts.clear();
               //Get.toNamed(PaymentPage, arguments: totalProducts);
               // print
-              //totalProducts.forEach((element) {print("${element.title}\t${element.quantity}");});
+
             },
             child: Text(
               "تکمیل خرید",
@@ -404,8 +425,7 @@ class _CategoriesListState extends State<CategoriesList> {
     );
   }
 
-  ButtonStyle buttonStyle(
-      double width, double height, double radius, Color color) {
+  ButtonStyle buttonStyle(double width, double height, double radius, Color color) {
     return ButtonStyle(
       backgroundColor: MaterialStateProperty.all<Color>(color),
       elevation: MaterialStateProperty.all<double>(0.0),
