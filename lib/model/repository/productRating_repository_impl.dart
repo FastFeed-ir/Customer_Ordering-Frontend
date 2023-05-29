@@ -1,9 +1,9 @@
 import 'package:customer_ordering_frontend/model/entity/productRating.dart';
 
 import '../util/constants.dart';
-import 'product_repository.dart';
+import 'productRating_repository.dart';
 
-class ProductRepositoryImpl extends ProductRepository {
+class ProductRepositoryImpl extends ProductRatingRepository {
   @override
   Future<ProductRatingData> getRatings(int productId) async {
     var response = await dio.get('product/$productId/rating/');

@@ -1,5 +1,5 @@
 import '../entity/productRating.dart';
 
-abstract class ProductRepository {
+abstract class ProductRatingRepository {
   Future<ProductRatingData> getRatings(int productId);
 }
