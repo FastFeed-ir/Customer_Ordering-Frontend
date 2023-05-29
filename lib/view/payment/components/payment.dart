@@ -69,103 +69,105 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget ordering() {
     return ListView(
       children: [
-        Column(
-          children: List.generate(
-            products.length,
-                (index) {
-              final product = products[index];
-              return Directionality(
-                textDirection: TextDirection.ltr,
-                child: Container(
-                  padding: EdgeInsets.only(top: 10, right: 30),
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: BlackColor,
-                      ),
-                    ),
-                  ),
-                  height: 200,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 200,
-                        height: 150,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            foodCounter(product, index),
-                          ],
-                        ),
-                      ),
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                  product.title,
-                                  style: TextStyle(
-                                      fontFamily: IranSansWeb,
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                              alignment: Alignment.centerRight,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    "تومان",
-                                    style: TextStyle(
-                                      fontFamily: IranSansWeb,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    "${product.unitPrice.round() ?? 0}"
-                                        .toPersianDigit()
-                                        .seRagham(),
-                                    style: TextStyle(
-                                      fontFamily: IranSansWeb,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
+        orderItemShow(),
         explain(),
         checkOut(),
         sendOrder(),
       ],
     );
   }
-
+  Widget orderItemShow(){
+    return Column(
+      children: List.generate(
+        products.length,
+            (index) {
+          final product = products[index];
+          return Directionality(
+            textDirection: TextDirection.ltr,
+            child: Container(
+              padding: EdgeInsets.only(top: 10, right: 30),
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: BlackColor,
+                  ),
+                ),
+              ),
+              height: 200,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 200,
+                    height: 150,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        foodCounter(product, index),
+                      ],
+                    ),
+                  ),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              product.title,
+                              style: TextStyle(
+                                  fontFamily: IranSansWeb,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          alignment: Alignment.centerRight,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "تومان",
+                                style: TextStyle(
+                                  fontFamily: IranSansWeb,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                "${product.unitPrice.round() ?? 0}"
+                                    .toPersianDigit()
+                                    .seRagham(),
+                                style: TextStyle(
+                                  fontFamily: IranSansWeb,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
   Widget foodCounter(Product product, int index) {
     return Container(
       height: 100,
