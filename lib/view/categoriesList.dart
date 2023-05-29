@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:customer_ordering_frontend/view/search.dart';
+import 'package:customer_ordering_frontend/view/serach1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
@@ -12,6 +14,7 @@ import '../view_model/rating_view_model.dart';
 List<Collection> searchCollection = [];
 List<Product> searchProduct = [];
 List<Rating> searchRating = [];
+
 class CategoriesList extends StatefulWidget {
   const CategoriesList({Key? key}) : super(key: key);
 
@@ -21,6 +24,7 @@ class CategoriesList extends StatefulWidget {
 
 class _CategoriesListState extends State<CategoriesList> {
   late int _selectedCategoryId;
+  final TextEditingController _searchController = TextEditingController();
 
   // TODO initial storeId
   late int storeId;
@@ -121,18 +125,31 @@ class _CategoriesListState extends State<CategoriesList> {
                     width: 30,
                     height: 30,
                     child: IconButton(
-                        icon: Icon(
-                          Icons.search,
-                          size: 24,
-                          color: BlackColor,
-                        ),
-                        onPressed: () {
-                          searchProduct = products;
-                          searchRating = _rates;
-                          Get.toNamed(SearchPage);
-                        }
+                      icon: Icon(
+                        Icons.search,
+                        size: 24,
+                        color: BlackColor,
+                      ),
+                      onPressed: () {
+                        searchProduct = products;
+                        searchRating = _rates;
+                        // Get.toNamed(SearchPage);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SearchPagee(
+                              products: products,
+                              onSearch: (List<Product> results) {
+                                setState(() {
+                                });
+                              },
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
+                  SizedBox(width: 5),
                   SizedBox(width: 5),
                   SizedBox(
                       height: 35,
@@ -337,7 +354,7 @@ class _CategoriesListState extends State<CategoriesList> {
           width: 5,
           child: ElevatedButton(
             onPressed: () {
-              for(var product in products){
+              for (var product in products) {
                 orderProducts.add(product);
               }
               orderProducts.removeWhere((element) => element.quantity == 0);
@@ -346,7 +363,6 @@ class _CategoriesListState extends State<CategoriesList> {
               orderProducts.clear();
               //Get.toNamed(PaymentPage, arguments: totalProducts);
               // print
-
             },
             child: Text(
               "تکمیل خرید",
@@ -367,7 +383,7 @@ class _CategoriesListState extends State<CategoriesList> {
       height: 40,
       width: 170,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(
             width: 36,
@@ -381,7 +397,8 @@ class _CategoriesListState extends State<CategoriesList> {
                     }
                     for (var element in products) {
                       if (element.id == product.id) {
-                        products[products.indexOf(element)].Quantity = product.quantity;
+                        products[products.indexOf(element)].Quantity =
+                            product.quantity;
                       }
                     }
                   },
@@ -410,7 +427,8 @@ class _CategoriesListState extends State<CategoriesList> {
                 );
                 for (var element in products) {
                   if (element.id == product.id) {
-                    products[products.indexOf(element)].Quantity = product.quantity;
+                    products[products.indexOf(element)].Quantity =
+                        product.quantity;
                   }
                 }
               },
@@ -425,7 +443,8 @@ class _CategoriesListState extends State<CategoriesList> {
     );
   }
 
-  ButtonStyle buttonStyle(double width, double height, double radius, Color color) {
+  ButtonStyle buttonStyle(
+      double width, double height, double radius, Color color) {
     return ButtonStyle(
       backgroundColor: MaterialStateProperty.all<Color>(color),
       elevation: MaterialStateProperty.all<double>(0.0),
