@@ -15,16 +15,16 @@ class Store{
 
   Store({
     this.id,
-    required this.business_owner,
-    required this.title,
+     this.business_owner,
+     this.title,
     this.logo,
-    required this.business_type,
-    required this.state,
+     this.business_type,
+     this.state,
     this.city,
     this.address,
-    required this.owner_phone_number,
-    required this.telephone_number,
-    required this.tables_count,
+     this.owner_phone_number,
+     this.telephone_number,
+     this.tables_count,
     this.instagram_page_link,
 });
   factory Store.fromJson(Map<String, dynamic> json) {
