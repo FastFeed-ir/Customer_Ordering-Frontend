@@ -11,6 +11,7 @@ class SelectTableScreen extends StatefulWidget {
 
 class _SelectTableScreenState extends State<SelectTableScreen> {
   int numberOfOptions = 12;
+  //TODO
   String dropdownValue = 'میز شماره 1';
   @override
   Widget build(BuildContext context) {
@@ -27,30 +28,58 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
           child: AppBar(
             backgroundColor: RedColor,
             automaticallyImplyLeading: false,
-            flexibleSpace: Stack(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+            flexibleSpace: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                final double availableWidth = constraints.maxWidth;
+                final double availableHeight = constraints.maxHeight;
+
+                final double logoHeight = availableHeight * 0.5;
+                final double titleFontSize = availableHeight * 0.12;
+                final double backIconSize = availableHeight * 0.10;
+
+                return Stack(
                   children: [
-                    Column(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          WhiteLogo,
-                          width: ScreenUtil().setWidth(92.4),
-                          height: ScreenUtil().setHeight(100),
-                          fit: BoxFit.cover,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              WhiteLogo,
+                              height: logoHeight,
+                              fit: BoxFit.cover,
+                            ),
+                            SizedBox(height: availableHeight * 0.05),
+                            Text(
+                              'انتخاب میز',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: WhiteColor,
+                                fontFamily: IranSansWeb,
+                                fontSize: titleFontSize,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: ScreenUtil().setHeight(10)),
                       ],
                     ),
+                    Positioned(
+                      right: availableWidth * 0.10,
+                      top: availableHeight * 0.72,
+                      child: InkWell(
+                        onTap: () {
+                          // TODO: Handle back button tap
+                        },
+                        child: Icon(Icons.arrow_back_ios, size: backIconSize,color: WhiteColor,),
+                      ),
+                    ),
                   ],
-                ),
-              ],
+                );
+              },
             ),
             elevation: 0.0,
-          ),
-        ),
+          )),
         body: SafeArea(
            top: true,
           child: Column(
@@ -95,13 +124,13 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
                     style: TextStyle(
                       color: BlackColor,
                       fontFamily: IranSansWeb,
-                      fontSize: ScreenUtil().setSp(21),
+                      fontSize: ScreenUtil().setSp(20),
                     ),
-                    hint: const Text(
+                    hint:  Text(
                       'میز شماره 1',
                       style: TextStyle(
                         fontFamily: 'Poppins',
-                        fontSize: 21,
+                        fontSize: ScreenUtil().setSp(20),
                       ),
                     ),
                     underline: Container(),
@@ -110,13 +139,13 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 56, 0, 0),
+                padding:  EdgeInsetsDirectional.fromSTEB(0, ScreenUtil().setHeight(56), 0, 0),
                 child: ElevatedButton(
                   onPressed: () {
-                    print('Button pressed ...');
+                    //TODO
                   },
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(145, 45),
+                    minimumSize: Size(ScreenUtil().setWidth(145), ScreenUtil().setHeight(45)),
                     padding: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -136,11 +165,10 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
               Align(
                 alignment: const AlignmentDirectional(0, 0),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 58, 0, 0),
+                  padding:  EdgeInsetsDirectional.fromSTEB(0, ScreenUtil().setHeight(56), 0, 0),
                   child: Image.asset(
                     FastfeedLogo,
-                    width: 214,
-                    height: 240,
+                    height: ScreenUtil().setHeight(240),
                     fit: BoxFit.cover,
                   ),
                 ),
