@@ -7,7 +7,7 @@ class Order{
     this.id,
     required this.tableNumber,
     this.description,
-    this.store
+    required this.store,
   });
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
