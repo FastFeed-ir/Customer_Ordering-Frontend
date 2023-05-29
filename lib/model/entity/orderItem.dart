@@ -20,7 +20,7 @@ class OrderItem {
       id: json['id'],
       product: json['product'],
       productTitle: json['product_title'],
-      productUnitPrice: json['product_unit_price'],
+      productUnitPrice: double.parse(json['product_unit_price'],),
       quantity: json['quantity'],
       order: json['order'],
     );
