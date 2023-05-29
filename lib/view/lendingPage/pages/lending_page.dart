@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/constants.dart';
 
-class XScreen extends StatefulWidget {
-  const XScreen({Key? key}) : super(key: key);
+class LandingScreen extends StatefulWidget {
+  const LandingScreen({Key? key}) : super(key: key);
 
   @override
-  _XScreenState createState() => _XScreenState();
+  _LandingScreenState createState() => _LandingScreenState();
 }
 
-class _XScreenState extends State<XScreen> {
+class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: const Size(360, 800));
@@ -67,7 +67,7 @@ class _XScreenState extends State<XScreen> {
                 padding: EdgeInsets.only(top: ScreenUtil().setHeight(75)),
                 child: ElevatedButton(
                   onPressed: () {
-                    print('Button pressed ...');
+                    //TODO
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(
@@ -94,7 +94,7 @@ class _XScreenState extends State<XScreen> {
                 padding: EdgeInsets.only(top: ScreenUtil().setHeight(45)),
                 child: ElevatedButton(
                   onPressed: () {
-                    print('Button pressed ...');
+                    // TODO
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(
