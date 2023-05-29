@@ -78,6 +78,7 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
+    - assets/landing_page.png
     - assets/logo.png
     - assets/Tick.png
     - assets/zabdar.png
@@ -108,9 +109,12 @@ flutter:
   #         weight: 700
   #
   fonts:
+#    - family: IranSansWeb
+#      fonts:
+#        - asset: fonts/IRANSansWeb(FaNum).ttf
     - family: IranSansWeb
       fonts:
-        - asset: fonts/IRANSansWeb(FaNum).ttf
+        - asset: fonts/Vazir.ttf
 
     - family: FugazOne
       fonts:

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:material_color_gen/material_color_gen.dart';
 
 import 'utils/constants.dart';
+import 'view/lendingPage/pages/lending_page.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           getPages: [
-            //GetPage(name: LandingPage, page: () => LandingScreen()),
+            GetPage(name: LandingPage, page: () => LandingScreen()),
             //GetPage(name: MainMenuPage, page: () => MainMenuScreen()),
             //GetPage(name: PaymentPage, page: () => PaymentScreen()),
             //GetPage(name: SelectTablePage, page: () => SelectTableScreen()),
