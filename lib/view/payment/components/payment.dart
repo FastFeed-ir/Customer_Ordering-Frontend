@@ -5,93 +5,27 @@ import 'package:get/get.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import '../../../model/entity/orderItem.dart';
 import '../../../model/entity/product.dart';
+import '../../../view_model/orderItem_viewmodel.dart';
+import '../../../view_model/order_viewmodel.dart';
 class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({Key? key}) : super(key: key);
-
+  PaymentScreen({Key? key}) : super(key: key);
+  var products = Get.arguments;
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  final List<Order> orderList = [
-    Order(id: 1, table_number: 5, store: 1, description: "aa"),
-  ];
-  final List<OrderItem> orderItemList = [
-    OrderItem(
-      order: 1,
-      quantity: 2,
-      product: 2,
-      product_title: "کباب",
-      product_unit_price: 20000,),
-    OrderItem(
-      order: 1,
-      quantity: 3,
-      product: 3,
-      product_title: "پیتزا",
-      product_unit_price: 30000,),
-    OrderItem(
-      order: 1,
-      quantity: 4,
-      product: 5,
-      product_title: "اسنک",
-      product_unit_price: 40000,),
-  ];
-  late List<Product> products = [
-    Product(
-      id: 1,
-      title: 'آش',
-      unitPrice: 20000,
-      isAvailable: true,
-      collectionId: 1,
-      storeId: 1,
-      description:
-      'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،',
-    ),
-    Product(
-      id: 2,
-      title: 'کباب',
-      unitPrice: 20000,
-      isAvailable: true,
-      collectionId: 1,
-      storeId: 1,
-      description: 'خوشمزه است',
-      Quantity: 5,
-    ),
-    Product(
-      id: 3,
-      title: 'حلیم',
-      unitPrice: 20000,
-      isAvailable: true,
-      collectionId: 1,
-      storeId: 1,
-      description: 'خوشمزه است',
-      Quantity: 2,
-    ),
-    Product(
-      id: 4,
-      title: 'پیتزا',
-      unitPrice: 20000,
-      isAvailable: true,
-      collectionId: 2,
-      storeId: 1,
-      description: 'خوشمزه است',
-    ),
-    Product(
-      id: 5,
-      title: 'اسنک',
-      unitPrice: 20000,
-      isAvailable: true,
-      collectionId: 2,
-      storeId: 1,
-      description: 'خوشمزه است',
-    ),
-  ];
+  late List<Product> products = [];
   late double sum;
   late double totalCost = 0;
   late String explainText;
+  late int orderId;
+  final _orderViewModel = OrderViewModel();
+  final _orderItemViewModel = OrderItemViewModel();
 
   @override
   void initState() {
+    products = widget.products;
     sum = 0;
     for(var product in products){
       product.priceCount = (product.quantity ?? 0) * product.unitPrice;
@@ -447,7 +381,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ),
     );
   }
-
   Widget sendOrder() {
     return Container(
       padding: EdgeInsets.only(top: 10,right: 100,left: 100, bottom: 10,),
@@ -455,11 +388,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
         onPressed: (){
           products.removeWhere((element) => element.quantity == 0);
           // TODO send total cost for payment
-          print(totalCost);
+          // TODO get tableNumber and set
           // TODO product -> orderItem
-          products.forEach((element) {print("${element.title} \t ${element.Quantity}");});
-          //Get.toNamed("");
-          products.clear();
+          Order order = Order( store: 3,tableNumber: 5, description: explainText);
+          _orderViewModel.addOrder(order).asStream().listen((event) async {
+            orderId = event.id ?? 0;
+            _addOrderItem(orderId);
+          });
+          //print(totalCost);
+          //products.forEach((element) {print("${element.title} \t ${element.Quantity}");});
+
         },
         child: Text(
           "ثبت سفارش",
@@ -472,5 +410,22 @@ class _PaymentScreenState extends State<PaymentScreen> {
         ),
       ),
     );
+  }
+  void _addOrderItem(int orderId) {
+    int? product;
+    String productTitle ;
+    double? productUnitPrice ;
+    int quantity ;
+    for(var item in products){
+      product = item.id;
+      productTitle = item.title;
+      productUnitPrice = item.priceCount;
+      quantity = item.quantity;
+      OrderItem orderItem = OrderItem(product: product, quantity: quantity, order: orderId, productTitle: productTitle, productUnitPrice: productUnitPrice,);
+      _orderItemViewModel.addOrderItem(orderItem).asStream().listen((event) async{});
+    }
+    print("mission complete");
+    products.clear();
+    //Get.toNamed(SuccessfulPage,);
   }
 }
