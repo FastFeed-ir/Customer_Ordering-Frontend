@@ -9,7 +9,8 @@ class StoreRatingRepositoryImpl extends StoreRatingRepository {
     print(
         'response: ${response.statusMessage}   responceCode: ${response.statusCode}');
     if (response.statusCode == 200) {
-      return StoreRatingData.fromJson(response.data);
+      var storeRatingData = StoreRatingData.fromJson(response.data);
+      return storeRatingData;
     } else {
       throw Exception('Invalid response');
     }

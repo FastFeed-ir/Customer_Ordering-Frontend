@@ -7,7 +7,7 @@ class StoreRatingViewModel extends ChangeNotifier {
   StoreRatingData storeRatingData = StoreRatingData();
 
   void getRatings(int storeId) async {
-    storeRatingData = repository.getRatings(storeId) as StoreRatingData;
+    storeRatingData =  await repository.getRatings(storeId);
     notifyListeners();
   }
 }
