@@ -1,8 +1,9 @@
-
 import '../entity/store.dart';
 
-abstract class StoreRepository{
+abstract class StoreRepository {
   Future<List<Store>> getStores(int id);
+
+  Future<Store> getStore(int storeId);
 
   Future<Store> addStore(Store store);
 
