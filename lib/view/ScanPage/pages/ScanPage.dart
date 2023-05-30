@@ -54,13 +54,14 @@ class _ScanScreenState extends State<ScanScreen> {
         print(_qrCodeData);
         SharedPreferences prefs = await SharedPreferences.getInstance();
         int? storeId = int.tryParse(_qrCodeData);
-        prefs.setInt("StorId", storeId!);
-        print("set Store Id: $storeId");
-        _storeViewModel.getStore(storeId);
+        _storeViewModel.getStore(storeId!);
         if (_storeViewModel.store.title != null) {
+          prefs.setInt("StorId", storeId);
+          print("set Store Id: $storeId");
           var tableCount = _storeViewModel.store.tables_count!;
           prefs.setInt("tableCount", tableCount);
           print("set Table Count: $tableCount");
+          Get.toNamed(LandingPage);
           // var storeName= _storeViewModel.store.title!;
           // prefs.setString("storeTitle",storeName);
           // print("set Store Title: $storeName");

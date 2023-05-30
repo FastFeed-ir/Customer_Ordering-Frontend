@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../../utils/constants.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -67,7 +68,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 padding: EdgeInsets.only(top: ScreenUtil().setHeight(75)),
                 child: ElevatedButton(
                   onPressed: () {
-                    //TODO
+                    Get.toNamed(SelectTablePage,arguments: true);
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(
@@ -94,7 +95,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 padding: EdgeInsets.only(top: ScreenUtil().setHeight(45)),
                 child: ElevatedButton(
                   onPressed: () {
-                    // TODO
+                    Get.toNamed(SelectTablePage,arguments: false);
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(
