@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
             //GetPage(name: CommentsPage, page: () => CommentsScreen(),),
             //GetPage(name: ScoringPage, page: () => ScoringScreen()),
             //GetPage(name: SendCommentPage, page: () => SendCommentScreen()),
-            GetPage(name: SendCommentPage, page: () => const ScanScreen()),
+            GetPage(name: ScanPage, page: () => const ScanScreen()),
           ],
           // title: 'FastFeed',
           initialRoute: SendCommentPage,
