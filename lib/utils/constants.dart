@@ -111,7 +111,7 @@ Widget loading() {
     child: Center(
       child: SpinKitCircle(
         size: 100,
-        duration: Duration(seconds: 20),
+        duration: Duration(seconds: 10),
         itemBuilder: (context, index) {
           final colors = [YellowColor, RedColor];
           final color = colors[index % colors.length];
