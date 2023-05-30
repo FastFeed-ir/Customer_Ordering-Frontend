@@ -1,24 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/constants.dart';
 
 class SelectTableScreen extends StatefulWidget {
-  const SelectTableScreen({Key? key}) : super(key: key);
+  final bool argument; // Add the argument variable
+
+  const SelectTableScreen({Key? key, required this.argument}) : super(key: key);
 
   @override
   _SelectTableScreenState createState() => _SelectTableScreenState();
 }
 
 class _SelectTableScreenState extends State<SelectTableScreen> {
-  int numberOfOptions = 12;
-  //TODO
-  String dropdownValue = 'میز شماره 1';
+  late SharedPreferences prefs;
+  int numberOfOptions =1;
+  String dropdownValue = 'میز 1';
+  Future<void> x() async {
+    prefs = await SharedPreferences.getInstance();
+    numberOfOptions=prefs.getInt("tableCount")!;
+  }
+  int selectedIndex=0;
+  @override
+  initState() {
+    x();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: const Size(360, 800));
-     List<String> options = List.generate(
+    List<String> options = List.generate(
       numberOfOptions,
-      (index) => 'میز شماره ${index + 1}',
+          (index) => 'میز ${index + 1}',
     );
 
     return GestureDetector(
@@ -26,7 +40,7 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(ScreenUtil().setHeight(137)),
           child: AppBar(
-            backgroundColor: RedColor,
+            backgroundColor: widget.argument ? YellowColor : RedColor,
             automaticallyImplyLeading: false,
             flexibleSpace: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -46,7 +60,8 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset(
-                              WhiteLogo,
+                              widget.argument ? BlackLogo:WhiteLogo
+                              ,
                               height: logoHeight,
                               fit: BoxFit.cover,
                             ),
@@ -55,7 +70,7 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
                               'انتخاب میز',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: WhiteColor,
+                                color: widget.argument ? BlackColor:WhiteColor,
                                 fontFamily: IranSansWeb,
                                 fontSize: titleFontSize,
                               ),
@@ -69,9 +84,9 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
                       top: availableHeight * 0.72,
                       child: InkWell(
                         onTap: () {
-                          // TODO: Handle back button tap
+                          Get.back();
                         },
-                        child: Icon(Icons.arrow_back_ios, size: backIconSize,color: WhiteColor,),
+                        child: Icon(Icons.arrow_back_ios, size: backIconSize, color: widget.argument ? BlackColor:WhiteColor),
                       ),
                     ),
                   ],
@@ -79,39 +94,42 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
               },
             ),
             elevation: 0.0,
-          )),
+          ),
+        ),
         body: SafeArea(
-           top: true,
+          top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               Align(
-                alignment: AlignmentDirectional(0, 0),
+                alignment: const AlignmentDirectional(0, 0),
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
                   child: Text(
                     'انتخاب میز',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                    color: BlackColor,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: IranSansWeb,
-                    fontSize: ScreenUtil().setSp(28),
-                  ),
+                      color: BlackColor,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: IranSansWeb,
+                      fontSize: ScreenUtil().setSp(24),
+                    ),
                   ),
                 ),
               ),
               Align(
                 alignment: const AlignmentDirectional(0, 0),
                 child: Padding(
-                  padding: EdgeInsets.only(top: ScreenUtil().setHeight(42)),
+                  padding: EdgeInsets.only(top: ScreenUtil().setHeight(20)),
                   child: DropdownButton<String>(
                     value: dropdownValue,
                     onChanged: (String? newValue) {
                       setState(() {
                         dropdownValue = newValue!;
+                        selectedIndex  = options.indexOf(dropdownValue)+1;
                       });
                     },
+
                     items: options.map((String option) {
                       return DropdownMenuItem<String>(
                         value: option,
@@ -126,8 +144,8 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
                       fontFamily: IranSansWeb,
                       fontSize: ScreenUtil().setSp(20),
                     ),
-                    hint:  Text(
-                      'میز شماره 1',
+                    hint: Text(
+                      'میز 1',
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         fontSize: ScreenUtil().setSp(20),
@@ -139,10 +157,15 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
                 ),
               ),
               Padding(
-                padding:  EdgeInsetsDirectional.fromSTEB(0, ScreenUtil().setHeight(56), 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(0, ScreenUtil().setHeight(20), 0, 0),
                 child: ElevatedButton(
                   onPressed: () {
-                    //TODO
+                    prefs.setInt("table",selectedIndex);
+                    if (widget.argument) {
+                      // Handle option nazar//TODO
+                    } else {
+                      // Handle option sefaresh//TODO
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(ScreenUtil().setWidth(145), ScreenUtil().setHeight(45)),
@@ -150,12 +173,12 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    backgroundColor: YellowColor,
+                    backgroundColor: widget.argument ? YellowColor : RedColor,
                   ),
                   child: Text(
                     'تایید',
                     style: TextStyle(
-                      color: BlackColor,
+                      color: widget.argument ? BlackColor:WhiteColor,
                       fontFamily: IranSansWeb,
                       fontSize: ScreenUtil().setSp(20),
                     ),
@@ -165,10 +188,10 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
               Align(
                 alignment: const AlignmentDirectional(0, 0),
                 child: Padding(
-                  padding:  EdgeInsetsDirectional.fromSTEB(0, ScreenUtil().setHeight(56), 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, ScreenUtil().setHeight(56), 0, 0),
                   child: Image.asset(
                     FastfeedLogo,
-                    height: ScreenUtil().setHeight(240),
+                    height: ScreenUtil().setHeight(200),
                     fit: BoxFit.cover,
                   ),
                 ),
