@@ -1,9 +1,13 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../../utils/constants.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../view_model/store_viewmodel.dart';
 
 class ScanScreen extends StatefulWidget {
   const ScanScreen({Key? key}) : super(key: key);
@@ -14,6 +18,8 @@ class ScanScreen extends StatefulWidget {
 
 class _ScanScreenState extends State<ScanScreen> {
   String _qrCodeData = 'Scan a QR code';
+  final _storeViewModel = StoreViewModel();
+
   @override
   void initState() {
     super.initState();
@@ -40,8 +46,7 @@ class _ScanScreenState extends State<ScanScreen> {
     return "";
   }
 
-  Future<void> _scanQRCode() async {
-    try {
+  void _scanQRCode() async {
       final qrCodeData = await scanner.scan();
       final lastSegment = extractLastValue(qrCodeData!);
       if (lastSegment.isNotEmpty) {
@@ -51,15 +56,23 @@ class _ScanScreenState extends State<ScanScreen> {
         int? storeId = int.tryParse(_qrCodeData);
         prefs.setInt("StorId", storeId!);
         print("set Store Id: $storeId");
+        _storeViewModel.getStore(storeId);
+        if (_storeViewModel.store.title != null) {
+          var tableCount = _storeViewModel.store.tables_count!;
+          prefs.setInt("tableCount", tableCount);
+          print("set Table Count: $tableCount");
+          // var storeName= _storeViewModel.store.title!;
+          // prefs.setString("storeTitle",storeName);
+          // print("set Store Title: $storeName");
+        } else {
+          showSnackbar('لطفا اشتراک رستوران را چک کنید!');
+          return; // Exit the method early if store is not found
+        }
       } else {
         showSnackbar('لطفا کد QR درست را اسکن کنید!');
       }
-    } catch (e) {
-      setState(() {
-        _qrCodeData = 'خطا در اسکن $e';
-      });
-    }
   }
+
 
   void showSnackbar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(

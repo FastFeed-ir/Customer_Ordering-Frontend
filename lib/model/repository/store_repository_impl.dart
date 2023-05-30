@@ -63,7 +63,7 @@ class StoreRepositoryImpl extends StoreRepository {
       var store = Store.fromJson(response.data);
       return store;
     } else {
-      throw Exception('Invalid response');
+      return Store();
     }
   }
 }
