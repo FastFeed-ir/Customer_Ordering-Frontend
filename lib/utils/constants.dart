@@ -20,6 +20,7 @@ String InformationsPage = "/informationsPage";
 String CommentsPage = "/commentsPage";
 String ScoringPage = "/scoringPage";
 String SendCommentPage = "/sendCommentPage";
+String RatingPage = "/ratingPage";
 //String Page = "/Page";
 
 //Strings, Names, Address
@@ -34,6 +35,7 @@ String Tick = "assets/Tick.png";
 String Zabdar = "assets/zabdar.png";
 String RestaurantLogoDef = "assets/restarauntLogo.png";
 String WhiteLogo = "assets/logo_white.png";
+String landingPage = "landing_page.png";
 // Fonts
 String IranSansWeb = "IranSansWeb";
 String FugazOne = "FugazOne";
