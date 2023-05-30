@@ -10,9 +10,12 @@ class ProductRepositoryImpl extends ProductRatingRepository {
     print(
         'response: ${response.statusMessage}   responceCode: ${response.statusCode}');
     if (response.statusCode == 200) {
-      return ProductRatingData.fromJson(response.data);
-    } else {
+      var productRatingData = ProductRatingData.fromJson(response.data);
+      return productRatingData;
+    }
+    else {
       throw Exception('Invalid response');
     }
+
   }
 }
