@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
-
+import '../model/entity/storeRating.dart';
 import '../utils/constants.dart';
-class StoreDetails extends StatelessWidget {
-  const StoreDetails({Key? key}) : super(key: key);
+class StoreDetails extends StatefulWidget {
+  final int storeId;
+  final StoreRatingData storeRatingData;
+  StoreDetails({required this.storeId, required this.storeRatingData});
 
+  @override
+  State<StoreDetails> createState() => _StoreDetailsState();
+}
+
+class _StoreDetailsState extends State<StoreDetails> {
+  late int storeId;
+  late StoreRatingData storeRatingData = StoreRatingData();
+
+  @override
+  void initState() {
+    storeId = widget.storeId;
+    storeRatingData = widget.storeRatingData;
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -12,7 +27,7 @@ class StoreDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // TODO sotre name API
-        titleStyle("نام فروشگاه"),
+        titleStyle(storeRatingData.name ?? "فست فید"),
         storeInfo(),
         SizedBox(height: 10,),
         storeComments(),
@@ -38,8 +53,8 @@ class StoreDetails extends StatelessWidget {
   }
 
   Widget totalScores(double scoreAvg, int totalScore, IconData icon) {
-    String scoreAvgStr = scoreAvg.toString().toPersianDigit();
-    String totalScoreStr = totalScore.toString().toPersianDigit();
+    String scoreAvgStr = (storeRatingData.averageRating??0).toString().toPersianDigit();
+    String totalScoreStr = (storeRatingData.ratingCount??0).toString().toPersianDigit();
     String totalAvg = 5.toString().toPersianDigit();
     return Column(
       children: [
@@ -71,7 +86,6 @@ class StoreDetails extends StatelessWidget {
             ],
           ),
         ),
-
       ],
     );
   }
@@ -101,7 +115,7 @@ class StoreDetails extends StatelessWidget {
   }
 
   Widget commentsCount(int totalComments ,IconData icon) {
-    String totalCommentsStr = totalComments.toString().toPersianDigit();
+    String totalCommentsStr = (storeRatingData.commentCount??0).toString().toPersianDigit();
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
