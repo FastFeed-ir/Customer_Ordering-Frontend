@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:customer_ordering_frontend/view/search.dart';
 import 'package:customer_ordering_frontend/view/serach1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,16 +6,19 @@ import 'package:persian_number_utility/persian_number_utility.dart';
 import '../model/entity/Rating.dart';
 import '../model/entity/collection.dart';
 import '../model/entity/product.dart';
+import '../model/entity/productRating.dart';
 import '../utils/constants.dart';
-import '../view_model/collection_view_model.dart';
-import '../view_model/rating_view_model.dart';
 
 List<Collection> searchCollection = [];
 List<Product> searchProduct = [];
 List<Rating> searchRating = [];
 
 class CategoriesList extends StatefulWidget {
-  const CategoriesList({Key? key}) : super(key: key);
+  final int storeId;
+  final List<Collection> collections;
+  final ProductRatingData productRatingData;
+
+  CategoriesList({required this.storeId, required this.collections, required this.productRatingData,});
 
   @override
   State<CategoriesList> createState() => _CategoriesListState();
@@ -24,100 +26,31 @@ class CategoriesList extends StatefulWidget {
 
 class _CategoriesListState extends State<CategoriesList> {
   late int _selectedCategoryId;
-  final TextEditingController _searchController = TextEditingController();
-
   // TODO initial storeId
-  late int storeId;
-  final List<Collection> collections = [
-    Collection(
-      id: 1,
-      title: 'ایرانی',
-      storeId: 1,
-      products: [
-        Product(
-          id: 1,
-          title: 'آش',
-          unitPrice: 20000,
-          isAvailable: true,
-          collectionId: 1,
-          storeId: 1,
-          description:
-              'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،',
-        ),
-        Product(
-          id: 2,
-          title: 'کباب',
-          unitPrice: 20000,
-          isAvailable: true,
-          collectionId: 1,
-          storeId: 1,
-          description: 'خوشمزه است',
-        ),
-        Product(
-          id: 3,
-          title: 'حلیم',
-          unitPrice: 20000,
-          isAvailable: true,
-          collectionId: 1,
-          storeId: 1,
-          description: 'خوشمزه است',
-        ),
-      ],
-    ),
-    Collection(id: 2, title: 'فست فود', storeId: 1, products: [
-      Product(
-        id: 4,
-        title: 'پیتزا',
-        unitPrice: 20000,
-        isAvailable: true,
-        collectionId: 2,
-        storeId: 1,
-        description: 'خوشمزه است',
-      ),
-      Product(
-        id: 5,
-        title: 'اسنک',
-        unitPrice: 20000,
-        isAvailable: true,
-        collectionId: 2,
-        storeId: 1,
-        description: 'خوشمزه است',
-      ),
-    ]),
-  ];
+  late int storeId ;
+  late List<Collection> collections = [];
   late List<Product> products = [];
   late List<Product> orderProducts = [];
   late List<Product> totalProducts = [];
-  final List<Rating> _rates = [
-    Rating(product: 1, score: 4),
-    Rating(product: 2, score: 5),
-    Rating(product: 3, score: 3),
-    Rating(product: 4, score: 1),
-    Rating(product: 5, score: 2),
-  ];
-  final _collectionViewModel = CollectionViewModel();
-  final _ratingViewModel = RatingViewModel();
-
+  late ProductRatingData productRatingData = ProductRatingData();
   // TODO false
-  var _gotFromServer = true;
 
   @override
   void initState() {
-    _selectedCategoryId = collections[0].id ?? 0;
-    //loadFood();
-    //getRate();
-    for (var collection in collections) {
-      for (var product in collection.products!) {
+    storeId = widget.storeId;
+    collections = widget.collections;
+    print("collections: ${collections.length}");
+    for(var collection in collections){
+      for(var product in collection.products!){
         products.add(product);
       }
     }
+    productRatingData = widget.productRatingData;
+    _selectedCategoryId = 0;
   }
-
   @override
   Widget build(BuildContext context) {
-    return !_gotFromServer
-        ? loading()
-        : Column(
+    return Column(
             children: [
               Row(
                 children: [
@@ -131,9 +64,6 @@ class _CategoriesListState extends State<CategoriesList> {
                         color: BlackColor,
                       ),
                       onPressed: () {
-                        searchProduct = products;
-                        searchRating = _rates;
-                        // Get.toNamed(SearchPage);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -173,7 +103,7 @@ class _CategoriesListState extends State<CategoriesList> {
         return GestureDetector(
           onTap: () {
             setState(() {
-              _selectedCategoryId = collections[index].id!;
+              _selectedCategoryId = index;
             });
           },
           child: Container(
@@ -181,7 +111,7 @@ class _CategoriesListState extends State<CategoriesList> {
             margin: EdgeInsets.only(left: 10),
             width: 100,
             decoration: BoxDecoration(
-              color: _selectedCategoryId == collections[index].id
+              color: _selectedCategoryId == index
                   ? RedColor
                   : WhiteColor,
               border: Border.all(color: BlackColor),
@@ -191,7 +121,7 @@ class _CategoriesListState extends State<CategoriesList> {
               child: Text(
                 collections[index].title,
                 style: TextStyle(
-                  color: _selectedCategoryId == collections[index].id
+                  color: _selectedCategoryId == index
                       ? WhiteColor
                       : RedColor,
                   height: 1.0,
@@ -209,10 +139,11 @@ class _CategoriesListState extends State<CategoriesList> {
       children: [
         Column(
           children: List.generate(
-            collections[_selectedCategoryId - 1].products!.length,
+            // TODO _selectedCategoryId
+            collections[_selectedCategoryId].products!.length,
             (index) {
               final product =
-                  collections[_selectedCategoryId - 1].products![index];
+                  collections[_selectedCategoryId].products![index];
               return Directionality(
                 textDirection: TextDirection.ltr,
                 child: Container(
@@ -267,7 +198,7 @@ class _CategoriesListState extends State<CategoriesList> {
                                   text: TextSpan(
                                     children: [
                                       TextSpan(
-                                        text: "${_rates[index].score}"
+                                        text: "${(product.rate?.round()?? 0)}"
                                             .toPersianDigit(),
                                         style: TextStyle(
                                           color: BlackColor,
@@ -291,7 +222,8 @@ class _CategoriesListState extends State<CategoriesList> {
                                   style: TextStyle(
                                       fontFamily: IranSansWeb,
                                       fontSize: 22,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ],
                             ),
@@ -354,7 +286,7 @@ class _CategoriesListState extends State<CategoriesList> {
           width: 5,
           child: ElevatedButton(
             onPressed: () {
-              for (var product in products) {
+              for(var product in products){
                 orderProducts.add(product);
               }
               orderProducts.removeWhere((element) => element.quantity == 0);
@@ -397,8 +329,7 @@ class _CategoriesListState extends State<CategoriesList> {
                     }
                     for (var element in products) {
                       if (element.id == product.id) {
-                        products[products.indexOf(element)].Quantity =
-                            product.quantity;
+                        products[products.indexOf(element)].Quantity = product.quantity;
                       }
                     }
                   },
@@ -427,8 +358,7 @@ class _CategoriesListState extends State<CategoriesList> {
                 );
                 for (var element in products) {
                   if (element.id == product.id) {
-                    products[products.indexOf(element)].Quantity =
-                        product.quantity;
+                    products[products.indexOf(element)].Quantity = product.quantity;
                   }
                 }
               },
@@ -443,8 +373,7 @@ class _CategoriesListState extends State<CategoriesList> {
     );
   }
 
-  ButtonStyle buttonStyle(
-      double width, double height, double radius, Color color) {
+  ButtonStyle buttonStyle(double width, double height, double radius, Color color) {
     return ButtonStyle(
       backgroundColor: MaterialStateProperty.all<Color>(color),
       elevation: MaterialStateProperty.all<double>(0.0),
@@ -461,41 +390,4 @@ class _CategoriesListState extends State<CategoriesList> {
     );
   }
 
-  void loadFood() {
-    var storeId = 1;
-    _collectionViewModel.getCollections(storeId);
-    _collectionViewModel.getProducts(storeId);
-    _collectionViewModel.collections.stream.listen((listCollections) {
-      _collectionViewModel.products.stream.listen((listProducts) {
-        setState(() {
-          _gotFromServer = true;
-          collections.addAll(listCollections);
-          for (var collection in collections) {
-            collection.products = [];
-            for (var product in listProducts) {
-              if (product.collectionId == collection.id) {
-                collection.products!.add(product);
-              }
-            }
-          }
-        });
-      });
-    });
-  }
-
-  void getRate() {
-    for (var product in products) {
-      _ratingViewModel.getRatings(product.id!);
-      _ratingViewModel.ratings.stream.listen(
-        (list) async {
-          setState(() {
-            _gotFromServer = true;
-            for (var rating in list) {
-              _rates.add(rating as Rating);
-            }
-          });
-        },
-      );
-    }
-  }
 }
