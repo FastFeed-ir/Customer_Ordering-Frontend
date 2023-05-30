@@ -14,7 +14,6 @@ class ScanScreen extends StatefulWidget {
 
 class _ScanScreenState extends State<ScanScreen> {
   String _qrCodeData = 'Scan a QR code';
-
   @override
   void initState() {
     super.initState();
@@ -24,25 +23,20 @@ class _ScanScreenState extends State<ScanScreen> {
   Future<void> requestCameraPermission() async {
     final status = await Permission.camera.request();
     if (status.isGranted) {
-      print('Camera permission granted');
     } else if (status.isDenied) {
-      print('Camera permission denied');
-    } else if (status.isPermanentlyDenied) {
-      print('Camera permission permanently denied');
+      showSnackbar(
+          'لطفا برنامه را clear data کنید و دوباره باز کنید تا اجازه دسترسی داده شود.');
     }
   }
 
   String extractLastValue(String text) {
-    // Check if the text is in the correct format
     if (text.startsWith("http://fastfeed.ir/") && text.endsWith("/")) {
-      // Extract the last value after the last forward slash
       final parts = text.split("/");
       if (parts.length >= 2) {
         return parts[parts.length - 2];
       }
     }
 
-    // Return an empty string if the format is not correct or the value cannot be extracted
     return "";
   }
 
@@ -51,11 +45,12 @@ class _ScanScreenState extends State<ScanScreen> {
       final qrCodeData = await scanner.scan();
       final lastSegment = extractLastValue(qrCodeData!);
       if (lastSegment.isNotEmpty) {
-        setState(() async {
-          _qrCodeData = lastSegment;
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString("StorId", _qrCodeData);
-        });
+        _qrCodeData = lastSegment;
+        print(_qrCodeData);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        int? storeId = int.tryParse(_qrCodeData);
+        prefs.setInt("StorId", storeId!);
+        print("set Store Id: $storeId");
       } else {
         showSnackbar('لطفا کد QR درست را اسکن کنید!');
       }
@@ -142,8 +137,6 @@ class _ScanScreenState extends State<ScanScreen> {
                   ),
                 ),
               ),
-              //const SizedBox(height: 16),
-              //Text(_qrCodeData),
             ],
           ),
         ),
