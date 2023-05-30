@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           getPages: [
             //GetPage(name: LandingPage, page: () => LandingScreen()),
-            GetPage(name: MainMenuPage, page: () => MainMenuScreen()),
+            GetPage(name: MainMenuPage, page: () => MainMenuScreen(storeId: 4,)),
             //GetPage(name: PaymentPage, page: () => PaymentScreen()),
             //GetPage(name: SelectTablePage, page: () => SelectTableScreen()),
             //GetPage(name: SuccessfulPage, page: () => SuccessfulScreen()),
