@@ -174,21 +174,37 @@ class _CategoriesListState extends State<CategoriesList> {
                             SizedBox(
                               width: 100,
                               height: 100,
-                              child: product.image != null
-                                  ? Image.memory(
-                                      base64.decode(
-                                        product.image!,
-                                      ),
-                                      fit: BoxFit.cover,
-                                      width: 100,
-                                      height: 100,
-                                    )
-                                  : Image.asset(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: product.image == null
+                                    ? Image.asset(
+                                  EmptyImg,
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                )
+                                    : Image.memory(
+                                  base64.decode(product.image!),
+                                  fit: BoxFit.cover,
+                                  width: 100,
+                                  height: 100,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Image.asset(
                                       EmptyImg,
                                       width: 100,
                                       height: 100,
-                                    ),
+                                      fit: BoxFit.cover,
+                                    );
+                                  },
+                                ),
+                              ),
                             ),
+                            if (product.image == null)
+                              Positioned.fill(
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              ),
                             foodCounter(product),
                           ],
                         ),

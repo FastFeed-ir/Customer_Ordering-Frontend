@@ -70,12 +70,10 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   void loadStoreRating(){
     _storeRatingViewModel.getRatings(storeId);
     storeRatingData = _storeRatingViewModel.storeRatingData;
-    print("** storeRatingData: ${storeRatingData.averageRating}");
   }
   void loadProductRating(int productId){
     _productRatingViewModel.getRatings(productId);
     productRatingData = _productRatingViewModel.productRatingData;
-    print("++ productRatingData: ${productRatingData.averageRating}");
   }
   Future<void> loadFood() async{
     _collectionViewModel.getCollections(storeId);
