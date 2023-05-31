@@ -2,9 +2,9 @@ import '../entity/collection.dart';
 import '../entity/product.dart';
 
 abstract class CollectionRepository {
-  Future<List<Collection>> getCollections(int id);
+  Future<List<Collection>> getCollections(int storeId);
 
-  Future<List<Product>> getProducts(int id);
+  Future<List<Product>> getProducts(int storeId);
 
   Future<Collection> addCollection(Collection collection);
 
