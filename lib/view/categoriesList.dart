@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:convert';
 import 'package:customer_ordering_frontend/view/serach1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +18,11 @@ class CategoriesList extends StatefulWidget {
   final List<Collection> collections;
   final ProductRatingData productRatingData;
 
-  CategoriesList({required this.storeId, required this.collections, required this.productRatingData,});
+  CategoriesList({
+    required this.storeId,
+    required this.collections,
+    required this.productRatingData,
+  });
 
   @override
   State<CategoriesList> createState() => _CategoriesListState();
@@ -26,13 +30,16 @@ class CategoriesList extends StatefulWidget {
 
 class _CategoriesListState extends State<CategoriesList> {
   late int _selectedCategoryId;
+
   // TODO initial storeId
-  late int storeId ;
+  late int storeId;
+
   late List<Collection> collections = [];
   late List<Product> products = [];
   late List<Product> orderProducts = [];
   late List<Product> totalProducts = [];
   late ProductRatingData productRatingData = ProductRatingData();
+
   // TODO false
 
   @override
@@ -40,59 +47,59 @@ class _CategoriesListState extends State<CategoriesList> {
     storeId = widget.storeId;
     collections = widget.collections;
     print("collections: ${collections.length}");
-    for(var collection in collections){
-      for(var product in collection.products!){
+    for (var collection in collections) {
+      for (var product in collection.products!) {
         products.add(product);
       }
     }
     productRatingData = widget.productRatingData;
     _selectedCategoryId = 0;
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
-            children: [
-              Row(
-                children: [
-                  SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.search,
-                        size: 24,
-                        color: BlackColor,
+      children: [
+        Row(
+          children: [
+            SizedBox(
+              width: 30,
+              height: 30,
+              child: IconButton(
+                icon: Icon(
+                  Icons.search,
+                  size: 24,
+                  color: BlackColor,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchPagee(
+                        products: products,
+                        onSearch: (List<Product> results) {
+                          setState(() {});
+                        },
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SearchPagee(
-                              products: products,
-                              onSearch: (List<Product> results) {
-                                setState(() {
-                                });
-                              },
-                            ),
-                          ),
-                        );
-                      },
                     ),
-                  ),
-                  SizedBox(width: 5),
-                  SizedBox(width: 5),
-                  SizedBox(
-                      height: 35,
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: categoryBuild()),
-                ],
+                  );
+                },
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5,
-                child: productsList(),
-              ),
-            ],
-          );
+            ),
+            SizedBox(width: 5),
+            SizedBox(width: 5),
+            SizedBox(
+                height: 35,
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: categoryBuild()),
+          ],
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.5,
+          child: productsList(),
+        ),
+      ],
+    );
   }
 
   Widget categoryBuild() {
@@ -142,8 +149,7 @@ class _CategoriesListState extends State<CategoriesList> {
             // TODO _selectedCategoryId
             collections[_selectedCategoryId].products!.length,
             (index) {
-              final product =
-                  collections[_selectedCategoryId].products![index];
+              final product = collections[_selectedCategoryId].products![index];
               return Directionality(
                 textDirection: TextDirection.ltr,
                 child: Container(
@@ -168,19 +174,20 @@ class _CategoriesListState extends State<CategoriesList> {
                             SizedBox(
                               width: 100,
                               height: 100,
-                              child: CachedNetworkImage(
-                                imageUrl: "",
-                                width: 100,
-                                height: 100,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset(
-                                  EmptyImg,
-                                  width: 100,
-                                  height: 100,
-                                ),
-                              ),
+                              child: product.image != null
+                                  ? Image.memory(
+                                      base64.decode(
+                                        product.image!,
+                                      ),
+                                      fit: BoxFit.cover,
+                                      width: 100,
+                                      height: 100,
+                                    )
+                                  : Image.asset(
+                                      EmptyImg,
+                                      width: 100,
+                                      height: 100,
+                                    ),
                             ),
                             foodCounter(product),
                           ],
@@ -198,7 +205,7 @@ class _CategoriesListState extends State<CategoriesList> {
                                   text: TextSpan(
                                     children: [
                                       TextSpan(
-                                        text: "${(product.rate?.round()?? 0)}"
+                                        text: "${(product.rate?.round() ?? 0)}"
                                             .toPersianDigit(),
                                         style: TextStyle(
                                           color: BlackColor,
@@ -220,9 +227,9 @@ class _CategoriesListState extends State<CategoriesList> {
                                 Text(
                                   product.title,
                                   style: TextStyle(
-                                      fontFamily: IranSansWeb,
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold,
+                                    fontFamily: IranSansWeb,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ],
@@ -286,7 +293,7 @@ class _CategoriesListState extends State<CategoriesList> {
           width: 5,
           child: ElevatedButton(
             onPressed: () {
-              for(var product in products){
+              for (var product in products) {
                 orderProducts.add(product);
               }
               orderProducts.removeWhere((element) => element.quantity == 0);
@@ -329,7 +336,8 @@ class _CategoriesListState extends State<CategoriesList> {
                     }
                     for (var element in products) {
                       if (element.id == product.id) {
-                        products[products.indexOf(element)].Quantity = product.quantity;
+                        products[products.indexOf(element)].Quantity =
+                            product.quantity;
                       }
                     }
                   },
@@ -358,7 +366,8 @@ class _CategoriesListState extends State<CategoriesList> {
                 );
                 for (var element in products) {
                   if (element.id == product.id) {
-                    products[products.indexOf(element)].Quantity = product.quantity;
+                    products[products.indexOf(element)].Quantity =
+                        product.quantity;
                   }
                 }
               },
@@ -373,7 +382,8 @@ class _CategoriesListState extends State<CategoriesList> {
     );
   }
 
-  ButtonStyle buttonStyle(double width, double height, double radius, Color color) {
+  ButtonStyle buttonStyle(
+      double width, double height, double radius, Color color) {
     return ButtonStyle(
       backgroundColor: MaterialStateProperty.all<Color>(color),
       elevation: MaterialStateProperty.all<double>(0.0),
@@ -389,5 +399,4 @@ class _CategoriesListState extends State<CategoriesList> {
       ),
     );
   }
-
 }
