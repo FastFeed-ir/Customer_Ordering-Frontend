@@ -15,24 +15,28 @@ class SelectTableScreen extends StatefulWidget {
 
 class _SelectTableScreenState extends State<SelectTableScreen> {
   late SharedPreferences prefs;
-  int numberOfOptions =1;
+  int numberOfOptions = 0;
   String dropdownValue = 'میز 1';
   Future<void> x() async {
     prefs = await SharedPreferences.getInstance();
-    numberOfOptions=prefs.getInt("tableCount")!;
+    setState(() {
+      numberOfOptions = prefs.getInt("tableCount")!;
+    });
   }
-  int selectedIndex=0;
+
+  int selectedIndex = 0;
   @override
   initState() {
-    x();
     super.initState();
+    x();
   }
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: const Size(360, 800));
     List<String> options = List.generate(
       numberOfOptions,
-          (index) => 'میز ${index + 1}',
+      (index) => 'میز ${index + 1}',
     );
 
     return GestureDetector(
@@ -60,8 +64,7 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset(
-                              widget.argument ? BlackLogo:WhiteLogo
-                              ,
+                              widget.argument ? BlackLogo : WhiteLogo,
                               height: logoHeight,
                               fit: BoxFit.cover,
                             ),
@@ -70,7 +73,8 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
                               'انتخاب میز',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: widget.argument ? BlackColor:WhiteColor,
+                                color:
+                                    widget.argument ? BlackColor : WhiteColor,
                                 fontFamily: IranSansWeb,
                                 fontSize: titleFontSize,
                               ),
@@ -86,7 +90,9 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
                         onTap: () {
                           Get.back();
                         },
-                        child: Icon(Icons.arrow_back_ios, size: backIconSize, color: widget.argument ? BlackColor:WhiteColor),
+                        child: Icon(Icons.arrow_back_ios,
+                            size: backIconSize,
+                            color: widget.argument ? BlackColor : WhiteColor),
                       ),
                     ),
                   ],
@@ -96,109 +102,117 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
             elevation: 0.0,
           ),
         ),
-        body: SafeArea(
-          top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Align(
-                alignment: const AlignmentDirectional(0, 0),
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
-                  child: Text(
-                    'انتخاب میز',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: BlackColor,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: IranSansWeb,
-                      fontSize: ScreenUtil().setSp(24),
-                    ),
-                  ),
-                ),
-              ),
-              Align(
-                alignment: const AlignmentDirectional(0, 0),
-                child: Padding(
-                  padding: EdgeInsets.only(top: ScreenUtil().setHeight(20)),
-                  child: DropdownButton<String>(
-                    value: dropdownValue,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownValue = newValue!;
-                        selectedIndex  = options.indexOf(dropdownValue)+1;
-                      });
-                    },
-
-                    items: options.map((String option) {
-                      return DropdownMenuItem<String>(
-                        value: option,
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(option),
+        body: numberOfOptions == 0
+            ? loading(ScreenUtil().setSp(56))
+            : SafeArea(
+                top: true,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Align(
+                      alignment: const AlignmentDirectional(0, 0),
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                        child: Text(
+                          'انتخاب میز',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: BlackColor,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: IranSansWeb,
+                            fontSize: ScreenUtil().setSp(24),
+                          ),
                         ),
-                      );
-                    }).toList(),
-                    style: TextStyle(
-                      color: BlackColor,
-                      fontFamily: IranSansWeb,
-                      fontSize: ScreenUtil().setSp(20),
-                    ),
-                    hint: Text(
-                      'میز 1',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: ScreenUtil().setSp(20),
                       ),
                     ),
-                    underline: Container(),
-                    dropdownColor: WhiteColor,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, ScreenUtil().setHeight(20), 0, 0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    prefs.setInt("table",selectedIndex);
-                    if (widget.argument) {
-                      // Handle option nazar//TODO
-                    } else {
-                      // Handle option sefaresh//TODO
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(ScreenUtil().setWidth(145), ScreenUtil().setHeight(45)),
-                    padding: EdgeInsets.zero,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                    Align(
+                      alignment: const AlignmentDirectional(0, 0),
+                      child: Padding(
+                        padding:
+                            EdgeInsets.only(top: ScreenUtil().setHeight(20)),
+                        child: DropdownButton<String>(
+                          value: dropdownValue,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownValue = newValue!;
+                              selectedIndex =
+                                  options.indexOf(dropdownValue) + 1;
+                            });
+                          },
+                          items: options.map((String option) {
+                            return DropdownMenuItem<String>(
+                              value: option,
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(option),
+                              ),
+                            );
+                          }).toList(),
+                          style: TextStyle(
+                            color: BlackColor,
+                            fontFamily: IranSansWeb,
+                            fontSize: ScreenUtil().setSp(20),
+                          ),
+                          hint: Text(
+                            'میز 1',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: ScreenUtil().setSp(20),
+                            ),
+                          ),
+                          underline: Container(),
+                          dropdownColor: WhiteColor,
+                        ),
+                      ),
                     ),
-                    backgroundColor: widget.argument ? YellowColor : RedColor,
-                  ),
-                  child: Text(
-                    'تایید',
-                    style: TextStyle(
-                      color: widget.argument ? BlackColor:WhiteColor,
-                      fontFamily: IranSansWeb,
-                      fontSize: ScreenUtil().setSp(20),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          0, ScreenUtil().setHeight(20), 0, 0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          prefs.setInt("table", selectedIndex);
+                          if (widget.argument) {
+                            // Handle option nazar//TODO
+                          } else {
+                            // Handle option sefaresh//TODO
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(ScreenUtil().setWidth(145),
+                              ScreenUtil().setHeight(45)),
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          backgroundColor:
+                              widget.argument ? YellowColor : RedColor,
+                        ),
+                        child: Text(
+                          'تایید',
+                          style: TextStyle(
+                            color: widget.argument ? BlackColor : WhiteColor,
+                            fontFamily: IranSansWeb,
+                            fontSize: ScreenUtil().setSp(20),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    Align(
+                      alignment: const AlignmentDirectional(0, 0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0, ScreenUtil().setHeight(56), 0, 0),
+                        child: Image.asset(
+                          FastfeedLogo,
+                          height: ScreenUtil().setHeight(200),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Align(
-                alignment: const AlignmentDirectional(0, 0),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, ScreenUtil().setHeight(56), 0, 0),
-                  child: Image.asset(
-                    FastfeedLogo,
-                    height: ScreenUtil().setHeight(200),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
