@@ -36,8 +36,8 @@ String Tick2 = "assets/tick2.png";
 String Zabdar = "assets/zabdar.png";
 String RestaurantLogoDef = "assets/restarauntLogo.png";
 String WhiteLogo = "assets/logo_white.png";
-String BlackLogo = "logo_black.png";
-String landingPage = "landing_page.png";
+String BlackLogo = "assets/logo_black.png";
+String landingPage = "assets/landing_page.png";
 // Fonts
 String IranSansWeb = "IranSansWeb";
 String FugazOne = "FugazOne";
@@ -89,7 +89,7 @@ Widget buildInfoDialog(BuildContext context, String? text, String? Phrase) {
     ],
   );
 }
-Widget loading(){
+Widget loading(double size){
   return Container(
     padding: EdgeInsets.only(
       left: 15.0.w,
@@ -100,7 +100,7 @@ Widget loading(){
     //height: 700.h,
     child: Center(
       child: SpinKitCircle(
-          size: 14.r,
+          size: size.r,
           duration: Duration(seconds: 2),
           itemBuilder: (context, index){
             final colors = [YellowColor, RedColor];
