@@ -12,6 +12,7 @@ const Color GreenColor = Color(0xff2CBA15);
 
 // Pages
 String LandingPage = "/landingPage";
+String ScanPage = "/scanPage";
 String MainMenuPage = "/mainMenuPage";
 String PaymentPage = "/PaymentPage";
 String SelectTablePage = "/selectTablePage";
@@ -20,6 +21,7 @@ String InformationsPage = "/informationsPage";
 String CommentsPage = "/commentsPage";
 String ScoringPage = "/scoringPage";
 String SendCommentPage = "/sendCommentPage";
+String RatingPage = "/ratingPage";
 //String Page = "/Page";
 
 //Strings, Names, Address
@@ -28,11 +30,15 @@ late String Email ;
 late String Address ;
 late String InstagramPage ;
 // Images
+String ScaningPage = "assets/LandingPage.png";
 String FastfeedLogo = "assets/logo.png";
 String Tick = "assets/Tick.png";
+String Tick2 = "assets/tick2.png";
 String Zabdar = "assets/zabdar.png";
 String RestaurantLogoDef = "assets/restarauntLogo.png";
 String WhiteLogo = "assets/logo_white.png";
+String BlackLogo = "assets/logo_black.png";
+String landingPage = "assets/landing_page.png";
 // Fonts
 String IranSansWeb = "IranSansWeb";
 String FugazOne = "FugazOne";
@@ -84,7 +90,7 @@ Widget buildInfoDialog(BuildContext context, String? text, String? Phrase) {
     ],
   );
 }
-Widget loading(){
+Widget loading(double size){
   return Container(
     padding: EdgeInsets.only(
       left: 15.0.w,
@@ -95,7 +101,7 @@ Widget loading(){
     //height: 700.h,
     child: Center(
       child: SpinKitCircle(
-          size: 14.r,
+          size: size.r,
           duration: Duration(seconds: 2),
           itemBuilder: (context, index){
             final colors = [YellowColor, RedColor];
