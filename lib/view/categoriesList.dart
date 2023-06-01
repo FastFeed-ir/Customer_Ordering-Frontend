@@ -16,12 +16,12 @@ List<Rating> searchRating = [];
 class CategoriesList extends StatefulWidget {
   final int storeId;
   final List<Collection> collections;
-  final ProductRatingData productRatingData;
+  late List<Product> products = [];
 
   CategoriesList({
     required this.storeId,
     required this.collections,
-    required this.productRatingData,
+    required this.products,
   });
 
   @override
@@ -33,7 +33,6 @@ class _CategoriesListState extends State<CategoriesList> {
 
   // TODO initial storeId
   late int storeId;
-
   late List<Collection> collections = [];
   late List<Product> products = [];
   late List<Product> orderProducts = [];
@@ -46,13 +45,7 @@ class _CategoriesListState extends State<CategoriesList> {
   void initState() {
     storeId = widget.storeId;
     collections = widget.collections;
-    print("collections: ${collections.length}");
-    for (var collection in collections) {
-      for (var product in collection.products!) {
-        products.add(product);
-      }
-    }
-    productRatingData = widget.productRatingData;
+    products = widget.products;
     _selectedCategoryId = 0;
   }
 
