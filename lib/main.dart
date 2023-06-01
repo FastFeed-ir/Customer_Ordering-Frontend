@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:material_color_gen/material_color_gen.dart';
 
+import 'model/repository/socket_service.dart';
 import 'utils/constants.dart';
 import 'view/payment/components/payment.dart';
 
@@ -19,6 +20,8 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
+        SocketService.setCode("4");
+        SocketService.connectAndListen();
         return GetMaterialApp(
           getPages: [
             //GetPage(name: LandingPage, page: () => LandingScreen()),
