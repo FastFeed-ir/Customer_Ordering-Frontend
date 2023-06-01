@@ -19,7 +19,7 @@ class Order{
   }
   Map<String, dynamic> toJson() => {
     'table_number' : tableNumber,
-    'title': description,
+    'description': description,
     'store': store,
   };
 }
