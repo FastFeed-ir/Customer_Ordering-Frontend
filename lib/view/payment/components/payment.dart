@@ -3,12 +3,12 @@ import 'package:customer_ordering_frontend/model/repository/socket_service.dart'
 import 'package:flutter/material.dart';
 import '../../../utils/constants.dart';
 import 'package:customer_ordering_frontend/model/entity/order.dart';
+import 'package:get/get.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import '../../../model/entity/orderItem.dart';
 import '../../../model/entity/product.dart';
 import '../../../view_model/orderItem_viewmodel.dart';
 import '../../../view_model/order_viewmodel.dart';
-
 class PaymentScreen extends StatefulWidget {
   PaymentScreen({Key? key}) : super(key: key);
   //var products = Get.arguments;
@@ -19,16 +19,16 @@ class PaymentScreen extends StatefulWidget {
 class _PaymentScreenState extends State<PaymentScreen> {
   late List<Product> products = [
     Product(
-      id: 20,
-      title: " کباب",
-      unitPrice: 100000.000,
-      isAvailable: false,
-      collectionId: 9,
-      storeId: 4,
+        id: 20,
+        title:" کباب",
+        unitPrice: 100000.000,
+        isAvailable: false,
+        collectionId: 9,
+        storeId: 4,
     ),
     Product(
       id: 19,
-      title: " جوجه",
+      title:" جوجه",
       unitPrice: 25000.000,
       isAvailable: false,
       collectionId: 9,
@@ -36,7 +36,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     ),
     Product(
       id: 23,
-      title: " پیتزا",
+      title:" پیتزا",
       unitPrice: 10000.000,
       isAvailable: true,
       collectionId: 12,
@@ -44,7 +44,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     ),
     Product(
       id: 24,
-      title: "اسنک",
+      title:"اسنک",
       unitPrice: 120000.000,
       isAvailable: true,
       collectionId: 12,
@@ -63,16 +63,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void initState() {
     //products = widget.products;
     sum = 0;
-    for (var product in products) {
+    for(var product in products){
       product.priceCount = (product.quantity ?? 0) * product.unitPrice;
       sum += product.priceCount ?? 0;
     }
     totalCost = sum;
     // TODO put storeID in socket
+    SocketService.setCode("4");
+    SocketService.connectAndListen();
 
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -80,9 +81,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
         appBar: AppBar(
           // TODO delete products List
           leading: BackButton(
-            onPressed: () {
-              // TODO back orderList
-            },
+              onPressed: () {
+                // TODO back orderList
+              },
           ),
           title: Center(
               child: Text(
@@ -105,7 +106,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ),
     );
   }
-
   Widget ordering() {
     return ListView(
       children: [
@@ -116,12 +116,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ],
     );
   }
-
-  Widget orderItemShow() {
+  Widget orderItemShow(){
     return Column(
       children: List.generate(
         products.length,
-        (index) {
+            (index) {
           final product = products[index];
           return Directionality(
             textDirection: TextDirection.ltr,
@@ -209,7 +208,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ),
     );
   }
-
   Widget foodCounter(Product product, int index) {
     return Container(
       height: 100,
@@ -225,15 +223,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     setState(
-                      () {
+                          () {
                         if (product.quantity > 0) {
                           product.quantity--;
                         }
-                        product.priceCount =
-                            product.quantity * product.unitPrice;
+                        product.priceCount = product.quantity * product.unitPrice;
                         sum = 0;
-                        for (var item in products) {
-                          sum += item.priceCount ?? 0;
+                        for(var item in products){
+                          sum += item.priceCount ?? 0 ;
                         }
                         totalCost = sum;
                         products[index].Quantity = product.quantity;
@@ -257,14 +254,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     setState(
-                      () {
+                          () {
                         product.quantity++;
                       },
                     );
                     product.priceCount = product.quantity * product.unitPrice;
                     sum = 0;
-                    for (var item in products) {
-                      sum += item.priceCount ?? 0;
+                    for(var item in products){
+                      sum += item.priceCount ?? 0 ;
                     }
                     totalCost = sum;
                     products[index].Quantity = product.quantity;
@@ -306,8 +303,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  ButtonStyle buttonStyle(
-      double width, double height, double radius, Color color) {
+  ButtonStyle buttonStyle(double width, double height, double radius, Color color) {
     return ButtonStyle(
       backgroundColor: MaterialStateProperty.all<Color>(color),
       elevation: MaterialStateProperty.all<double>(0.0),
@@ -326,7 +322,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   Widget explain() {
     return Container(
-      padding: EdgeInsets.only(top: 20, right: 20),
+      padding: EdgeInsets.only(top: 20,right: 20),
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -349,9 +345,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
             ],
           ),
-          SizedBox(
-            height: 10,
-          ),
+          SizedBox(height: 10,),
           SizedBox(
             width: 300,
             height: 200,
@@ -429,34 +423,22 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ),
     );
   }
-
   Widget sendOrder() {
-    void sendOrders(SocketData socketData) {
-      SocketService.sendOrder(socketData);
-    }
-
     return Container(
-      padding: EdgeInsets.only(
-        top: 10,
-        right: 100,
-        left: 100,
-        bottom: 10,
-      ),
+      padding: EdgeInsets.only(top: 10,right: 100,left: 100, bottom: 10,),
       child: ElevatedButton(
-        onPressed: () {
+        onPressed: (){
           products.removeWhere((element) => element.quantity == 0);
           // TODO send total cost for payment
           // TODO get tableNumber and set
           // TODO product -> orderItem
-          Order order =
-              Order(store: 3, tableNumber: 77, description: explainText);
+          Order order = Order(store: 3,tableNumber: 5, description: explainText);
           _orderViewModel.addOrder(order).asStream().listen((event) async {
             orderId = event.id ?? 0;
             _addOrderItem(orderId);
           });
-          SocketData socketData =
-              SocketData(order: order, orderItem: orderItems);
-          sendOrders(socketData);
+          SocketData socketData = SocketData(order: order, orderItem: orderItems);
+          SocketService.sendOrder(socketData);
         },
         child: Text(
           "ثبت سفارش",
@@ -470,33 +452,22 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ),
     );
   }
-
   void _addOrderItem(int orderId) {
     int? product;
-    String productTitle;
-    double? productUnitPrice;
-    int quantity;
-    for (var item in products) {
+    String productTitle ;
+    double? productUnitPrice ;
+    int quantity ;
+    for(var item in products){
       product = item.id;
       productTitle = item.title;
       productUnitPrice = item.unitPrice;
       quantity = item.quantity;
-      OrderItem orderItem = OrderItem(
-        product: product,
-        quantity: quantity,
-        order: orderId,
-        productTitle: productTitle,
-        productUnitPrice: productUnitPrice,
-      );
-      _orderItemViewModel
-          .addOrderItem(orderItem)
-          .asStream()
-          .listen((event) async {});
+      OrderItem orderItem = OrderItem(product: product, quantity: quantity, order: orderId, productTitle: productTitle, productUnitPrice: productUnitPrice,);
       orderItems.add(orderItem);
+      _orderItemViewModel.addOrderItem(orderItem).asStream().listen((event) async{});
     }
     print("mission complete");
-
-    // products.clear();
+    products.clear();
     //Get.toNamed(SuccessfulPage,);
   }
 }
