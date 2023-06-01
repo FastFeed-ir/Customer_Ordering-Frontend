@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:customer_ordering_frontend/model/entity/product.dart';
 import 'package:customer_ordering_frontend/utils/constants.dart';
 import 'package:flutter/material.dart';
 import '../model/entity/collection.dart';
@@ -12,7 +13,7 @@ import 'categoriesList.dart';
 import 'storeDetails.dart';
 
 class MainMenuScreen extends StatefulWidget {
-  late int storeId ;
+  late int storeId;
 
   MainMenuScreen({required this.storeId});
 
@@ -21,30 +22,36 @@ class MainMenuScreen extends StatefulWidget {
 }
 
 class _MainMenuScreenState extends State<MainMenuScreen> {
+  late int storeId;
 
-  late int storeId ;
   late bool gotFromServer = false;
-  
+
   late List<Collection> collections = [];
-  
+  late List<Product> products = [];
   late StoreRatingData storeRatingData = StoreRatingData();
   late ProductRatingData productRatingData = ProductRatingData();
   final _storeRatingViewModel = StoreRatingViewModel();
   final _productRatingViewModel = ProductRatingViewModel();
   final _collectionViewModel = CollectionViewModel();
 
-  // TODO false
-  
   @override
   void initState() {
     storeId = widget.storeId;
     loadStoreRating();
-    loadFood().then((_) => Timer(Duration(seconds: 1), (){
-        setState((){
-          gotFromServer = collections.isNotEmpty;
-        });
-      }));
+    loadFood().then(
+      (_) => Timer(
+        const Duration(milliseconds: 500),
+        () {
+          setState(
+            () {
+              gotFromServer = collections.isEmpty && products.isEmpty;
+            },
+          );
+        },
+      ),
+    );
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,30 +59,45 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
         appBar: AppBarMenu(),
         body: Container(
           margin: EdgeInsets.all(5),
-          padding: EdgeInsets.only(top: 5,left: 10, right: 10),
+          padding: EdgeInsets.only(top: 5, left: 10, right: 10),
           child: !gotFromServer
-          ? loading()
-          : Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              StoreDetails(storeId: storeId, storeRatingData: storeRatingData,),
-              SizedBox(height: 10,),
-              CategoriesList(storeId: storeId, collections: collections, productRatingData: productRatingData,),
-            ],
-          ),
+              ? loading()
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    StoreDetails(
+                      storeId: storeId,
+                      name: storeRatingData.name ?? "فست فید",
+                      commentCount: storeRatingData.commentCount ?? 0,
+                      ratingCount: storeRatingData.ratingCount ?? 0,
+                      averageRating: storeRatingData.averageRating ?? 0,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    CategoriesList(
+                      storeId: storeId,
+                      collections: collections,
+                      products: products,
+                    ),
+                  ],
+                ),
         ),
       ),
     );
   }
-  void loadStoreRating(){
+
+  void loadStoreRating() {
     _storeRatingViewModel.getRatings(storeId);
     storeRatingData = _storeRatingViewModel.storeRatingData;
   }
-  void loadProductRating(int productId){
+
+  void loadProductRating(int productId) {
     _productRatingViewModel.getRatings(productId);
     productRatingData = _productRatingViewModel.productRatingData;
   }
-  Future<void> loadFood() async{
+
+  Future<void> loadFood() async {
     _collectionViewModel.getCollections(storeId);
     _collectionViewModel.getProducts(storeId);
     _collectionViewModel.collections.stream.listen((listCollections) {
@@ -86,7 +108,10 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             collection.products = [];
             for (var product in listProducts) {
               if (product.collectionId == collection.id) {
+                loadProductRating(product.id!);
+                product.rate = productRatingData.averageRating ?? 0;
                 collection.products!.add(product);
+                products.add(product);
               }
             }
           }

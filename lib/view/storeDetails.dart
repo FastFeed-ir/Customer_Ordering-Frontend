@@ -4,8 +4,11 @@ import '../model/entity/storeRating.dart';
 import '../utils/constants.dart';
 class StoreDetails extends StatefulWidget {
   final int storeId;
-  final StoreRatingData storeRatingData;
-  StoreDetails({required this.storeId, required this.storeRatingData});
+  final String? name;
+  final int? commentCount;
+  final int? ratingCount;
+  final double? averageRating;
+  StoreDetails({required this.storeId, required this.name, required this.commentCount, required this.ratingCount, required this.averageRating,});
 
   @override
   State<StoreDetails> createState() => _StoreDetailsState();
@@ -13,12 +16,17 @@ class StoreDetails extends StatefulWidget {
 
 class _StoreDetailsState extends State<StoreDetails> {
   late int storeId;
-  late StoreRatingData storeRatingData = StoreRatingData();
-
+  late String? name;
+  late int? commentCount;
+  late int? ratingCount;
+  late double? averageRating;
   @override
   void initState() {
     storeId = widget.storeId;
-    storeRatingData = widget.storeRatingData;
+    name = widget.name;
+    commentCount = widget.commentCount;
+    ratingCount = widget.ratingCount;
+    averageRating = widget.averageRating;
   }
   @override
   Widget build(BuildContext context) {
@@ -27,7 +35,7 @@ class _StoreDetailsState extends State<StoreDetails> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // TODO sotre name API
-        titleStyle(storeRatingData.name ?? "فست فید"),
+        titleStyle(name??"فست فید"),
         storeInfo(),
         SizedBox(height: 10,),
         storeComments(),
@@ -40,7 +48,7 @@ class _StoreDetailsState extends State<StoreDetails> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         // TODO scores from API
-        totalScores(4.5, 5555, Icons.star_border_outlined),
+        totalScores(),
         Container(
           width: 2,
           height: 50,
@@ -52,14 +60,15 @@ class _StoreDetailsState extends State<StoreDetails> {
     );
   }
 
-  Widget totalScores(double scoreAvg, int totalScore, IconData icon) {
-    String scoreAvgStr = (storeRatingData.averageRating??0).toString().toPersianDigit();
-    String totalScoreStr = (storeRatingData.ratingCount??0).toString().toPersianDigit();
+  Widget totalScores() {
+    String scoreAvgStr = (averageRating!.round()).toString().toPersianDigit();
+    String totalScoreStr = ratingCount.toString().toPersianDigit();
     String totalAvg = 5.toString().toPersianDigit();
+    IconData icon = Icons.star_border_outlined;
     return Column(
       children: [
         Text(
-          ("$scoreAvgStrاز$totalAvg"),
+          ("$scoreAvgStr از $totalAvg"),
           style: TextStyle(
             fontFamily: IranSansWeb,
             fontSize: 19,
@@ -73,6 +82,9 @@ class _StoreDetailsState extends State<StoreDetails> {
             children: [
               WidgetSpan(
                 child: Icon(icon, color: BlackColor, size: 15),
+              ),
+              WidgetSpan(
+                child: SizedBox(width: 3,),
               ),
               TextSpan(
                 text: ("$totalScoreStr امتیاز "),
@@ -107,15 +119,16 @@ class _StoreDetailsState extends State<StoreDetails> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          commentsCount(565 ,Icons.message_outlined),
-          showComments("مشاهده نظرات", Icons.arrow_forward_ios_outlined),
+          commentsCount(),
+          showComments(),
         ],
       ),
     );
   }
 
-  Widget commentsCount(int totalComments ,IconData icon) {
-    String totalCommentsStr = (storeRatingData.commentCount??0).toString().toPersianDigit();
+  Widget commentsCount() {
+    String totalCommentsStr = commentCount.toString().toPersianDigit();
+    IconData icon = Icons.message_outlined;
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
@@ -124,7 +137,7 @@ class _StoreDetailsState extends State<StoreDetails> {
             child: Icon(icon, color: BlackColor, size: 15),
           ),
           TextSpan(
-            text: ("$totalCommentsStr نظر "),
+            text: (" $totalCommentsStr  نظر  "),
             style: TextStyle(
               fontSize: 15.0,
               fontWeight: FontWeight.w500,
@@ -137,7 +150,9 @@ class _StoreDetailsState extends State<StoreDetails> {
     );
   }
 
-  Widget showComments(String text, IconData icon) {
+  Widget showComments() {
+    String text = "مشاهده نظرات ";
+    IconData icon = Icons.arrow_forward_ios_outlined;
     return GestureDetector(
       onTap: (){},
       child: RichText(
