@@ -1,3 +1,5 @@
+import 'package:customer_ordering_frontend/model/entity/socketData.dart';
+import 'package:customer_ordering_frontend/model/repository/socket_service.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/constants.dart';
 import 'package:customer_ordering_frontend/model/entity/order.dart';
@@ -9,29 +11,67 @@ import '../../../view_model/orderItem_viewmodel.dart';
 import '../../../view_model/order_viewmodel.dart';
 class PaymentScreen extends StatefulWidget {
   PaymentScreen({Key? key}) : super(key: key);
-  var products = Get.arguments;
+  //var products = Get.arguments;
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  late List<Product> products = [];
+  late List<Product> products = [
+    Product(
+        id: 20,
+        title:" کباب",
+        unitPrice: 100000.000,
+        isAvailable: false,
+        collectionId: 9,
+        storeId: 4,
+    ),
+    Product(
+      id: 19,
+      title:" جوجه",
+      unitPrice: 25000.000,
+      isAvailable: false,
+      collectionId: 9,
+      storeId: 4,
+    ),
+    Product(
+      id: 23,
+      title:" پیتزا",
+      unitPrice: 10000.000,
+      isAvailable: true,
+      collectionId: 12,
+      storeId: 4,
+    ),
+    Product(
+      id: 24,
+      title:"اسنک",
+      unitPrice: 120000.000,
+      isAvailable: true,
+      collectionId: 12,
+      storeId: 4,
+    ),
+  ];
+  late List<OrderItem> orderItems = [];
   late double sum;
   late double totalCost = 0;
-  late String explainText;
+  late String explainText = "";
   late int orderId;
   final _orderViewModel = OrderViewModel();
   final _orderItemViewModel = OrderItemViewModel();
 
   @override
   void initState() {
-    products = widget.products;
+    //products = widget.products;
     sum = 0;
     for(var product in products){
       product.priceCount = (product.quantity ?? 0) * product.unitPrice;
       sum += product.priceCount ?? 0;
     }
     totalCost = sum;
+    // TODO put storeID in socket
+    SocketService.setCode("4");
+    SocketService.connectAndListen();
+
     super.initState();
   }
   @override
@@ -392,14 +432,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
           // TODO send total cost for payment
           // TODO get tableNumber and set
           // TODO product -> orderItem
-          Order order = Order( store: 3,tableNumber: 5, description: explainText);
+          Order order = Order(store: 3,tableNumber: 5, description: explainText);
           _orderViewModel.addOrder(order).asStream().listen((event) async {
             orderId = event.id ?? 0;
             _addOrderItem(orderId);
           });
-          //print(totalCost);
-          //products.forEach((element) {print("${element.title} \t ${element.Quantity}");});
-
+          SocketData socketData = SocketData(order: order, orderItem: orderItems);
+          SocketService.sendOrder(socketData);
         },
         child: Text(
           "ثبت سفارش",
@@ -421,9 +460,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
     for(var item in products){
       product = item.id;
       productTitle = item.title;
-      productUnitPrice = item.priceCount;
+      productUnitPrice = item.unitPrice;
       quantity = item.quantity;
       OrderItem orderItem = OrderItem(product: product, quantity: quantity, order: orderId, productTitle: productTitle, productUnitPrice: productUnitPrice,);
+      orderItems.add(orderItem);
       _orderItemViewModel.addOrderItem(orderItem).asStream().listen((event) async{});
     }
     print("mission complete");
