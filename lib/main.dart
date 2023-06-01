@@ -1,8 +1,11 @@
+import 'package:customer_ordering_frontend/view/mainMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:material_color_gen/material_color_gen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'utils/constants.dart';
+import 'view/search.dart';
 
 import 'model/repository/socket_service.dart';
 import 'utils/constants.dart';
@@ -48,6 +51,8 @@ class _MyAppState extends State<MyApp> {
         return GetMaterialApp(
           getPages: [
             GetPage(name: LandingPage, page: () => LandingScreen()),
+            GetPage(name: MainMenuPage, page: () => MainMenuScreen()),
+            //GetPage(name: PaymentPage, page: () => PaymentScreen()),
             //GetPage(name: MainMenuPage, page: () => MainMenuScreen()),
             GetPage(name: PaymentPage, page: () => PaymentScreen()),
             GetPage(name: SelectTablePage, page: () => SelectTableScreen(argument: Get.arguments)),
@@ -56,6 +61,7 @@ class _MyAppState extends State<MyApp> {
             //GetPage(name: CommentsPage, page: () => CommentsScreen(),),
             //GetPage(name: ScoringPage, page: () => ScoringScreen()),
             //GetPage(name: SendCommentPage, page: () => SendCommentScreen()),
+            GetPage(name: SearchPage, page: () => SearchScreen()),
             GetPage(name: ScanPage, page: () => const ScanScreen()),
           ],
           
@@ -65,6 +71,7 @@ class _MyAppState extends State<MyApp> {
           defaultTransition: Transition.noTransition,
           theme: ThemeData(
             primarySwatch: RedColor.toMaterialColor(),
+            scaffoldBackgroundColor: Colors.white
           ),
           debugShowCheckedModeBanner: false,
           builder: (context, child) {

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import '../model/entity/orderItem.dart';
 import '../model/repository/orderItem_repository_impl.dart';
@@ -19,10 +20,12 @@ class OrderItemViewModel extends ChangeNotifier {
     notifyListeners();
     return newOrderItem;
   }
+
   void editOrderItem(OrderItem orderItem) async {
     repository.editOrderItem(orderItem);
     notifyListeners();
   }
+
   void deleteOrderItem(OrderItem orderItem) async {
     repository.deleteOrderItem(orderItem);
     notifyListeners();

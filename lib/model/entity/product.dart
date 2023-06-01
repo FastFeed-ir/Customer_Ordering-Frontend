@@ -12,6 +12,7 @@ class Product {
   int storeId;
   int? Quantity = 0;
   double? priceCount = 0;
+  double? rate = 0;
   Product({
     this.id,
     required this.title,
@@ -26,6 +27,7 @@ class Product {
     required this.storeId,
     this.Quantity,
     this.priceCount,
+    this.rate,
   });
   int get quantity => Quantity??0; // Add this getter
 
@@ -46,7 +48,9 @@ class Product {
             ? null
             : double.parse(json["discount_percentage"]),
         collectionId: json['collection'],
-        storeId: json['store']);
+        storeId: json['store'],
+
+    );
   }
 
   Map<String, dynamic> toJson() => {
