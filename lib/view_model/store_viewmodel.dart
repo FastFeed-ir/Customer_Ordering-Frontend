@@ -6,11 +6,14 @@ import '../model/repository/store_repository_impl.dart';
 
 class StoreViewModel extends ChangeNotifier {
   var repository = StoreRepositoryImpl();
-  StoreRatingData storeRatingData = StoreRatingData();
   StreamController<List<Store>> stores = StreamController<List<Store>>();
-
+  late Store store;
   void getStores(int id) async {
     stores.add(await repository.getStores(id));
+    notifyListeners();
+  }
+  void getStore(int storeId) async {
+    store = await repository.getStore(storeId);
     notifyListeners();
   }
 
@@ -27,12 +30,6 @@ class StoreViewModel extends ChangeNotifier {
 
   void deleteStore(Store store) async {
     repository.deleteStore(store);
-    notifyListeners();
-  }
-
-  void getRatingsAndComments(int storeId) async {
-    storeRatingData =
-        repository.getRatingsAndComments(storeId) as StoreRatingData;
     notifyListeners();
   }
 }

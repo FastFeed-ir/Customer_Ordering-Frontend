@@ -57,14 +57,14 @@ class StoreRepositoryImpl extends StoreRepository {
   }
 
   @override
-  Future<StoreRatingData> getRatingsAndComments(int storeId) async {
-    var response = await dio.get('stores/$storeId/ratings/');
-    print(
-        'response: ${response.statusMessage}   responceCode: ${response.statusCode}');
+  Future<Store> getStore(int storeId) async {
+    var response = await dio.get('stores/$storeId');
+    print('response: ${response.statusMessage}   responceCode: ${response.data}');
     if (response.statusCode == 200) {
-      return StoreRatingData.fromJson(response.data);
+      var store = Store.fromJson(response.data);
+      return store;
     } else {
-      throw Exception('Invalid response');
+      return Store();
     }
   }
 }
