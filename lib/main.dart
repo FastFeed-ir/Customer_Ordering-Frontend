@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:material_color_gen/material_color_gen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'model/repository/socket_service.dart';
 import 'utils/constants.dart';
+import 'view/payment/components/payment.dart';
 import 'view/ScanPage/pages/ScanPage.dart';
 import 'view/SelectTablePage/pages/SelectTablePage.dart';
 import 'view/lendingPage/pages/LendingPage.dart';
@@ -41,11 +43,13 @@ class _MyAppState extends State<MyApp> {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
+        SocketService.setCode("4");
+        SocketService.connectAndListen();
         return GetMaterialApp(
           getPages: [
             GetPage(name: LandingPage, page: () => LandingScreen()),
             //GetPage(name: MainMenuPage, page: () => MainMenuScreen()),
-            //GetPage(name: PaymentPage, page: () => PaymentScreen()),
+            GetPage(name: PaymentPage, page: () => PaymentScreen()),
             GetPage(name: SelectTablePage, page: () => SelectTableScreen(argument: Get.arguments)),
             //GetPage(name: SuccessfulPage, page: () => SuccessfulScreen()),
             //GetPage(name: InformationsPage, page: () => InformationsScreen()),
@@ -54,8 +58,7 @@ class _MyAppState extends State<MyApp> {
             //GetPage(name: SendCommentPage, page: () => SendCommentScreen()),
             GetPage(name: ScanPage, page: () => const ScanScreen()),
           ],
-          // title: 'FastFeed',
-
+          
           initialRoute: LandingPage,
           // initialRoute: ScanPage, //TODO
           textDirection: TextDirection.rtl,
