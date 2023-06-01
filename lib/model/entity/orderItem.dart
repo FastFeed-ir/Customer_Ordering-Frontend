@@ -8,11 +8,11 @@ class OrderItem {
 
   OrderItem({
     this.id,
-    required this.product,
+    this.product,
     this.productTitle,
     this.productUnitPrice,
-    required this.quantity,
-    required this.order,
+    this.quantity,
+    this.order,
   });
 
   factory OrderItem.fromJson(Map<String, dynamic> json) {
