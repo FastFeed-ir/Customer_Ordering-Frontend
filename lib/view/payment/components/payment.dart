@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import '../../../model/entity/orderItem.dart';
 import '../../../model/entity/product.dart';
-import '../../../view_model/orderItem_viewmodel.dart';
-import '../../../view_model/order_viewmodel.dart';
+import '../../../view_model/orderItem_view_model.dart';
+import '../../../view_model/order_view_model.dart';
 class PaymentScreen extends StatefulWidget {
   PaymentScreen({Key? key}) : super(key: key);
   //var products = Get.arguments;
@@ -432,7 +432,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           // TODO send total cost for payment
           // TODO get tableNumber and set
           // TODO product -> orderItem
-          Order order = Order(store: 3,tableNumber: 5, description: explainText);
+          Order order = Order(store: 4,tableNumber: 5, description: explainText);
           _orderViewModel.addOrder(order).asStream().listen((event) async {
             orderId = event.id ?? 0;
             _addOrderItem(orderId);
