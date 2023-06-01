@@ -8,20 +8,20 @@ class OrderItem {
 
   OrderItem({
     this.id,
-    required this.product,
+    this.product,
     this.productTitle,
     this.productUnitPrice,
-    required this.quantity,
-    required this.order,
+    this.quantity,
+    this.order,
   });
 
   factory OrderItem.fromJson(Map<String, dynamic> json) {
     return OrderItem(
       id: json['id'],
-      product: json['product'],
       productTitle: json['product_title'],
       productUnitPrice: double.parse(json['product_unit_price'],),
       quantity: json['quantity'],
+      product: json['product'],
       order: json['order'],
     );
   }
