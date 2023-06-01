@@ -1,20 +1,20 @@
 import 'dart:async';
-import 'package:customer_ordering_frontend/model/entity/orderItem.dart';
-import 'package:flutter/cupertino.dart';
 
+import 'package:flutter/cupertino.dart';
+import '../model/entity/orderItem.dart';
 import '../model/repository/orderItem_repository_impl.dart';
 
-class StoreViewModel extends ChangeNotifier {
+
+class OrderItemViewModel extends ChangeNotifier {
   var repository = OrderItemRepositoryImpl();
 
   StreamController<List<OrderItem>> orderItems =
-      StreamController<List<OrderItem>>();
+  StreamController<List<OrderItem>>();
 
-  void getOrderItems(int orderId) async {
-    orderItems.add(await repository.getOrderItems(orderId));
+  void getOrderItems(int id) async {
+    orderItems.add(await repository.getOrderItems(id));
     notifyListeners();
   }
-
   Future<OrderItem> addOrderItem(OrderItem orderItem) async {
     var newOrderItem = await repository.addOrderItem(orderItem);
     notifyListeners();
