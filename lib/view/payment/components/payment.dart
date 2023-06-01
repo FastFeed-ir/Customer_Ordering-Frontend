@@ -11,65 +11,34 @@ import '../../../view_model/orderItem_view_model.dart';
 import '../../../view_model/order_view_model.dart';
 class PaymentScreen extends StatefulWidget {
   PaymentScreen({Key? key}) : super(key: key);
-  //var products = Get.arguments;
+  var products = Get.arguments;
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  late List<Product> products = [
-    Product(
-        id: 20,
-        title:" کباب",
-        unitPrice: 100000.000,
-        isAvailable: false,
-        collectionId: 9,
-        storeId: 4,
-    ),
-    Product(
-      id: 19,
-      title:" جوجه",
-      unitPrice: 25000.000,
-      isAvailable: false,
-      collectionId: 9,
-      storeId: 4,
-    ),
-    Product(
-      id: 23,
-      title:" پیتزا",
-      unitPrice: 10000.000,
-      isAvailable: true,
-      collectionId: 12,
-      storeId: 4,
-    ),
-    Product(
-      id: 24,
-      title:"اسنک",
-      unitPrice: 120000.000,
-      isAvailable: true,
-      collectionId: 12,
-      storeId: 4,
-    ),
-  ];
+  late List<Product> products = [];
   late List<OrderItem> orderItems = [];
   late double sum;
   late double totalCost = 0;
   late String explainText = "";
   late int orderId;
+  late int storeId;
   final _orderViewModel = OrderViewModel();
   final _orderItemViewModel = OrderItemViewModel();
 
   @override
   void initState() {
-    //products = widget.products;
+    products = widget.products;
     sum = 0;
     for(var product in products){
       product.priceCount = (product.quantity ?? 0) * product.unitPrice;
       sum += product.priceCount ?? 0;
+      storeId = product.storeId;
     }
     totalCost = sum;
     // TODO put storeID in socket
-    SocketService.setCode("4");
+    SocketService.setCode(storeId.toString());
     SocketService.connectAndListen();
 
     super.initState();
@@ -96,7 +65,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
           )),
           actions: [
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                products.clear();
+                //Get.off(MainMenuPage,arguments: storeId);
+              },
               icon: Icon(Icons.delete),
               label: Text(''),
             ),
