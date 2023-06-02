@@ -14,7 +14,7 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: const Size(360, 800));
-    return GestureDetector(
+    return SafeArea(
       child: Scaffold(
         body: Container(
           decoration: BoxDecoration(
