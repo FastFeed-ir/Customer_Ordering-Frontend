@@ -117,6 +117,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
               orderProducts.removeWhere((element) => element.quantity == 0);
               totalProducts = orderProducts;
               //totalProducts.forEach((element) {print("${element.title}\t${element.quantity}");});
+              print(orderProducts.length);
               orderProducts.clear();
               //Get.toNamed(PaymentPage, arguments: totalProducts);
               // print

@@ -97,7 +97,7 @@ class _CategoriesListState extends State<CategoriesList> {
           ],
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.5,
+          height: MediaQuery.of(context).size.height * 0.6,
           child: productsList(),
         ),
       ],
@@ -304,31 +304,6 @@ class _CategoriesListState extends State<CategoriesList> {
                 ),
               );
             },
-          ),
-        ),
-        SizedBox(
-          height: 50,
-          width: 5,
-          child: ElevatedButton(
-            onPressed: () {
-              for (var product in products) {
-                orderProducts.add(product);
-              }
-              orderProducts.removeWhere((element) => element.quantity == 0);
-              totalProducts = orderProducts;
-              //totalProducts.forEach((element) {print("${element.title}\t${element.quantity}");});
-              orderProducts.clear();
-              //Get.toNamed(PaymentPage, arguments: totalProducts);
-              // print
-            },
-            child: Text(
-              "تکمیل خرید",
-              style: TextStyle(
-                  fontSize: 16,
-                  fontFamily: IranSansWeb,
-                  fontWeight: FontWeight.bold),
-            ),
-            style: buttonStyle_build(5, 5, 10, RedColor),
           ),
         ),
       ],

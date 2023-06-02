@@ -55,7 +55,7 @@ class _ScanScreenState extends State<ScanScreen> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         int? storeId = int.tryParse(_qrCodeData);
         _storeViewModel.getStore(storeId!);
-        _storeViewModel.getRatings(storeId!);
+        _storeViewModel.getRatings(storeId);
         if (_storeViewModel.store.title != null) {
           prefs.setInt("StorId", storeId);
           print("set Store Id: $storeId");
