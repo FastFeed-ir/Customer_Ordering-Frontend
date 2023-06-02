@@ -21,6 +21,7 @@ String InformationsPage = "/informationsPage";
 String CommentsPage = "/commentsPage";
 String ScoringPage = "/scoringPage";
 String SendCommentPage = "/sendCommentPage";
+
 String SearchPage = "/searchPage";
 String RatingPage = "/ratingPage";
 
@@ -41,6 +42,8 @@ String Tick2 = "assets/tick2.png";
 String Zabdar = "assets/zabdar.png";
 String RestaurantLogoDef = "assets/restarauntLogo.png";
 String WhiteLogo = "assets/logo_white.png";
+String ErrotLogo = "assets/error.png";
+String VerifyLogo = "assets/verify.png";
 String EmptyImg = "assets/emptyImage.png";
 String BlackLogo = "assets/logo_black.png";
 String landingPage = "assets/landing_page.png";
