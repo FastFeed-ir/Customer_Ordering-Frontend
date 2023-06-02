@@ -59,7 +59,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
   late int orderId;
   final _orderViewModel = OrderViewModel();
   final _orderItemViewModel = OrderItemViewModel();
-
+  late Order orderServer;
+  late List<OrderItem> orderItemSever;
   @override
   void initState() {
     //products = widget.products;
@@ -444,18 +445,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
       child: ElevatedButton(
         onPressed: () {
           products.removeWhere((element) => element.quantity == 0);
-          // TODO send total cost for payment
-          // TODO get tableNumber and set
-          // TODO product -> orderItem
-          Order order =
-              Order(store: 3, tableNumber: 5, description: explainText);
+          Order order = Order(store: 4, tableNumber: 5, description: explainText);
           _orderViewModel.addOrder(order).asStream().listen((event) async {
+            orderServer = event;
             orderId = event.id ?? 0;
             _addOrderItem(orderId);
           });
-          SocketData socketData =
-              SocketData(order: order, orderItem: orderItems);
-          SocketService.sendOrder(socketData);
+          if(orderItems.length == orderItems.length){
+            SocketData socketData = SocketData(order: orderServer, orderItem: orderItemSever);
+            SocketService.sendOrder(socketData);
+          }
         },
         child: Text(
           "ثبت سفارش",
@@ -488,12 +487,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
         productUnitPrice: productUnitPrice,
       );
       orderItems.add(orderItem);
-      _orderItemViewModel
-          .addOrderItem(orderItem)
-          .asStream()
-          .listen((event) async {});
+      _orderItemViewModel.addOrderItem(orderItem).asStream().listen((event) async {
+        orderItemSever.add(event);
+      });
     }
-    print("mission complete");
     products.clear();
     //Get.toNamed(SuccessfulPage,);
   }
