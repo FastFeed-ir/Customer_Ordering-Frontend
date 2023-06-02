@@ -29,10 +29,11 @@ class _StoreProfileState extends State<StoreProfile> {
   String telephoneNumber = '';
   String instagramPageLink = '';
   String noData = 'بدون اطلاعات';
-
+  late int storeId;
   @override
   void initState() {
     super.initState();
+    storeId = widget.storeId;
     loadData();
   }
 

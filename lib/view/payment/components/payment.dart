@@ -349,7 +349,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       height: 360,
       child: Column(
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(

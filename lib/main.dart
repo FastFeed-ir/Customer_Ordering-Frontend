@@ -12,6 +12,7 @@ import 'view/payment/components/payment.dart';
 import 'view/ScanPage/pages/ScanPage.dart';
 import 'view/SelectTablePage/pages/SelectTablePage.dart';
 import 'view/lendingPage/pages/LendingPage.dart';
+import 'view/store_profile/store_profile_screen.dart';
 
 void main() async {
   runApp(MyApp());
@@ -62,6 +63,7 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: SelectTablePage, page: () => SelectTableScreen(argument: Get.arguments)),
             //GetPage(name: SuccessfulPage, page: () => SuccessfulScreen()),
             //GetPage(name: InformationsPage, page: () => InformationsScreen()),
+            GetPage(name: StoreProfilePage, page: () => StoreProfile()),
             GetPage(name: CommentsPage, page: () => SendCommentScreen(orderId: Get.arguments,),),
             GetPage(name: RatingPage, page: () => ScoringScreen(orderId: Get.arguments,)),
             //GetPage(name: SendCommentPage, page: () => SendCommentScreen()),
