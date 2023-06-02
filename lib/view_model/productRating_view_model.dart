@@ -5,10 +5,11 @@ import '../model/repository/productRating_repository_impl.dart';
 
 class ProductRatingViewModel extends ChangeNotifier {
   var repository = ProductRepositoryImpl();
-  ProductRatingData productRatingData = ProductRatingData();
-  void getRatings(int storeId) async {
+  late ProductRatingData productRatingData ;
 
-    productRatingData = repository.getRatings(storeId) as ProductRatingData;
+  void getRatings(int storeId) async {
+    productRatingData = await repository.getRatings(storeId);
+    print(productRatingData.averageRating);
     notifyListeners();
   }
 }

@@ -8,14 +8,12 @@ class ProductRepositoryImpl extends ProductRatingRepository {
   Future<ProductRatingData> getRatings(int productId) async {
     var response = await dio.get('product/$productId/rating/');
     print(
-        'response: ${response.statusMessage}   responceCode: ${response.statusCode}');
+        'response: ${response.statusMessage}   responceCode: ${response.data}');
     if (response.statusCode == 200) {
       var productRatingData = ProductRatingData.fromJson(response.data);
       return productRatingData;
-    }
-    else {
+    } else {
       throw Exception('Invalid response');
     }
-
   }
 }
