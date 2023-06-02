@@ -33,6 +33,9 @@ class _MyAppState extends State<MyApp> {
     prefs.setInt("StorId", 4);
     prefs.setInt("tableCount", 5);
     prefs.setString("storeTitle",'بایرام');
+    prefs.setDouble("ratingCount", 84);
+    prefs.setInt("commentCount", 7);
+    prefs.setDouble("averageRating", 4.37);
   }
 
   @override
