@@ -12,6 +12,7 @@ const Color GreenColor = Color(0xff2CBA15);
 
 // Pages
 String LandingPage = "/landingPage";
+String ScanPage = "/scanPage";
 String MainMenuPage = "/mainMenuPage";
 String PaymentPage = "/PaymentPage";
 String SelectTablePage = "/selectTablePage";
@@ -20,7 +21,10 @@ String InformationsPage = "/informationsPage";
 String CommentsPage = "/commentsPage";
 String ScoringPage = "/scoringPage";
 String SendCommentPage = "/sendCommentPage";
-String StoreProfilePage = "/StoreProfilePage";
+
+String SearchPage = "/searchPage";
+String RatingPage = "/ratingPage";
+
 //String Page = "/Page";
 
 //Strings, Names, Address
@@ -28,27 +32,55 @@ late String Phone;
 late String Email;
 late String Address;
 late String InstagramPage;
+
 // Images
+
+String ScaningPage = "assets/LandingPage.png";
 String FastfeedLogo = "assets/logo.png";
 String Tick = "assets/Tick.png";
+String Tick2 = "assets/tick2.png";
 String Zabdar = "assets/zabdar.png";
 String RestaurantLogoDef = "assets/restarauntLogo.png";
 String WhiteLogo = "assets/logo_white.png";
+String RatingLogo = "rating.png";
+String ErrotLogo = "assets/error.png";
+String VerifyLogo = "assets/verify.png";
+String EmptyImg = "assets/emptyImage.png";
+String BlackLogo = "assets/logo_black.png";
+String landingPage = "assets/landing_page.png";
+String SuccessfulImage = "assets/successfulPage";
 // Fonts
-String IranSansWeb = "IranSansWeb";
-String FugazOne = "FugazOne";
+const String IranSansWeb = "IranSansWeb";
+const String FugazOne = "FugazOne";
 
-ButtonStyle buttonStyle_build(int width, int height, int radius, Color color) {
+Widget titleStyle(String title) {
+  return RichText(
+    text: TextSpan(
+      text: title,
+      style: TextStyle(
+        fontSize: 29.0,
+        fontWeight: FontWeight.bold,
+        fontFamily: IranSansWeb,
+        color: BlackColor,
+      ),
+    ),
+  );
+}
+
+ButtonStyle buttonStyle_build(
+    double width, double height, double radius, Color color) {
   return ButtonStyle(
     backgroundColor: MaterialStateProperty.all<Color>(color),
     elevation: MaterialStateProperty.all<double>(0.0),
     padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
     fixedSize: MaterialStateProperty.all<Size>(
-      Size(width.w, height.h),
+      Size.fromHeight(height),
+      /*Size(width, height),*/
     ),
     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
       RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(radius.r),
+        borderRadius: BorderRadius.circular(radius),
+        side: BorderSide(color: BlackColor),
       ),
     ),
   );
@@ -83,18 +115,18 @@ Widget buildInfoDialog(BuildContext context, String? text, String? Phrase) {
   );
 }
 
-Widget loading() {
+Widget loading(double size) {
   return Container(
     padding: EdgeInsets.only(
-      left: 15.0.w,
-      top: 5.0.h,
-      right: 15.0.w,
+      left: 15.0,
+      top: 5.0,
+      right: 15.0,
     ),
     //width: 1920.w,
     //height: 700.h,
     child: Center(
       child: SpinKitCircle(
-        size: 14.r,
+        size: size.r,
         duration: Duration(seconds: 2),
         itemBuilder: (context, index) {
           final colors = [YellowColor, RedColor];
@@ -113,10 +145,12 @@ Widget loading() {
 
 AppBar AppBarMenu() {
   return AppBar(
-    title: Image.asset(
-      WhiteLogo,
-      width: 90.w,
-      height: 90.h,
+    title: Center(
+      child: Image.asset(
+        WhiteLogo,
+        width: 50,
+        height: 50,
+      ),
     ),
     //actions: [],
     leading: BackButton(
@@ -124,4 +158,54 @@ AppBar AppBarMenu() {
     ),
     backgroundColor: RedColor,
   );
+}
+PreferredSize menuAppBar(){
+  return PreferredSize(
+      preferredSize: Size.fromHeight(ScreenUtil().setHeight(180)),
+      child: AppBar(
+        //backgroundColor: YellowColor,
+        automaticallyImplyLeading: false,
+        flexibleSpace: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            final double availableWidth = constraints.maxWidth;
+            final double availableHeight = constraints.maxHeight;
+
+            final double logoHeight = availableHeight * 0.6;
+            final double titleFontSize = availableHeight * 0.12;
+            final double backIconSize = availableHeight * 0.10;
+
+            return Stack(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          BlackLogo,
+                          height: logoHeight,
+                          fit: BoxFit.cover,
+                        ),
+                        SizedBox(height: availableHeight * 0.05),
+                      ],
+                    ),
+                  ],
+                ),
+                Positioned(
+                  right: availableWidth * 0.10,
+                  top: availableHeight * 0.77,
+                  child: InkWell(
+                    onTap: () {
+                      // TODO: Handle back button tap
+                    },
+                    child: Icon(Icons.arrow_back_ios, size: backIconSize),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+        elevation: 0.0,
+      ));
 }

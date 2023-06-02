@@ -4,14 +4,12 @@ class Comment {
   String content;
   int orderId;
   int? storeId;
-  String createdAt;
 
   Comment({
     this.id,
     required this.name,
     required this.content,
     required this.orderId,
-    required this.createdAt,
     this.storeId,
   });
 
@@ -21,7 +19,6 @@ class Comment {
       name: json['name'],
       content: json['content'],
       orderId: json['order'],
-      createdAt: json['created_at'],
       storeId: json['store'],
     );
   }
@@ -29,7 +26,6 @@ class Comment {
   Map<String, dynamic> toJson() => {
         'name': name,
         'content': content,
-        'created_at': createdAt,
         'order': orderId,
         'store': storeId,
       };

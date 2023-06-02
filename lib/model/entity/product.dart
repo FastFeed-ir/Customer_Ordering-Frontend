@@ -10,7 +10,9 @@ class Product {
   double? discountPercentage;
   int collectionId;
   int storeId;
-
+  int? Quantity = 0;
+  double? priceCount = 0;
+  double? rate = 0;
   Product({
     this.id,
     required this.title,
@@ -23,8 +25,15 @@ class Product {
     this.discountPercentage,
     required this.collectionId,
     required this.storeId,
+    this.Quantity,
+    this.priceCount,
+    this.rate,
   });
+  int get quantity => Quantity??0; // Add this getter
 
+  set quantity(int value) {  // Add this setter
+    Quantity = value;
+  }
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
         id: json['id'],
@@ -39,7 +48,9 @@ class Product {
             ? null
             : double.parse(json["discount_percentage"]),
         collectionId: json['collection'],
-        storeId: json['store']);
+        storeId: json['store'],
+
+    );
   }
 
   Map<String, dynamic> toJson() => {

@@ -1,16 +1,41 @@
 import 'package:dio/dio.dart';
-
 import '../entity/store.dart';
+import '../entity/storeRating.dart';
 import '../util/constants.dart';
 import 'store_repository.dart';
 
-// ignore_for_file: avoid_print
 class StoreRepositoryImpl extends StoreRepository {
   var dio = Dio(options);
 
   @override
+  Future<StoreRatingData> getRatings(int storeId) async {
+    var response = await dio.get('stores/$storeId/ratings/');
+    print(
+        'response: ${response.statusMessage}   responceCode: ${response.data}');
+    if (response.statusCode == 200) {
+        var storeRatingData = StoreRatingData.fromJson(response.data);
+      return storeRatingData;
+    } else {
+      throw Exception('Invalid response');
+    }
+  }
+
+  @override
+  Future<Store> getStore(int storeId) async {
+    var response = await dio.get('stores/$storeId');
+    print(
+        'response: ${response.statusMessage}   responceCode: ${response.data}');
+    if (response.statusCode == 200) {
+      var store = Store.fromJson(response.data);
+      return store;
+    } else {
+      return Store();
+    }
+  }
+
+  @override
   Future<List<Store>> getStores(int id) async {
-    var response = await dio.get('stores/');
+    var response = await dio.get('stores/?business_owner_id=$id/');
     print(
         'response: ${response.statusMessage}   responceCode: ${response.statusCode}');
     if (response.data is List) {
@@ -19,7 +44,7 @@ class StoreRepositoryImpl extends StoreRepository {
       for (var data in dataList) {
         if (data is Map<String, dynamic>) {
           var store = Store.fromJson(data);
-          if (store.business_owner == id) stores.add(store);
+          stores.add(store);
         }
       }
       return stores;
