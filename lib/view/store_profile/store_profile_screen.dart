@@ -32,9 +32,9 @@ class _StoreProfileState extends State<StoreProfile> {
   late int storeId;
   @override
   void initState() {
-    super.initState();
     storeId = widget.storeId;
     loadData();
+    super.initState();
   }
 
   void loadData() {
