@@ -132,10 +132,12 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             elevation: 0.0,
           ),
         ),
-        body: Container(
-          margin: const EdgeInsets.all(5),
-          padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
-          child: showMenu(),
+        body: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
+            child: showMenu(),
+          ),
         ),
       ),
     );
