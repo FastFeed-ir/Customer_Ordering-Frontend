@@ -178,6 +178,7 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
                           var storeId = prefs.getInt('StorId');
                           if (widget.argument) {
                             await _orderViewModel.getLastOrder(storeId!, selectedIndex);
+                            prefs.setInt("lastOrderId",_orderViewModel.lastOrderId );
                             var authCode=_orderViewModel.lastOrder.authCode!;
                             await showDialog(
                               context: context,
