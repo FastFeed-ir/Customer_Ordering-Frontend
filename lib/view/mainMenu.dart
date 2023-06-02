@@ -174,8 +174,15 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   }
                 }
               }
-
               orderProducts.removeWhere((element) => element.quantity == 0);
+              if(orderProducts.isEmpty){
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('برای تکمیل خرید لطفا یک محصول انتخاب کنید'),
+                  ),
+                );
+                return;
+              }
               totalProducts = await Get.toNamed(PaymentPage, arguments: orderProducts);
               if (totalProducts != null) {
                 setState(() {
