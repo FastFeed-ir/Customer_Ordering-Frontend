@@ -55,6 +55,7 @@ class _ScanScreenState extends State<ScanScreen> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         int? storeId = int.tryParse(_qrCodeData);
         _storeViewModel.getStore(storeId!);
+        _storeViewModel.getRatings(storeId!);
         if (_storeViewModel.store.title != null) {
           prefs.setInt("StorId", storeId);
           print("set Store Id: $storeId");
@@ -65,6 +66,12 @@ class _ScanScreenState extends State<ScanScreen> {
           var storeName= _storeViewModel.store.title!;
           prefs.setString("storeTitle",storeName);
           print("set Store Title: $storeName");
+          var averageRating = _storeViewModel.storeRatingData.averageRating!;
+          prefs.setDouble("averageRating", averageRating);
+          var ratingCount = _storeViewModel.storeRatingData.ratingCount!;
+          prefs.setInt("ratingCount", ratingCount);
+          var commentCount = _storeViewModel.storeRatingData.commentCount!;
+          prefs.setInt("commentCount", commentCount);
         } else {
           showSnackbar('لطفا اشتراک رستوران را چک کنید!');
           return; // Exit the method early if store is not found
