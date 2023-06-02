@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import 'package:material_color_gen/material_color_gen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'utils/constants.dart';
+import 'view/ratingPage/pages/rating_page.dart';
 import 'view/search.dart';
 
 import 'model/repository/socket_service.dart';
-import 'utils/constants.dart';
 import 'view/payment/components/payment.dart';
 import 'view/ScanPage/pages/ScanPage.dart';
 import 'view/SelectTablePage/pages/SelectTablePage.dart';
@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
             //GetPage(name: SuccessfulPage, page: () => SuccessfulScreen()),
             //GetPage(name: InformationsPage, page: () => InformationsScreen()),
             //GetPage(name: CommentsPage, page: () => CommentsScreen(),),
-            //GetPage(name: ScoringPage, page: () => ScoringScreen()),
+            GetPage(name: RatingPage, page: () => ScoringScreen(orderId: Get.arguments,)),
             //GetPage(name: SendCommentPage, page: () => SendCommentScreen()),
             GetPage(name: SearchPage, page: () => SearchScreen()),
             GetPage(name: ScanPage, page: () => const ScanScreen()),
