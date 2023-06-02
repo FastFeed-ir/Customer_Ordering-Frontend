@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   initState() {
-    x();
+    // x();
     super.initState();
   }
 
@@ -56,8 +56,6 @@ class _MyAppState extends State<MyApp> {
           getPages: [
             GetPage(name: LandingPage, page: () => LandingScreen()),
             GetPage(name: MainMenuPage, page: () => MainMenuScreen(storeId: 4,)),
-            //GetPage(name: PaymentPage, page: () => PaymentScreen()),
-            //GetPage(name: MainMenuPage, page: () => MainMenuScreen()),
             GetPage(name: PaymentPage, page: () => PaymentScreen()),
             GetPage(name: SelectTablePage, page: () => SelectTableScreen(argument: Get.arguments)),
             GetPage(name: SuccessfulPage, page: () => SuccessfulScreen()),
@@ -65,12 +63,11 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: StoreProfilePage, page: () => StoreProfile()),
             GetPage(name: CommentsPage, page: () => SendCommentScreen(orderId: Get.arguments,),),
             GetPage(name: RatingPage, page: () => ScoringScreen(orderId: Get.arguments,)),
-            //GetPage(name: SendCommentPage, page: () => SendCommentScreen()),
             GetPage(name: ScanPage, page: () => const ScanScreen()),
           ],
           
-          initialRoute: MainMenuPage,
-          // initialRoute: ScanPage, //TODO
+          // initialRoute: MainMenuPage,
+          initialRoute: ScanPage, //TODO
           textDirection: TextDirection.rtl,
           defaultTransition: Transition.noTransition,
           theme: ThemeData(
