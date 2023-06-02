@@ -1,3 +1,4 @@
+import 'package:customer_ordering_frontend/view/commentPage/pages/comment_page.dart';
 import 'package:customer_ordering_frontend/view/mainMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,7 +62,7 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: SelectTablePage, page: () => SelectTableScreen(argument: Get.arguments)),
             //GetPage(name: SuccessfulPage, page: () => SuccessfulScreen()),
             //GetPage(name: InformationsPage, page: () => InformationsScreen()),
-            //GetPage(name: CommentsPage, page: () => CommentsScreen(),),
+            GetPage(name: CommentsPage, page: () => SendCommentScreen(orderId: Get.arguments,),),
             GetPage(name: RatingPage, page: () => ScoringScreen(orderId: Get.arguments,)),
             //GetPage(name: SendCommentPage, page: () => SendCommentScreen()),
             GetPage(name: ScanPage, page: () => const ScanScreen()),
