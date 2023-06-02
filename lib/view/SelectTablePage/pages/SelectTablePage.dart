@@ -1,8 +1,10 @@
+import 'package:customer_ordering_frontend/view_model/order_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/constants.dart';
+import '../../authPage/components/CommentVerifyWidget.dart';
 
 class SelectTableScreen extends StatefulWidget {
   final bool argument; // Add the argument variable
@@ -38,7 +40,8 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
       numberOfOptions,
       (index) => 'میز ${index + 1}',
     );
-
+    final _unfocusNode = FocusNode();
+   var _orderViewModel= OrderViewModel();
     return GestureDetector(
       child: Scaffold(
         appBar: PreferredSize(
@@ -170,11 +173,29 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
                       padding: EdgeInsetsDirectional.fromSTEB(
                           0, ScreenUtil().setHeight(20), 0, 0),
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           prefs.setInt("table", selectedIndex);
                           var storeId = prefs.getInt('StorId');
                           if (widget.argument) {
-                            //TODO auth
+                            await _orderViewModel.getLastOrder(storeId!, selectedIndex);
+                            prefs.setInt("lastOrderId",_orderViewModel.lastOrderId );
+                            var authCode=_orderViewModel.lastOrder.authCode!;
+                            await showDialog(
+                              context: context,
+                              builder: (dialogContext) {
+                                return GestureDetector(
+                                  onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                  child: Dialog(
+                                    insetPadding: MediaQuery.of(dialogContext).viewInsets,
+                                    child: SizedBox(
+                                      height: MediaQuery.of(context).size.height * 0.35,
+                                      width: MediaQuery.of(context).size.width * 0.75,
+                                      child: CommentVerifyWidget(authCode: authCode),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ).then((value) => setState(() {}));
                           } else {
                             Get.toNamed(MainMenuPage, arguments: storeId);
                           }

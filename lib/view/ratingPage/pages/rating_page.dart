@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../../model/entity/rating.dart';
 import '../../../utils/constants.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -16,9 +17,8 @@ class ScoringScreen extends StatefulWidget {
 
 class _ScoringScreenState extends State<ScoringScreen> {
   double _stars = 1;
-  late List<int> _Ids = [];
+  late final List<int> _Ids = [];
   var _orderId;
-  final _formKey = GlobalKey<FormState>();
   final _ratingViewModel = RatingViewModel();
   final _orderViewModel = OrderViewModel();
   @override
@@ -45,12 +45,10 @@ class _ScoringScreenState extends State<ScoringScreen> {
             automaticallyImplyLeading: false,
             flexibleSpace: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-                final double availableWidth = constraints.maxWidth;
                 final double availableHeight = constraints.maxHeight;
 
                 final double logoHeight = availableHeight * 0.6;
                 final double titleFontSize = availableHeight * 0.12;
-                final double backIconSize = availableHeight * 0.10;
 
                 return Stack(
                   children: [
@@ -78,16 +76,6 @@ class _ScoringScreenState extends State<ScoringScreen> {
                           ],
                         ),
                       ],
-                    ),
-                    Positioned(
-                      right: availableWidth * 0.10,
-                      top: availableHeight * 0.77,
-                      child: InkWell(
-                        onTap: () {
-                          // TODO: Handle back button tap
-                        },
-                        child: Icon(Icons.arrow_back_ios, size: backIconSize),
-                      ),
                     ),
                   ],
                 );
@@ -195,6 +183,7 @@ class _ScoringScreenState extends State<ScoringScreen> {
                       rating.id = ratingId;
                     });
                   }
+                  Get.toNamed(CommentsPage,arguments: _orderId);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: YellowColor,

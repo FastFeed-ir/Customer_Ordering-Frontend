@@ -16,8 +16,8 @@ class OrderViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getLastOrder(int storeId, int tableNumber) async {
-    lastOrder = repository.getLastOrderFromTable(storeId, tableNumber) as Order;
+  Future<void> getLastOrder(int storeId, int tableNumber) async {
+    lastOrder = await repository.getLastOrderFromTable(storeId, tableNumber);
     lastOrderId = lastOrder.id!;
     notifyListeners();
   }

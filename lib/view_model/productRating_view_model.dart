@@ -7,7 +7,7 @@ class ProductRatingViewModel extends ChangeNotifier {
   var repository = ProductRepositoryImpl();
   late ProductRatingData productRatingData ;
 
-  void getRatings(int storeId) async {
+  Future<void>  getRatings(int storeId) async {
     productRatingData = await repository.getRatings(storeId);
     print(productRatingData.averageRating);
     notifyListeners();

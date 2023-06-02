@@ -65,7 +65,7 @@ class _CategoriesListState extends State<CategoriesList> {
               width: 30,
               height: 30,
               child: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.search,
                   size: 24,
                   color: BlackColor,
@@ -88,8 +88,8 @@ class _CategoriesListState extends State<CategoriesList> {
                 },
               ),
             ),
-            SizedBox(width: 5),
-            SizedBox(width: 5),
+            const SizedBox(width: 5),
+            const SizedBox(width: 5),
             SizedBox(
                 height: 35,
                 width: MediaQuery.of(context).size.width * 0.8,
@@ -117,7 +117,7 @@ class _CategoriesListState extends State<CategoriesList> {
           },
           child: Container(
             padding: const EdgeInsets.all(8.0),
-            margin: EdgeInsets.only(left: 10),
+            margin: const EdgeInsets.only(left: 10),
             width: 100,
             decoration: BoxDecoration(
               color: _selectedCategoryId == index
@@ -155,7 +155,7 @@ class _CategoriesListState extends State<CategoriesList> {
               return Directionality(
                 textDirection: TextDirection.ltr,
                 child: Container(
-                  padding: EdgeInsets.only(top: 10, right: 20),
+                  padding: const EdgeInsets.only(top: 10, right: 20),
                   decoration: const BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
@@ -202,7 +202,7 @@ class _CategoriesListState extends State<CategoriesList> {
                               ),
                             ),
                             if (product.image == null)
-                              Positioned.fill(
+                              const Positioned.fill(
                                 child: Center(
                                   child: CircularProgressIndicator(),
                                 ),
@@ -215,7 +215,7 @@ class _CategoriesListState extends State<CategoriesList> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -223,16 +223,16 @@ class _CategoriesListState extends State<CategoriesList> {
                                   text: TextSpan(
                                     children: [
                                       TextSpan(
-                                        text: "${(product.rate?.round() ?? 0)}"
+                                        text: "${(product.rate ?? 0)}"
                                             .toPersianDigit(),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: BlackColor,
                                           fontFamily: IranSansWeb,
-                                          fontSize: 22,
+                                          fontSize: 16,
                                           fontWeight: FontWeight.w400,
                                         ),
                                       ),
-                                      WidgetSpan(
+                                      const WidgetSpan(
                                         child: Icon(
                                           Icons.star_border,
                                           color: YellowColor,
@@ -244,7 +244,7 @@ class _CategoriesListState extends State<CategoriesList> {
                                 ),
                                 Text(
                                   product.title,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontFamily: IranSansWeb,
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold,
@@ -252,14 +252,14 @@ class _CategoriesListState extends State<CategoriesList> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Container(
                               alignment: Alignment.centerRight,
                               child: Text(
                                 (product.description!),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: IranSansWeb,
                                   fontSize: 16,
                                 ),
@@ -268,7 +268,7 @@ class _CategoriesListState extends State<CategoriesList> {
                                 textDirection: TextDirection.rtl,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Container(
@@ -276,19 +276,19 @@ class _CategoriesListState extends State<CategoriesList> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "تومان",
                                     style: TextStyle(
                                       fontFamily: IranSansWeb,
                                       fontSize: 16,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   Text(
                                     "${product.unitPrice}".toPersianDigit(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontFamily: IranSansWeb,
                                       fontSize: 16,
                                     ),
@@ -337,7 +337,7 @@ class _CategoriesListState extends State<CategoriesList> {
                 );
               },
               style: buttonStyle(5, 5, 10, WhiteColor),
-              child: Icon(
+              child: const Icon(
                 Icons.remove,
                 color: BlackColor,
               ),
@@ -345,7 +345,7 @@ class _CategoriesListState extends State<CategoriesList> {
           ),
           Text(
             '${product.quantity}'.toPersianDigit(),
-            style: TextStyle(fontFamily: IranSansWeb, fontSize: 24),
+            style: const TextStyle(fontFamily: IranSansWeb, fontSize: 24),
           ),
           SizedBox(
             width: 36,
@@ -365,7 +365,7 @@ class _CategoriesListState extends State<CategoriesList> {
                 }
               },
               style: buttonStyle(5, 5, 10, RedColor),
-              child: Icon(
+              child: const Icon(
                 Icons.add,
               ),
             ),
@@ -387,7 +387,7 @@ class _CategoriesListState extends State<CategoriesList> {
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius),
-          side: BorderSide(color: BlackColor),
+          side: const BorderSide(color: BlackColor),
         ),
       ),
     );
