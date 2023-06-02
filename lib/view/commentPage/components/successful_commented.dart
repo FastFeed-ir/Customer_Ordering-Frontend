@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../utils/constants.dart';
 
@@ -52,7 +53,7 @@ class _SuccessfulCommentedWidgetState extends State<SuccessfulCommentedWidget> {
               ),
               child: ElevatedButton(
                 onPressed: () {
-                  print('Button pressed ...');
+                  Get.toNamed(LandingPage);
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: BlackColor,
