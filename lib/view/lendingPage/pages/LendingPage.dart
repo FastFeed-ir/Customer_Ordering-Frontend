@@ -82,7 +82,7 @@ class _LandingScreenState extends State<LandingScreen> {
                     backgroundColor: RedColor,
                   ),
                   child: Text(
-                    'سفارش جدید',
+                    'ثبت نظر',
                     style: TextStyle(
                       color: WhiteColor,
                       fontFamily: IranSansWeb,
@@ -109,7 +109,7 @@ class _LandingScreenState extends State<LandingScreen> {
                     backgroundColor: RedColor,
                   ),
                   child: Text(
-                    'ثبت نظر',
+                    'سفارش جدید',
                     style: TextStyle(
                       color: WhiteColor,
                       fontFamily: IranSansWeb,
