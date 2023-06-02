@@ -3,7 +3,7 @@ import 'package:customer_ordering_frontend/model/repository/product_information_
 
 import '../util/constants.dart';
 
-class ProProductInformationRepositoryImpl extends ProductInformationRepository {
+class ProductInformationRepositoryImpl extends ProductInformationRepository {
   @override
   Future<List<Comment>> getComments(int productId) async {
     var response = await dio.get('comments/?store_id=$productId');
