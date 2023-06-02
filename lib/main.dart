@@ -32,6 +32,9 @@ class _MyAppState extends State<MyApp> {
     prefs.setInt("StorId", 4);
     prefs.setInt("tableCount", 5);
     prefs.setString("storeTitle",'بایرام');
+    prefs.setDouble("ratingCount", 84);
+    prefs.setInt("commentCount", 7);
+    prefs.setDouble("averageRating", 4.37);
   }
 
   @override
@@ -52,7 +55,7 @@ class _MyAppState extends State<MyApp> {
         return GetMaterialApp(
           getPages: [
             GetPage(name: LandingPage, page: () => LandingScreen()),
-            GetPage(name: MainMenuPage, page: () => MainMenuScreen()),
+            GetPage(name: MainMenuPage, page: () => MainMenuScreen(storeId: 4,)),
             //GetPage(name: PaymentPage, page: () => PaymentScreen()),
             //GetPage(name: MainMenuPage, page: () => MainMenuScreen()),
             GetPage(name: PaymentPage, page: () => PaymentScreen()),

@@ -2,20 +2,18 @@ import 'dart:async';
 import 'package:customer_ordering_frontend/model/entity/product.dart';
 import 'package:customer_ordering_frontend/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../model/entity/collection.dart';
 import '../model/entity/productRating.dart';
-import '../model/entity/storeRating.dart';
 import '../view_model/collection_view_model.dart';
 import '../view_model/productRating_view_model.dart';
-import '../view_model/storeRating_view_model.dart';
 import 'categoriesList.dart';
 import 'storeDetails.dart';
 
 class MainMenuScreen extends StatefulWidget {
-  final int storeId = 4;//= Get.arguments;
+  final int storeId;
 
-  MainMenuScreen();
+  MainMenuScreen({super.key, required this.storeId});
 
   @override
   State<MainMenuScreen> createState() => _MainMenuScreenState();
@@ -28,15 +26,27 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
 
   late List<Collection> collections = [];
   late List<Product> products = [];
-  late StoreRatingData storeRatingData = StoreRatingData();
+  late SharedPreferences prefs;
+  String storeTitle = "";
+  double averageRating = 0;
+  int commentCount = 0;
+  int ratingCount = 0;
   late ProductRatingData productRatingData = ProductRatingData();
-  final _storeRatingViewModel = StoreRatingViewModel();
   final _productRatingViewModel = ProductRatingViewModel();
   final _collectionViewModel = CollectionViewModel();
+  Future<void> x() async {
+    prefs = await SharedPreferences.getInstance();
+    averageRating = prefs.getDouble("averageRating")!;
+    storeTitle = prefs.getString("storeTitle")!;
+    commentCount = prefs.getInt("commentCount")!;
+    ratingCount = prefs.getInt("ratingCount")!;
+  }
+
   @override
   void initState() {
+    super.initState();
     storeId = widget.storeId;
-    loadStoreRating();
+
     loadFood().then(
       (_) => Timer(
         const Duration(milliseconds: 500),
@@ -50,58 +60,54 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
       ),
     );
   }
+
   Widget showMenu() {
     if (collections.isEmpty && products.isEmpty) {
       if (gotFromServer) {
-        return Center(child: Text("در حال اتصال", style: TextStyle(fontFamily: IranSansWeb, fontSize: 24,color: BlackColor, fontWeight: FontWeight.w400,)),);
+        return const Center(child: Text("در حال اتصال", style: TextStyle(fontFamily: IranSansWeb, fontSize: 24,color: BlackColor, fontWeight: FontWeight.w400,)),);
       } else {
-        return loading(14);
+        return loading(60);
       }
     } else {
-      return buildMenu();
+    return buildMenu();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: menuAppBar(),
+        appBar: AppBarMenu(),
         body: Container(
-          margin: EdgeInsets.all(5),
-          padding: EdgeInsets.only(top: 5, left: 10, right: 10),
+          margin: const EdgeInsets.all(5),
+          padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
           child: showMenu(),
         ),
       ),
     );
   }
-  Widget buildMenu(){
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          StoreDetails(
-            storeId: storeId,
-            name: storeRatingData.name ?? "فست فید",
-            commentCount: storeRatingData.commentCount ?? 0,
-            ratingCount: storeRatingData.ratingCount ?? 0,
-            averageRating: storeRatingData.averageRating ?? 0,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          CategoriesList(
-            storeId: storeId,
-            collections: collections,
-            products: products,
-          ),
-        ],
-      ),
-    );
-  }
 
-  void loadStoreRating() {
-    _storeRatingViewModel.getRatings(storeId);
-    storeRatingData = _storeRatingViewModel.storeRatingData;
+  Widget buildMenu() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        StoreDetails(
+          storeId: storeId,
+          name: storeTitle ,
+          commentCount: commentCount,
+          ratingCount: ratingCount ,
+          averageRating: averageRating,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        CategoriesList(
+          storeId: storeId,
+          collections: collections,
+          products: products,
+        ),
+      ],
+    );
   }
 
   void loadProductRating(int productId) {
@@ -115,6 +121,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     _collectionViewModel.collections.stream.listen((listCollections) {
       _collectionViewModel.products.stream.listen((listProducts) {
         setState(() {
+          x();
           collections.addAll(listCollections);
           for (var collection in collections) {
             collection.products = [];

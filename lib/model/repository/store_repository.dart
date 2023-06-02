@@ -4,6 +4,8 @@ import '../entity/storeRating.dart';
 abstract class StoreRepository {
   Future<List<Store>> getStores(int ownerId);
 
+  Future<StoreRatingData> getRatings(int storeId);
+
   Future<Store> getStore(int storeId);
 
   Future<Store> addStore(Store store);
