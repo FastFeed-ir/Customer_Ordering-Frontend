@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:persian_number_utility/persian_number_utility.dart';
 
 // Colors
 const Color WhiteColor = Color(0xFFFFFFFF);
@@ -160,48 +159,53 @@ AppBar AppBarMenu() {
     backgroundColor: RedColor,
   );
 }
+PreferredSize menuAppBar(){
+  return PreferredSize(
+      preferredSize: Size.fromHeight(ScreenUtil().setHeight(180)),
+      child: AppBar(
+        //backgroundColor: YellowColor,
+        automaticallyImplyLeading: false,
+        flexibleSpace: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            final double availableWidth = constraints.maxWidth;
+            final double availableHeight = constraints.maxHeight;
 
-class FoodCounter extends StatefulWidget {
-  // TODO static counter for keep it for foods
-  int counter = 0;
-  int getCounter() => counter;
-  FoodCounter({Key? key}) : super(key: key);
-  @override
-  State<FoodCounter> createState() => _FoodCounterState();
-}
+            final double logoHeight = availableHeight * 0.6;
+            final double titleFontSize = availableHeight * 0.12;
+            final double backIconSize = availableHeight * 0.10;
 
-class _FoodCounterState extends State<FoodCounter> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ElevatedButton(
-            onPressed: () => setState(() {
-              widget.counter == 0 ? print('counter at 0') : widget.counter--;
-            }),
-            child: Icon(Icons.remove, color: BlackColor),
-            style: buttonStyle_build(5, 5, 10, WhiteColor),
-          ),
-          Text(
-            '${widget.counter}'.toPersianDigit(),
-            style: TextStyle(fontFamily: IranSansWeb, fontSize: 24),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                print('set');
-                widget.counter++;
-              });
-            },
-            child: Icon(
-              Icons.add,
-            ),
-            style: buttonStyle_build(5, 5, 10, RedColor),
-          ),
-        ],
-      ),
-    );
-  }
+            return Stack(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          BlackLogo,
+                          height: logoHeight,
+                          fit: BoxFit.cover,
+                        ),
+                        SizedBox(height: availableHeight * 0.05),
+                      ],
+                    ),
+                  ],
+                ),
+                Positioned(
+                  right: availableWidth * 0.10,
+                  top: availableHeight * 0.77,
+                  child: InkWell(
+                    onTap: () {
+                      // TODO: Handle back button tap
+                    },
+                    child: Icon(Icons.arrow_back_ios, size: backIconSize),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+        elevation: 0.0,
+      ));
 }
