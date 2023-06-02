@@ -1,6 +1,8 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../utils/constants.dart';
 import 'CommentVerifyErrorWidget.dart';
@@ -15,7 +17,6 @@ class CommentVerifyWidget extends StatefulWidget {
 
 class _CommentVerifyWidgetState extends State<CommentVerifyWidget> {
   String pincode = '';
-  var _authcode;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -126,7 +127,9 @@ class _CommentVerifyWidgetState extends State<CommentVerifyWidget> {
                 return;
               }
               if (int.parse(pincode) == widget.authCode) {
-                //TODO
+                SharedPreferences prefs=await SharedPreferences.getInstance();
+                var lastOrderId=prefs.getInt("lastOrderId");
+                Get.toNamed(RatingPage,arguments: lastOrderId);
               } else {
                 await showDialog(
                   context: context,
