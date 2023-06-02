@@ -42,6 +42,7 @@ class _CategoriesListState extends State<CategoriesList> {
 
   @override
   void initState() {
+
     storeId = widget.storeId;
     collections = widget.collections;
     products = widget.products;
@@ -50,6 +51,12 @@ class _CategoriesListState extends State<CategoriesList> {
 
   @override
   Widget build(BuildContext context) {
+    List<Product> orderProducts = [];
+    void updateQuantities(List<Product> updatedProducts) {
+      setState(() {
+        products = [...updatedProducts]; // update the products list with the new quantities
+      });
+    }
     return Column(
       children: [
         Row(
@@ -64,28 +71,20 @@ class _CategoriesListState extends State<CategoriesList> {
                   color: BlackColor,
                 ),
                 onPressed: () async{
-                  //Get.toNamed(SearchPage);
                   List<Product> updatedProducts = await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => SearchScreen(
                         searchProducts: products,
-                        onSearch: (List<Product> results) {
-                          setState(() {});
-                        },
+                        onSearch: updateQuantities, // pass updateQuantities as a callback
                       ),
                     ),
                   );
-                  setState(() {
-                  updatedProducts.removeWhere((element) => (element.quantity>0));
-                  products.forEach((product) {
-                    updatedProducts.forEach((updated) {
-                        if(product.id == updated.id ){
-                          product = updated;
-                        }
+                  if (updatedProducts != null) { // check if the user pressed back or not
+                    setState(() {
+                      products = [...updatedProducts];
                     });
-                    });
-                  });
+                  }
                 },
               ),
             ),

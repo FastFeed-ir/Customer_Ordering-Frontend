@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import '../model/entity/product.dart';
 import '../utils/constants.dart';
@@ -17,22 +19,26 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   late List<Product> searchResults = [];
-
+  @override
+  void dispose() {
+    super.dispose();
+    widget.onSearch(widget.searchProducts);
+  }
   @override
   void initState() {
     super.initState();
     //searchResults = searchProduct;
   }
   @override
-  void dispose() {
-    super.dispose();
-  }
+
   void _search(String keyword) {
     setState(() {
       if (keyword.isNotEmpty) {
         if(!searchResults.contains(widget.searchProducts.where((product) => product.title.contains(keyword)))){
           searchResults.clear();
           searchResults.addAll(widget.searchProducts.where((product) => product.title.contains(keyword)));}
+        widget.onSearch(searchResults);
+
       } else {
         searchResults = widget.searchProducts;
       }
@@ -51,9 +57,66 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('جستجو'),
-        leading: const BackButton(),
+      appBar:  PreferredSize(
+        preferredSize: Size.fromHeight(ScreenUtil().setHeight(137)),
+        child: AppBar(
+          backgroundColor:  RedColor,
+          automaticallyImplyLeading: false,
+          flexibleSpace: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              final double availableWidth = constraints.maxWidth;
+              final double availableHeight = constraints.maxHeight;
+
+              final double logoHeight = availableHeight * 0.5;
+              final double titleFontSize = availableHeight * 0.12;
+              final double backIconSize = availableHeight * 0.10;
+
+              return Stack(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            WhiteLogo,
+                            height: logoHeight,
+                            fit: BoxFit.cover,
+                          ),
+                          SizedBox(height: availableHeight * 0.05),
+                          Text(
+                            'جستجو',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color:
+                              WhiteColor,
+                              fontFamily: IranSansWeb,
+                              fontSize: titleFontSize,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    right: availableWidth * 0.10,
+                    top: availableHeight * 0.72,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context, widget.searchProducts);
+                      },
+                      child: Icon(Icons.arrow_back_ios,
+                          size: backIconSize,
+                          color: WhiteColor),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+          elevation: 0.0,
+        ),
       ),
       body: Column(
         children: [
