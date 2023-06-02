@@ -55,7 +55,7 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                   child: Image.asset(
-                    SuccessfulBuy,
+                    SuccessfulImage,
                     width: ScreenUtil().setWidth(258),
                     height: ScreenUtil().setHeight(70),
                     fit: BoxFit.cover,
