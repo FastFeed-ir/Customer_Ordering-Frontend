@@ -1,3 +1,4 @@
+import 'package:customer_ordering_frontend/view/SuccessfulPage/components/Successful_page.dart';
 import 'package:customer_ordering_frontend/view/commentPage/pages/comment_page.dart';
 import 'package:customer_ordering_frontend/view/mainMenu.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,7 @@ class _MyAppState extends State<MyApp> {
             //GetPage(name: MainMenuPage, page: () => MainMenuScreen()),
             GetPage(name: PaymentPage, page: () => PaymentScreen()),
             GetPage(name: SelectTablePage, page: () => SelectTableScreen(argument: Get.arguments)),
-            //GetPage(name: SuccessfulPage, page: () => SuccessfulScreen()),
+            GetPage(name: SuccessfulPage, page: () => SuccessfulScreen()),
             //GetPage(name: InformationsPage, page: () => InformationsScreen()),
             GetPage(name: StoreProfilePage, page: () => StoreProfile()),
             GetPage(name: CommentsPage, page: () => SendCommentScreen(orderId: Get.arguments,),),

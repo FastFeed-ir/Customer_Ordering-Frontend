@@ -48,7 +48,7 @@ String VerifyLogo = "assets/verify.png";
 String EmptyImg = "assets/emptyImage.png";
 String BlackLogo = "assets/logo_black.png";
 String landingPage = "assets/landing_page.png";
-String SuccessfulImage = "assets/successfulPage";
+String SuccessfulImage = "assets/successfulBuy.png";
 // Fonts
 const String IranSansWeb = "IranSansWeb";
 const String FugazOne = "FugazOne";
