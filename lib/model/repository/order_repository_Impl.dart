@@ -21,14 +21,15 @@ class OrderRepositoryImplDart extends OrderRepository {
   @override
   Future<List<Order>> getOrders(int id) async {
     var response = await dio.get('orders/');
-    print('response: ${response.statusMessage}   responceCode: ${response.statusCode}');
+    print(
+        'response: ${response.statusMessage}   responceCode: ${response.statusCode}');
     if (response.data is List) {
       List<dynamic> dataList = response.data;
       List<Order> orders = [];
       for (var data in dataList) {
         if (data is Map<String, dynamic>) {
           var order = Order.fromJson(data);
-          if(order.id == id) {
+          if (order.id == id) {
             orders.add(order);
           }
         }
@@ -38,6 +39,7 @@ class OrderRepositoryImplDart extends OrderRepository {
       throw Exception('Invalid response');
     }
   }
+
   @override
   Future<Order> addOrder(Order order) async {
     var response = await dio.post(
@@ -49,6 +51,7 @@ class OrderRepositoryImplDart extends OrderRepository {
     final newOrder = Order.fromJson(response.data);
     return newOrder;
   }
+
   @override
   Future<void> editOrder(Order order) async {
     var response = await dio.patch(
@@ -57,11 +60,26 @@ class OrderRepositoryImplDart extends OrderRepository {
     );
     print('response: ${response.statusMessage}');
   }
+
   @override
   Future<void> deleteOrder(Order order) async {
     var response = await dio.delete(
       'orders/${order.id}/',
     );
     print('response: ${response.statusMessage}');
+  }
+
+  @override
+  Future<Order> getLastOrderFromTable(int storeId, int tableNumber) async {
+    var response =
+        await dio.get('stores/$storeId/tables/$tableNumber/last-order/');
+    print(
+        'response: ${response.statusMessage}   responceCode: ${response.statusCode}');
+    if (response.statusCode == 200) {
+      final newOrder = Order.fromJson(response.data);
+      return newOrder;
+    } else {
+      throw Exception('Invalid response');
+    }
   }
 }

@@ -6,6 +6,8 @@ abstract class OrderRepository {
   
   Future<List<Order>> getOrders(int id);
 
+  Future<Order> getLastOrderFromTable(int storeId,int tableNumber);
+
   Future<Order> addOrder(Order order);
 
   Future<void> editOrder(Order order);
