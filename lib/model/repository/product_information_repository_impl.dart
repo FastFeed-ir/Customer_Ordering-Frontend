@@ -3,10 +3,11 @@ import 'package:customer_ordering_frontend/model/repository/product_information_
 
 import '../util/constants.dart';
 
+// ignore_for_file: avoid_print
 class ProductInformationRepositoryImpl extends ProductInformationRepository {
   @override
   Future<List<Comment>> getComments(int productId) async {
-    var response = await dio.get('comments/?store_id=$productId');
+    var response = await dio.get('order-comments/?product_id=$productId');
     print('response: ${response.statusMessage}');
     if (response.data is List) {
       List<dynamic> dataList = response.data;
