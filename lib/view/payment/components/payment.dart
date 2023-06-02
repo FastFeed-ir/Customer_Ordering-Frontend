@@ -3,6 +3,7 @@ import 'package:customer_ordering_frontend/model/entity/socketData.dart';
 import 'package:customer_ordering_frontend/model/repository/socket_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/constants.dart';
 import 'package:customer_ordering_frontend/model/entity/order.dart';
 import 'package:get/get.dart';
@@ -40,9 +41,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     }
     totalCost = sum;
     // TODO put storeID in socket
-    SocketService.setCode("4");
-    SocketService.connectAndListen();
-
     super.initState();
   }
   void navigateBackWithData(List<Product> totalProducts) {
@@ -349,7 +347,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       height: 360,
       child: Column(
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
@@ -453,18 +451,21 @@ class _PaymentScreenState extends State<PaymentScreen> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           minimumSize: Size(
-            ScreenUtil().setWidth(145),
+            ScreenUtil().setWidth(360),
             ScreenUtil().setHeight(50),
           ),
           padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(8),
           ),
           backgroundColor: RedColor,
         ),
         onPressed: () async{
+          SharedPreferences prefs=await SharedPreferences.getInstance();
+           var storeId=prefs.getInt("StorId");
+           var tableNumber=prefs.getInt("table");
           widget.products.removeWhere((element) => element.quantity == 0);
-          Order order = Order(store: 4, tableNumber: 1, description: explainText);
+          Order order = Order(store: storeId, tableNumber: tableNumber, description: explainText);
           _orderViewModel.addOrder(order).asStream().listen((event) async {
             orderServer = event;
             orderId = event.id ?? 0;
