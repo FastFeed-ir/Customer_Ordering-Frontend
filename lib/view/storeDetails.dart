@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
-import '../model/entity/storeRating.dart';
 import '../utils/constants.dart';
 class StoreDetails extends StatefulWidget {
   final int storeId;
@@ -15,19 +14,7 @@ class StoreDetails extends StatefulWidget {
 }
 
 class _StoreDetailsState extends State<StoreDetails> {
-  late int storeId;
-  late String? name;
-  late int? commentCount;
-  late int? ratingCount;
-  late double? averageRating;
-  @override
-  void initState() {
-    storeId = widget.storeId;
-    name = widget.name;
-    commentCount = widget.commentCount;
-    ratingCount = widget.ratingCount;
-    averageRating = widget.averageRating;
-  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -35,9 +22,9 @@ class _StoreDetailsState extends State<StoreDetails> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // TODO sotre name API
-        titleStyle(name??"فست فید"),
+        titleStyle(widget.name??"فست فید"),
         storeInfo(),
-        SizedBox(height: 10,),
+        const SizedBox(height: 10,),
         storeComments(),
       ],
     );
@@ -61,21 +48,21 @@ class _StoreDetailsState extends State<StoreDetails> {
   }
 
   Widget totalScores() {
-    String scoreAvgStr = (averageRating!.round()).toString().toPersianDigit();
-    String totalScoreStr = ratingCount.toString().toPersianDigit();
+    String scoreAvgStr = (widget.averageRating!).toString().toPersianDigit();
+    String totalScoreStr = widget.ratingCount.toString().toPersianDigit();
     String totalAvg = 5.toString().toPersianDigit();
     IconData icon = Icons.star_border_outlined;
     return Column(
       children: [
         Text(
           ("$scoreAvgStr از $totalAvg"),
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: IranSansWeb,
             fontSize: 19,
             color: BlackColor,
           ),
         ),
-        SizedBox(height: 8,),
+        const SizedBox(height: 8,),
         RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
@@ -83,12 +70,12 @@ class _StoreDetailsState extends State<StoreDetails> {
               WidgetSpan(
                 child: Icon(icon, color: BlackColor, size: 15),
               ),
-              WidgetSpan(
+              const WidgetSpan(
                 child: SizedBox(width: 3,),
               ),
               TextSpan(
                 text: ("$totalScoreStr امتیاز "),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.w500,
                   fontFamily: IranSansWeb,
@@ -103,7 +90,7 @@ class _StoreDetailsState extends State<StoreDetails> {
   }
 
   Widget moreInfo() {
-    return Column(
+    return const Column(
       children: [
         Icon(Icons.info_outline, size: 22),
         SizedBox(height: 15,),
@@ -127,7 +114,7 @@ class _StoreDetailsState extends State<StoreDetails> {
   }
 
   Widget commentsCount() {
-    String totalCommentsStr = commentCount.toString().toPersianDigit();
+    String totalCommentsStr = widget.commentCount.toString().toPersianDigit();
     IconData icon = Icons.message_outlined;
     return RichText(
       textAlign: TextAlign.center,
@@ -138,7 +125,7 @@ class _StoreDetailsState extends State<StoreDetails> {
           ),
           TextSpan(
             text: (" $totalCommentsStr  نظر  "),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 15.0,
               fontWeight: FontWeight.w500,
               fontFamily: IranSansWeb,
@@ -161,7 +148,7 @@ class _StoreDetailsState extends State<StoreDetails> {
           children: [
             TextSpan(
               text: text,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 15.0,
                 fontWeight: FontWeight.w500,
                 fontFamily: IranSansWeb,
