@@ -42,6 +42,7 @@ String Tick2 = "assets/tick2.png";
 String Zabdar = "assets/zabdar.png";
 String RestaurantLogoDef = "assets/restarauntLogo.png";
 String WhiteLogo = "assets/logo_white.png";
+String RatingLogo = "rating.png";
 String ErrotLogo = "assets/error.png";
 String VerifyLogo = "assets/verify.png";
 String EmptyImg = "assets/emptyImage.png";
@@ -157,6 +158,8 @@ AppBar AppBarMenu() {
     backgroundColor: RedColor,
   );
 }
+
+=======
 class FoodCounter extends StatefulWidget {
   // TODO static counter for keep it for foods
   int counter = 0;

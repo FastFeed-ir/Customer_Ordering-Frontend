@@ -1,11 +1,9 @@
 import '../entity/rating.dart';
 
 abstract class RatingRepository {
-  Future<List<Rating>> getRate(int id);
+  
+  Future<List<Rating>> getRatings(int productId);
 
-  Future<Rating> addRate(Rating rating);
+  Future<Rating> addRating(Rating rating);
 
-  Future<void> editRate(Rating rating);
-
-  Future<void> deleteRating(Rating rating);
 }

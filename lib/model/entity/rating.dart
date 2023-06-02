@@ -1,23 +1,20 @@
-class Rating{
+class Rating {
   int? id;
-  int? score;
-  int? product;
+  int score;
+  int productId;
+  Rating({this.id, required this.score, required this.productId});
 
-  Rating({
-    this.id,
-    required this.score,
-    this.product,
-});
+
   factory Rating.fromJson(Map<String, dynamic> json) {
     return Rating(
       id: json['id'],
       score: json['score'],
-      product: json['product'],
+      productId: json['product'],
     );
   }
   Map<String, dynamic> toJson() => {
-  'id'  : id,
-  'score' :  score,
-  'product' : product,
-  };
+        'score': score,
+        'product': productId,
+      };
+     
 }

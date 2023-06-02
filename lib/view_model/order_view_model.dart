@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import '../model/entity/order.dart';
 import '../model/repository/order_repository_Impl.dart';
@@ -8,7 +9,12 @@ class OrderViewModel extends ChangeNotifier {
 
   StreamController<List<Order>> orders =
   StreamController<List<Order>>();
+  StreamController<List<int>> Ids = StreamController<List<int>>();
 
+  void getProductsIds(int orderId) async {
+    Ids.add(await repository.getOrdersProductsId(orderId));
+    notifyListeners();
+  }
   void getOrders(int id) async {
     orders.add(await repository.getOrders(id));
     notifyListeners();
