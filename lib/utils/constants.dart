@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
+
 // Colors
 const Color WhiteColor = Color(0xFFFFFFFF);
 const Color BaseColor = Color(0xfff5f5f5);
@@ -28,10 +29,10 @@ String RatingPage = "/ratingPage";
 //String Page = "/Page";
 
 //Strings, Names, Address
-late String Phone ;
-late String Email ;
-late String Address ;
-late String InstagramPage ;
+late String Phone;
+late String Email;
+late String Address;
+late String InstagramPage;
 
 // Images
 
@@ -48,7 +49,7 @@ String VerifyLogo = "assets/verify.png";
 String EmptyImg = "assets/emptyImage.png";
 String BlackLogo = "assets/logo_black.png";
 String landingPage = "assets/landing_page.png";
-
+String SuccessfulImage = "assets/successfulPage";
 // Fonts
 const String IranSansWeb = "IranSansWeb";
 const String FugazOne = "FugazOne";
@@ -67,7 +68,8 @@ Widget titleStyle(String title) {
   );
 }
 
-ButtonStyle buttonStyle_build(double width, double height, double radius, Color color) {
+ButtonStyle buttonStyle_build(
+    double width, double height, double radius, Color color) {
   return ButtonStyle(
     backgroundColor: MaterialStateProperty.all<Color>(color),
     elevation: MaterialStateProperty.all<double>(0.0),
@@ -114,7 +116,7 @@ Widget buildInfoDialog(BuildContext context, String? text, String? Phrase) {
   );
 }
 
-Widget loading(double size){
+Widget loading(double size) {
   return Container(
     padding: EdgeInsets.only(
       left: 15.0,
@@ -125,18 +127,18 @@ Widget loading(double size){
     //height: 700.h,
     child: Center(
       child: SpinKitCircle(
-          size: size.r,
-          duration: Duration(seconds: 2),
-          itemBuilder: (context, index){
-            final colors = [YellowColor, RedColor];
-            final color = colors[index % colors.length];
-            return DecoratedBox(
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
-            );
-          },
+        size: size.r,
+        duration: Duration(seconds: 2),
+        itemBuilder: (context, index) {
+          final colors = [YellowColor, RedColor];
+          final color = colors[index % colors.length];
+          return DecoratedBox(
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
+          );
+        },
       ),
     ),
   );
@@ -159,7 +161,6 @@ AppBar AppBarMenu() {
   );
 }
 
-=======
 class FoodCounter extends StatefulWidget {
   // TODO static counter for keep it for foods
   int counter = 0;
@@ -181,18 +182,26 @@ class _FoodCounterState extends State<FoodCounter> {
               widget.counter == 0 ? print('counter at 0') : widget.counter--;
             }),
             child: Icon(Icons.remove, color: BlackColor),
-            style: buttonStyle_build(5, 5, 10,WhiteColor),
+            style: buttonStyle_build(5, 5, 10, WhiteColor),
           ),
-          Text('${widget.counter}'.toPersianDigit(), style: TextStyle(fontFamily: IranSansWeb, fontSize: 24),),
+          Text(
+            '${widget.counter}'.toPersianDigit(),
+            style: TextStyle(fontFamily: IranSansWeb, fontSize: 24),
+          ),
           ElevatedButton(
-            onPressed: () {setState(() {
-              print('set');
-              widget.counter++;
-            });},
-            child: Icon(Icons.add,),
-            style: buttonStyle_build(5, 5, 10,RedColor),
+            onPressed: () {
+              setState(() {
+                print('set');
+                widget.counter++;
+              });
+            },
+            child: Icon(
+              Icons.add,
+            ),
+            style: buttonStyle_build(5, 5, 10, RedColor),
           ),
         ],
-      ),);
+      ),
+    );
   }
 }
