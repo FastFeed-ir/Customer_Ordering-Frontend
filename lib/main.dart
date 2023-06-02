@@ -1,5 +1,4 @@
 import 'package:customer_ordering_frontend/view/mainMenu.dart';
-import 'package:customer_ordering_frontend/view/serach.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -65,7 +64,6 @@ class _MyAppState extends State<MyApp> {
             //GetPage(name: CommentsPage, page: () => CommentsScreen(),),
             GetPage(name: RatingPage, page: () => ScoringScreen(orderId: Get.arguments,)),
             //GetPage(name: SendCommentPage, page: () => SendCommentScreen()),
-            GetPage(name: SearchPage, page: () => SearchScreen()),
             GetPage(name: ScanPage, page: () => const ScanScreen()),
           ],
           

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:customer_ordering_frontend/view/serach.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
@@ -9,7 +10,6 @@ import '../model/entity/productRating.dart';
 import '../utils/constants.dart';
 
 List<Collection> searchCollection = [];
-List<Product> searchProduct = [];
 List<Rating> searchRating = [];
 
 class CategoriesList extends StatefulWidget {
@@ -63,19 +63,29 @@ class _CategoriesListState extends State<CategoriesList> {
                   size: 24,
                   color: BlackColor,
                 ),
-                onPressed: () {
-                  searchProduct = products;
-                  Get.toNamed(SearchPage);
-                  /*Navigator.push(
+                onPressed: () async{
+                  //Get.toNamed(SearchPage);
+                  List<Product> updatedProducts = await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => SearchScreen(
+                        searchProducts: products,
                         onSearch: (List<Product> results) {
                           setState(() {});
                         },
                       ),
                     ),
-                  );*/
+                  );
+                  setState(() {
+                  updatedProducts.removeWhere((element) => (element.quantity>0));
+                  products.forEach((product) {
+                    updatedProducts.forEach((updated) {
+                        if(product.id == updated.id ){
+                          product = updated;
+                        }
+                    });
+                    });
+                  });
                 },
               ),
             ),

@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import '../model/entity/product.dart';
 import '../utils/constants.dart';
-import 'categoriesList.dart';
 
 class SearchScreen extends StatefulWidget {
-  //final List<Product> products;
-  //final Function(List<Product>) onSearch;
+  final List<Product> searchProducts;
+  final Function(List<Product>) onSearch;
 
   const SearchScreen(
-      {Key? key, /*required this.products, required this.onSearch*/})
+      {Key? key, required this.searchProducts, required this.onSearch})
       : super(key: key);
 
   @override
@@ -24,35 +23,37 @@ class _SearchScreenState extends State<SearchScreen> {
     super.initState();
     //searchResults = searchProduct;
   }
-
+  @override
+  void dispose() {
+    super.dispose();
+  }
   void _search(String keyword) {
     setState(() {
       if (keyword.isNotEmpty) {
-        /*for (var item in searchProduct) {
-          if (item.title.contains(keyword)) {
-            searchResults.add(item);
-          }
-        }*/
-        if(!searchResults.contains(searchProduct.where((product) => product.title.contains(keyword)))){
+        if(!searchResults.contains(widget.searchProducts.where((product) => product.title.contains(keyword)))){
           searchResults.clear();
-          searchResults.addAll(searchProduct.where((product) => product.title.contains(keyword)));}
+          searchResults.addAll(widget.searchProducts.where((product) => product.title.contains(keyword)));}
       } else {
-        searchResults = searchProduct.toList();
+        searchResults = widget.searchProducts;
       }
     });
-    onSearch(searchResults);
+    widget.onSearch(searchResults);
   }
-  onSearch (List<Product> results) {
-    setState(() {});
+  @override
+  void didUpdateWidget(SearchScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.searchProducts != oldWidget.searchProducts) {
+      setState(() {
+        searchResults = widget.searchProducts;
+      });
+    }
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('جستجو'),
-        leading: const BackButton(
-
-        ),
+        leading: const BackButton(),
       ),
       body: Column(
         children: [
@@ -120,7 +121,7 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
   Widget searchCounter(Product product) {
-    int index = searchProduct.toList().indexOf(product);
+    int index = widget.searchProducts.indexOf(product);
     return Container(
       height: 100,
       width: 170,
@@ -136,7 +137,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   onPressed: () {
                     setState(
                           () {
-                        searchProduct.toList()[index].quantity++;
+                            widget.searchProducts[index].quantity++;
                       },
                     );
                   },
@@ -147,7 +148,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
               Text(
-                '${searchProduct.toList()[index].quantity}'.seRagham(),
+                '${widget.searchProducts[index].quantity}'.seRagham(),
                 style: const TextStyle(fontFamily: IranSansWeb, fontSize: 24),
               ),
               SizedBox(
@@ -157,8 +158,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   onPressed: () {
                     setState(
                           () {
-                        if (searchProduct.toList()[index].quantity > 0) {
-                          searchProduct.toList()[index].quantity--;
+                        if (widget.searchProducts[index].quantity > 0) {
+                          widget.searchProducts[index].quantity--;
                         }
                       },
                     );
