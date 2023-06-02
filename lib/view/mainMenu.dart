@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:customer_ordering_frontend/model/entity/product.dart';
+import 'package:customer_ordering_frontend/model/repository/socket_service.dart';
 import 'package:customer_ordering_frontend/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -177,12 +178,14 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
               orderProducts.removeWhere((element) => element.quantity == 0);
               if(orderProducts.isEmpty){
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
+                  const SnackBar(
                     content: Text('برای تکمیل خرید لطفا یک محصول انتخاب کنید'),
                   ),
                 );
                 return;
               }
+              SocketService.setCode("$storeId");
+              SocketService.connectAndListen();
               totalProducts = await Get.toNamed(PaymentPage, arguments: orderProducts);
               if (totalProducts != null) {
                 setState(() {
