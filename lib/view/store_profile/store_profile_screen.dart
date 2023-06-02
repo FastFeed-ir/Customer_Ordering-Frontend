@@ -81,66 +81,68 @@ class _StoreProfileState extends State<StoreProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: profileAppBar(context),
-      body: Material(
-        child: DefaultTabController(
-          length: 2,
-          child: Container(
-            color: Colors.white,
-            child: Column(
-              children: [
-                Container(
-                  color: RedColor,
-                  padding: const EdgeInsets.all(16.0),
-                  child: TabBar(
-                    tabs: const [
-                      Tab(
-                        child: Text(
-                          'اطلاعات',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          'نظرات',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                    indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(32.0),
-                      color: Colors.white,
-                    ),
-                    labelColor: Colors.black,
-                    unselectedLabelColor: Colors.white,
-                  ),
-                ),
-                Expanded(
-                  child: TabBarView(
-                    children: [
-                      !_gotFromServerStore
-                          ? loading()
-                          : informationSection(
-                              title,
-                              city,
-                              address,
-                              telephoneNumber,
-                              instagramPageLink,
+    return SafeArea(
+      child: Scaffold(
+        appBar: profileAppBar(context),
+        body: Material(
+          child: DefaultTabController(
+            length: 2,
+            child: Container(
+              color: Colors.white,
+              child: Column(
+                children: [
+                  Container(
+                    color: RedColor,
+                    padding: const EdgeInsets.all(16.0),
+                    child: TabBar(
+                      tabs: const [
+                        Tab(
+                          child: Text(
+                            'اطلاعات',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
                             ),
-                      !_gotFromServerComments
-                          ? loading()
-                          : commentSection(_commentsAndOrders),
-                    ],
+                          ),
+                        ),
+                        Tab(
+                          child: Text(
+                            'نظرات',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                      indicator: BoxDecoration(
+                        borderRadius: BorderRadius.circular(32.0),
+                        color: Colors.white,
+                      ),
+                      labelColor: Colors.black,
+                      unselectedLabelColor: Colors.white,
+                    ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: TabBarView(
+                      children: [
+                        !_gotFromServerStore
+                            ? loading()
+                            : informationSection(
+                                title,
+                                city,
+                                address,
+                                telephoneNumber,
+                                instagramPageLink,
+                              ),
+                        !_gotFromServerComments
+                            ? loading()
+                            : commentSection(_commentsAndOrders),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
