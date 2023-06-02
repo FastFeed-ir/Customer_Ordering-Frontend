@@ -42,6 +42,7 @@ class _CategoriesListState extends State<CategoriesList> {
 
   @override
   void initState() {
+    super.initState();
 
     storeId = widget.storeId;
     collections = widget.collections;
@@ -51,7 +52,6 @@ class _CategoriesListState extends State<CategoriesList> {
 
   @override
   Widget build(BuildContext context) {
-    List<Product> orderProducts = [];
     void updateQuantities(List<Product> updatedProducts) {
       setState(() {
         products = [...updatedProducts]; // update the products list with the new quantities
@@ -97,7 +97,7 @@ class _CategoriesListState extends State<CategoriesList> {
           ],
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.6,
+          height: MediaQuery.of(context).size.height * 0.50,
           child: productsList(),
         ),
       ],
@@ -154,152 +154,157 @@ class _CategoriesListState extends State<CategoriesList> {
               final product = collections[_selectedCategoryId].products![index];
               return Directionality(
                 textDirection: TextDirection.ltr,
-                child: Container(
-                  padding: const EdgeInsets.only(top: 10, right: 20),
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: BlackColor,
-                      ),
-                    ),
-                  ),
-                  height: 200,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 200,
-                        height: 150,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: 100,
-                              height: 100,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: product.image == null
-                                    ? Image.asset(
-                                  EmptyImg,
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                )
-                                    : Image.memory(
-                                  base64.decode(product.image!),
-                                  fit: BoxFit.cover,
-                                  width: 100,
-                                  height: 100,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Image.asset(
-                                      EmptyImg,
-                                      width: 100,
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                            if (product.image == null)
-                              const Positioned.fill(
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              ),
-                            foodCounter(product),
-                          ],
+                child: InkWell(
+                  onTap: (){
+                    //Get.toNamed(ProductInformaitionPage, arguments: product);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 10, right: 20),
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: BlackColor,
                         ),
                       ),
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            const SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: "${(product.rate ?? 0)}"
-                                            .toPersianDigit(),
-                                        style: const TextStyle(
-                                          color: BlackColor,
-                                          fontFamily: IranSansWeb,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                      const WidgetSpan(
-                                        child: Icon(
-                                          Icons.star_border,
-                                          color: YellowColor,
-                                          size: 24,
-                                        ),
-                                      ),
-                                    ],
+                    ),
+                    height: 200,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 200,
+                          height: 150,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                width: 100,
+                                height: 100,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: product.image == null
+                                      ? Image.asset(
+                                    EmptyImg,
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                  )
+                                      : Image.memory(
+                                    base64.decode(product.image!),
+                                    fit: BoxFit.cover,
+                                    width: 100,
+                                    height: 100,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.asset(
+                                        EmptyImg,
+                                        width: 100,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                      );
+                                    },
                                   ),
                                 ),
-                                Text(
-                                  product.title,
-                                  style: const TextStyle(
-                                    fontFamily: IranSansWeb,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                (product.description!),
-                                style: const TextStyle(
-                                  fontFamily: IranSansWeb,
-                                  fontSize: 16,
-                                ),
-                                maxLines: 2,
-                                textAlign: TextAlign.right,
-                                textDirection: TextDirection.rtl,
                               ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                              alignment: Alignment.centerRight,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                              if (product.image == null)
+                                const Positioned.fill(
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                ),
+                              foodCounter(product),
+                            ],
+                          ),
+                        ),
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              const SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Text(
-                                    "تومان",
-                                    style: TextStyle(
-                                      fontFamily: IranSansWeb,
-                                      fontSize: 16,
+                                  RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: "${(product.rate ?? 0)}"
+                                              .toPersianDigit(),
+                                          style: const TextStyle(
+                                            color: BlackColor,
+                                            fontFamily: IranSansWeb,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        const WidgetSpan(
+                                          child: Icon(
+                                            Icons.star_border,
+                                            color: YellowColor,
+                                            size: 24,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
                                   Text(
-                                    "${product.unitPrice}".toPersianDigit(),
+                                    product.title,
                                     style: const TextStyle(
                                       fontFamily: IranSansWeb,
-                                      fontSize: 16,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                          ],
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  (product.description!),
+                                  style: const TextStyle(
+                                    fontFamily: IranSansWeb,
+                                    fontSize: 16,
+                                  ),
+                                  maxLines: 2,
+                                  textAlign: TextAlign.right,
+                                  textDirection: TextDirection.rtl,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                alignment: Alignment.centerRight,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    const Text(
+                                      "تومان",
+                                      style: TextStyle(
+                                        fontFamily: IranSansWeb,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "${product.unitPrice}".toPersianDigit(),
+                                      style: const TextStyle(
+                                        fontFamily: IranSansWeb,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               );

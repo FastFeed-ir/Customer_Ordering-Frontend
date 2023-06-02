@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import '../utils/constants.dart';
 class StoreDetails extends StatefulWidget {
@@ -90,15 +91,21 @@ class _StoreDetailsState extends State<StoreDetails> {
   }
 
   Widget moreInfo() {
-    return Column(
-      children: [
-        Icon(Icons.info_outline, size: 22),
-        SizedBox(height: 15,),
-        Text('اطلاعات بیشتر', style: TextStyle(fontSize: 15, fontFamily: IranSansWeb),
-        ),
-      ],
+    return InkWell(
+      onTap: (){
+        Get.toNamed(StoreProfilePage, arguments: widget.storeId);
+      },
+      child: Column(
+        children: [
+          Icon(Icons.info_outline, size: 22),
+          SizedBox(height: 15,),
+          Text('اطلاعات بیشتر', style: TextStyle(fontSize: 15, fontFamily: IranSansWeb),
+          ),
+        ],
+      ),
     );
   }
+
 
   Widget storeComments() {
     return Padding(
@@ -141,7 +148,9 @@ class _StoreDetailsState extends State<StoreDetails> {
     String text = "مشاهده نظرات ";
     IconData icon = Icons.arrow_forward_ios_outlined;
     return GestureDetector(
-      onTap: (){},
+      onTap: (){
+        Get.toNamed(StoreProfilePage, arguments: widget.storeId);
+      },
       child: RichText(
         textAlign: TextAlign.center,
         text: TextSpan(

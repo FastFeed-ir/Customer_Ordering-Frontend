@@ -85,6 +85,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/rating.png
+    - assets/successfulBuy.png
     - assets/error.png
     - assets/verify.png
     - assets/logo_black.png

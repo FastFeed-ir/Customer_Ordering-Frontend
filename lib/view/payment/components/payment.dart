@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:customer_ordering_frontend/model/entity/socketData.dart';
 import 'package:customer_ordering_frontend/model/repository/socket_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/constants.dart';
 import 'package:customer_ordering_frontend/model/entity/order.dart';
 import 'package:get/get.dart';
@@ -39,9 +41,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     }
     totalCost = sum;
     // TODO put storeID in socket
-    SocketService.setCode("4");
-    SocketService.connectAndListen();
-
     super.initState();
   }
   void navigateBackWithData(List<Product> totalProducts) {
@@ -51,32 +50,66 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          // TODO delete products List
-          leading: BackButton(
-            onPressed: () {
-              navigateBackWithData(widget.products);
-            },
-          ),
-          title: Center(
-              child: Text(
-            "سبد خرید",
-            style: TextStyle(
-              fontFamily: IranSansWeb,
-              fontWeight: FontWeight.bold,
-              fontSize: 28,
-            ),
-          )),
-          actions: [
-            ElevatedButton.icon(
-              onPressed: () {
-                widget.products.clear();
-                navigateBackWithData(widget.products);
+        appBar:PreferredSize(
+          preferredSize: Size.fromHeight(ScreenUtil().setHeight(137)),
+          child: AppBar(
+            backgroundColor:  RedColor,
+            automaticallyImplyLeading: false,
+            flexibleSpace: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                final double availableWidth = constraints.maxWidth;
+                final double availableHeight = constraints.maxHeight;
+
+                final double logoHeight = availableHeight * 0.5;
+                final double titleFontSize = availableHeight * 0.12;
+                final double backIconSize = availableHeight * 0.10;
+
+                return Stack(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                               WhiteLogo,
+                              height: logoHeight,
+                              fit: BoxFit.cover,
+                            ),
+                            SizedBox(height: availableHeight * 0.05),
+                            Text(
+                              'سبد خرید',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color:
+                                WhiteColor,
+                                fontFamily: IranSansWeb,
+                                fontSize: titleFontSize,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Positioned(
+                      right: availableWidth * 0.10,
+                      top: availableHeight * 0.72,
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Icon(Icons.arrow_back_ios,
+                            size: backIconSize,
+                            color:  WhiteColor),
+                      ),
+                    ),
+                  ],
+                );
               },
-              icon: Icon(Icons.delete),
-              label: Text(''),
             ),
-          ],
+            elevation: 0.0,
+          ),
         ),
         body: ordering(),
       ),
@@ -103,7 +136,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           return Directionality(
             textDirection: TextDirection.ltr,
             child: Container(
-              padding: EdgeInsets.only(top: 10, right: 30),
+              padding: const EdgeInsets.only(top: 10, right: 30),
               decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
@@ -129,23 +162,23 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
                               product.title,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: IranSansWeb,
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Container(
@@ -153,21 +186,21 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Text(
+                              const Text(
                                 "تومان",
                                 style: TextStyle(
                                   fontFamily: IranSansWeb,
                                   fontSize: 16,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Text(
                                 "${product.unitPrice.round() ?? 0}"
                                     .toPersianDigit()
                                     .seRagham(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: IranSansWeb,
                                   fontSize: 20,
                                 ),
@@ -188,7 +221,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   Widget foodCounter(Product product, int index) {
-    return Container(
+    return SizedBox(
       height: 100,
       width: 170,
       child: Column(
@@ -218,7 +251,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     );
                   },
                   style: buttonStyle(5, 5, 10, WhiteColor),
-                  child: Icon(
+                  child: const Icon(
                     Icons.remove,
                     color: BlackColor,
                   ),
@@ -226,7 +259,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
               Text(
                 '${product.quantity}'.toPersianDigit().seRagham(),
-                style: TextStyle(fontFamily: IranSansWeb, fontSize: 24),
+                style: const TextStyle(fontFamily: IranSansWeb, fontSize: 24),
               ),
               SizedBox(
                 width: 36,
@@ -246,35 +279,35 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     totalCost = sum;
                     widget.products[index].Quantity = product.quantity;
                   },
-                  child: Icon(
+                  style: buttonStyle(5, 5, 10, RedColor),
+                  child: const Icon(
                     Icons.add,
                   ),
-                  style: buttonStyle(5, 5, 10, RedColor),
                 ),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 24,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 "تومان",
                 style: TextStyle(
                   fontFamily: IranSansWeb,
                   fontSize: 16,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Text(
                 '${(product.priceCount?.round() ?? 0)}'
                     .toPersianDigit()
                     .seRagham(),
-                style: TextStyle(fontFamily: IranSansWeb, fontSize: 22),
+                style: const TextStyle(fontFamily: IranSansWeb, fontSize: 22),
               ),
             ],
           ),
@@ -295,7 +328,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius),
-          side: BorderSide(color: BlackColor),
+          side: const BorderSide(color: BlackColor),
         ),
       ),
     );
@@ -303,7 +336,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   Widget explain() {
     return Container(
-      padding: EdgeInsets.only(top: 20, right: 20),
+      padding: const EdgeInsets.only(top: 20, right: 20),
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -326,7 +359,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           SizedBox(
@@ -347,7 +380,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
               keyboardType: TextInputType.multiline,
               maxLines: 10,
-              style: TextStyle(
+              style: const TextStyle(
                 color: BlackColor,
                 fontFamily: IranSansWeb,
               ),
@@ -365,7 +398,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   Widget checkOut() {
     return Container(
-      padding: EdgeInsets.only(left: 20, right: 20),
+      padding: const EdgeInsets.only(left: 20, right: 20),
       height: 100,
       decoration: const BoxDecoration(
         border: Border(
@@ -377,7 +410,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
+          const Text(
             "جمع کل :",
             style: TextStyle(
                 fontFamily: IranSansWeb,
@@ -388,12 +421,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
             children: [
               Text(
                 "${totalCost.round()}".toPersianDigit().seRagham(),
-                style: TextStyle(fontFamily: IranSansWeb, fontSize: 26),
+                style: const TextStyle(fontFamily: IranSansWeb, fontSize: 26),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
-              Text(
+              const Text(
                 "تومان",
                 style: TextStyle(
                   fontFamily: IranSansWeb,
@@ -409,16 +442,30 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   Widget sendOrder() {
     return Container(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         top: 10,
         right: 100,
         left: 100,
         bottom: 10,
       ),
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          minimumSize: Size(
+            ScreenUtil().setWidth(360),
+            ScreenUtil().setHeight(50),
+          ),
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          backgroundColor: RedColor,
+        ),
         onPressed: () async{
+          SharedPreferences prefs=await SharedPreferences.getInstance();
+           var storeId=prefs.getInt("StorId");
+           var tableNumber=prefs.getInt("table");
           widget.products.removeWhere((element) => element.quantity == 0);
-          Order order = Order(store: 4, tableNumber: 1, description: explainText);
+          Order order = Order(store: storeId, tableNumber: tableNumber, description: explainText);
           _orderViewModel.addOrder(order).asStream().listen((event) async {
             orderServer = event;
             orderId = event.id ?? 0;
@@ -429,13 +476,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
           print("order.id: ${socketData.order.id}");
           print("orderItem.id: ${socketData.orderItem[0].id}");
           SocketService.sendOrder(socketData);
+          Get.toNamed(SuccessfulPage,arguments: [storeId,socketData.order.authCode]);
         },
-        child: Text(
+        child: const Text(
           "ثبت سفارش",
           style: TextStyle(
             fontFamily: IranSansWeb,
             fontWeight: FontWeight.bold,
-            fontSize: 30,
+            fontSize: 24,
             color: WhiteColor,
           ),
         ),

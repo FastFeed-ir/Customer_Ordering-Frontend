@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:customer_ordering_frontend/model/entity/product.dart';
+import 'package:customer_ordering_frontend/model/repository/socket_service.dart';
 import 'package:customer_ordering_frontend/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/entity/collection.dart';
@@ -80,11 +82,62 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBarMenu(),
-        body: Container(
-          margin: const EdgeInsets.all(5),
-          padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
-          child: showMenu(),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(ScreenUtil().setHeight(137)),
+          child: AppBar(
+            backgroundColor: RedColor,
+            automaticallyImplyLeading: false,
+            flexibleSpace: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                final double availableWidth = constraints.maxWidth;
+                final double availableHeight = constraints.maxHeight;
+
+                final double logoHeight = availableHeight * 0.7;
+                final double titleFontSize = availableHeight * 0.12;
+                final double backIconSize = availableHeight * 0.10;
+
+                return Stack(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                               WhiteLogo,
+                              height: logoHeight,
+                              fit: BoxFit.cover,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Positioned(
+                      right: availableWidth * 0.10,
+                      top: availableHeight * 0.72,
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Icon(Icons.arrow_back_ios,
+                            size: backIconSize,
+                            color:  WhiteColor),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+            elevation: 0.0,
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
+            child: showMenu(),
+          ),
         ),
       ),
     );
@@ -124,8 +177,17 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   }
                 }
               }
-
               orderProducts.removeWhere((element) => element.quantity == 0);
+              if(orderProducts.isEmpty){
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('برای تکمیل خرید لطفا یک محصول انتخاب کنید'),
+                  ),
+                );
+                return;
+              }
+              SocketService.setCode("$storeId");
+              SocketService.connectAndListen();
               totalProducts = await Get.toNamed(PaymentPage, arguments: orderProducts);
               if (totalProducts != null) {
                 setState(() {

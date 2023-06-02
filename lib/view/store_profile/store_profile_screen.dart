@@ -29,10 +29,11 @@ class _StoreProfileState extends State<StoreProfile> {
   String telephoneNumber = '';
   String instagramPageLink = '';
   String noData = 'بدون اطلاعات';
-
+  late int storeId;
   @override
   void initState() {
     super.initState();
+    storeId = widget.storeId;
     loadData();
   }
 
@@ -80,66 +81,115 @@ class _StoreProfileState extends State<StoreProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: profileAppBar(context),
-      body: Material(
-        child: DefaultTabController(
-          length: 2,
-          child: Container(
-            color: Colors.white,
-            child: Column(
-              children: [
-                Container(
-                  color: RedColor,
-                  padding: const EdgeInsets.all(16.0),
-                  child: TabBar(
-                    tabs: const [
-                      Tab(
-                        child: Text(
-                          'اطلاعات',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          'نظرات',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                    indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(32.0),
-                      color: Colors.white,
-                    ),
-                    labelColor: Colors.black,
-                    unselectedLabelColor: Colors.white,
-                  ),
-                ),
-                Expanded(
-                  child: TabBarView(
-                    children: [
-                      !_gotFromServerStore
-                          ? loading()
-                          : informationSection(
-                              title,
-                              city,
-                              address,
-                              telephoneNumber,
-                              instagramPageLink,
+    return SafeArea(
+      child: Scaffold(
+        appBar:PreferredSize(
+          preferredSize: Size.fromHeight(ScreenUtil().setHeight(137)),
+          child: AppBar(
+            backgroundColor: RedColor,
+            automaticallyImplyLeading: false,
+            flexibleSpace: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                final double availableWidth = constraints.maxWidth;
+                final double availableHeight = constraints.maxHeight;
+
+                final double logoHeight = availableHeight * 0.7;
+                final double titleFontSize = availableHeight * 0.12;
+                final double backIconSize = availableHeight * 0.10;
+
+                return Stack(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              WhiteLogo,
+                              height: logoHeight,
+                              fit: BoxFit.cover,
                             ),
-                      !_gotFromServerComments
-                          ? loading()
-                          : commentSection(_commentsAndOrders),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
+                    Positioned(
+                      right: availableWidth * 0.10,
+                      top: availableHeight * 0.72,
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Icon(Icons.arrow_back_ios,
+                            size: backIconSize,
+                            color:  WhiteColor),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+            elevation: 0.0,
+          ),
+        ),
+        body: Material(
+          child: DefaultTabController(
+            length: 2,
+            child: Container(
+              color: Colors.white,
+              child: Column(
+                children: [
+                  Container(
+                    color: RedColor,
+                    padding: const EdgeInsets.all(16.0),
+                    child: TabBar(
+                      tabs: const [
+                        Tab(
+                          child: Text(
+                            'اطلاعات',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        Tab(
+                          child: Text(
+                            'نظرات',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
+                      indicator: BoxDecoration(
+                        borderRadius: BorderRadius.circular(32.0),
+                        color: Colors.white,
+                      ),
+                      labelColor: Colors.black,
+                      unselectedLabelColor: Colors.white,
+                    ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: TabBarView(
+                      children: [
+                        !_gotFromServerStore
+                            ? loading(54)
+                            : informationSection(
+                                title,
+                                city,
+                                address,
+                                telephoneNumber,
+                                instagramPageLink,
+                              ),
+                        !_gotFromServerComments
+                            ? loading(54)
+                            : commentSection(_commentsAndOrders),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -147,21 +197,4 @@ class _StoreProfileState extends State<StoreProfile> {
     );
   }
 
-  Widget loading() {
-    return Container(
-      padding: EdgeInsets.only(
-        left: 16.0.w,
-        top: 8.0.h,
-        right: 16.0.w,
-      ),
-      // width: 1920.w,
-      // height: 700.h,
-      child: const Center(
-        child: CircularProgressIndicator(
-          strokeWidth: 4.0,
-          valueColor: AlwaysStoppedAnimation<Color>(RedColor),
-        ),
-      ),
-    );
-  }
 }
