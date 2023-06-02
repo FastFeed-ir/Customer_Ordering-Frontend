@@ -33,9 +33,11 @@ class _SearchScreenState extends State<SearchScreen> {
             searchResults.add(item);
           }
         }*/
-        searchResults.addAll(searchProduct.where((product) => product.title.contains(keyword)));
+        if(!searchResults.contains(searchProduct.where((product) => product.title.contains(keyword)))){
+          searchResults.clear();
+          searchResults.addAll(searchProduct.where((product) => product.title.contains(keyword)));}
       } else {
-        searchResults = searchProduct;
+        searchResults = searchProduct.toList();
       }
     });
     onSearch(searchResults);
@@ -48,7 +50,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('جستجو'),
-        leading: BackButton(
+        leading: const BackButton(
 
         ),
       ),
@@ -86,9 +88,9 @@ class _SearchScreenState extends State<SearchScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             ' قیمت:',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontFamily: IranSansWeb, fontSize: 20),
                           ),
                           Text(
@@ -96,9 +98,9 @@ class _SearchScreenState extends State<SearchScreen> {
                             style: const TextStyle(
                                 fontFamily: IranSansWeb, fontSize: 20),
                           ),
-                          Text(
+                          const Text(
                             ' تومان ',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontFamily: IranSansWeb, fontSize: 20),
                           ),
                         ],
@@ -118,7 +120,7 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
   Widget searchCounter(Product product) {
-    int index = searchProduct.indexOf(product);
+    int index = searchProduct.toList().indexOf(product);
     return Container(
       height: 100,
       width: 170,
@@ -134,7 +136,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   onPressed: () {
                     setState(
                           () {
-                        searchProduct[index].quantity++;
+                        searchProduct.toList()[index].quantity++;
                       },
                     );
                   },
@@ -145,7 +147,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
               Text(
-                '${searchProduct[index].quantity}'.seRagham(),
+                '${searchProduct.toList()[index].quantity}'.seRagham(),
                 style: const TextStyle(fontFamily: IranSansWeb, fontSize: 24),
               ),
               SizedBox(
@@ -155,8 +157,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   onPressed: () {
                     setState(
                           () {
-                        if (searchProduct[index].quantity > 0) {
-                          searchProduct[index].quantity--;
+                        if (searchProduct.toList()[index].quantity > 0) {
+                          searchProduct.toList()[index].quantity--;
                         }
                       },
                     );

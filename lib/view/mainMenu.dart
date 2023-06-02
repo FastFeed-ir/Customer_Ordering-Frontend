@@ -23,6 +23,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   late int storeId;
 
   late bool gotFromServer = false;
+  late List<Product> orderProducts = [];
+  late List<Product> totalProducts = [];
 
   late List<Collection> collections = [];
   late List<Product> products = [];
@@ -31,7 +33,6 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   double averageRating = 0;
   int commentCount = 0;
   int ratingCount = 0;
-  late ProductRatingData productRatingData = ProductRatingData();
   final _productRatingViewModel = ProductRatingViewModel();
   final _collectionViewModel = CollectionViewModel();
   Future<void> x() async {
@@ -105,6 +106,30 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           storeId: storeId,
           collections: collections,
           products: products,
+        ),        SizedBox(
+          height: 50,
+          width: 360,
+          child: ElevatedButton(
+            onPressed: () {
+              for (var product in products) {
+                orderProducts.add(product);
+              }
+              orderProducts.removeWhere((element) => element.quantity == 0);
+              totalProducts = orderProducts;
+              //totalProducts.forEach((element) {print("${element.title}\t${element.quantity}");});
+              orderProducts.clear();
+              //Get.toNamed(PaymentPage, arguments: totalProducts);
+              // print
+            },
+            child: Text(
+              "تکمیل خرید",
+              style: TextStyle(
+                  fontSize: 16,
+                  fontFamily: IranSansWeb,
+                  fontWeight: FontWeight.bold),
+            ),
+            style: buttonStyle_build(5, 5, 10, RedColor),
+          ),
         ),
       ],
     );
@@ -112,7 +137,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
 
   void loadProductRating(int productId) {
     _productRatingViewModel.getRatings(productId);
-    productRatingData = _productRatingViewModel.productRatingData;
+    var productRatingData = _productRatingViewModel.productRatingData;
   }
 
   Future<void> loadFood() async {
@@ -127,8 +152,13 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             collection.products = [];
             for (var product in listProducts) {
               if (product.collectionId == collection.id) {
-                loadProductRating(product.id!);
-                product.rate = productRatingData.averageRating ?? 0;
+                print(product.id!);
+                _productRatingViewModel.getRatings(product.id!);
+                // var avrageRate =_productRatingViewModel.productRatingData.averageRating;
+                // print(avrageRate)
+                product.rate =
+                    // avrageRate??
+                        0;
                 collection.products!.add(product);
                 products.add(product);
               }
