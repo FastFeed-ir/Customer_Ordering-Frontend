@@ -22,18 +22,25 @@ class PaymentScreen extends StatefulWidget {
 
 class _PaymentScreenState extends State<PaymentScreen> {
   late List<OrderItem> orderItems = [];
-
+late SharedPreferences prefs;
   late double sum;
   late double totalCost = 0;
   late String explainText = "";
   late int orderId;
+  late int tableNumber;
+  late int storeId;
   final _orderViewModel = OrderViewModel();
   final _orderItemViewModel = OrderItemViewModel();
-  late Order orderServer = Order(tableNumber: 0, store: 0);
+  late Order orderServer = Order(tableNumber: tableNumber, store: storeId);
   late List<OrderItem> orderItemSever = [];
+  Future<void> x() async {
+    prefs=await SharedPreferences.getInstance();
+    tableNumber=prefs.getInt("table")!;
+    storeId=prefs.getInt("StorId")!;
+  }
   @override
   void initState() {
-
+x();
     sum = 0;
     for (var product in widget.products) {
       product.priceCount = (product.quantity ?? 0) * product.unitPrice;
@@ -466,7 +473,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
            var tableNumber=prefs.getInt("table");
           widget.products.removeWhere((element) => element.quantity == 0);
           Order order = Order(store: storeId, tableNumber: tableNumber, description: explainText);
-          _orderViewModel.addOrder(order).asStream().listen((event) async {
+          _orderViewModel.addOrder(order,tableNumber!).asStream().listen((event) async {
             orderServer = event;
             orderId = event.id ?? 0;
             await _addOrderItem(orderId);
