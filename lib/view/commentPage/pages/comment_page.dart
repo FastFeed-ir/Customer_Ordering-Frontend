@@ -248,6 +248,7 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
                       content: _content,
                       orderId: _orderId,
                       name: _name,
+
                     );
                     _viewModel
                         .addComment(comment)

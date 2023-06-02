@@ -4,14 +4,14 @@ class Comment {
   String content;
   int orderId;
   int? storeId;
-  String createdAt;
+  String? createdAt;
 
   Comment({
     this.id,
     required this.name,
     required this.content,
     required this.orderId,
-    required this.createdAt,
+     this.createdAt,
     this.storeId,
   });
 

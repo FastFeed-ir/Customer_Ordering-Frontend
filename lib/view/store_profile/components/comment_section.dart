@@ -13,7 +13,7 @@ Widget commentSection(Map<Comment, List<String>> commentsAndOrders) {
             List<String> ordersNames = commentsAndOrders.values.toList()[index];
             return Column(
               children: [
-                commentDetail(comment.name, comment.createdAt, comment.content,
+                commentDetail(comment.name, comment.createdAt!, comment.content,
                     ordersNames),
                 const Divider(
                   thickness: 2,
