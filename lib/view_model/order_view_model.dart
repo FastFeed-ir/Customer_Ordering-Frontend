@@ -27,8 +27,9 @@ class OrderViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Order> addOrder(Order order) async {
+  Future<Order> addOrder(Order order, int tableNumber) async {
     var newOrder = await repository.addOrder(order);
+    newOrder.tableNumber=tableNumber;
     notifyListeners();
     return newOrder;
   }
