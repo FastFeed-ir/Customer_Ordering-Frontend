@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 import 'package:material_color_gen/material_color_gen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'utils/constants.dart';
+import 'view/product_information/product_information_screen.dart';
 import 'view/ratingPage/pages/rating_page.dart';
-import 'model/repository/socket_service.dart';
 import 'view/payment/components/payment.dart';
 import 'view/ScanPage/pages/ScanPage.dart';
 import 'view/SelectTablePage/pages/SelectTablePage.dart';
@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: PaymentPage, page: () => PaymentScreen()),
             GetPage(name: SelectTablePage, page: () => SelectTableScreen(argument: Get.arguments)),
             GetPage(name: SuccessfulPage, page: () => SuccessfulScreen()),
-            //GetPage(name: InformationsPage, page: () => InformationsScreen()),
+            GetPage(name: ProductInformationPage, page: () => ProductInformation()),
             GetPage(name: StoreProfilePage, page: () => StoreProfile()),
             GetPage(name: CommentsPage, page: () => SendCommentScreen(orderId: Get.arguments,),),
             GetPage(name: RatingPage, page: () => ScoringScreen(orderId: Get.arguments,)),
@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: ScanPage, page: () => const ScanScreen()),
           ],
           
-          initialRoute: LandingPage,
+          initialRoute: MainMenuPage,
           // initialRoute: ScanPage, //TODO
           textDirection: TextDirection.rtl,
           defaultTransition: Transition.noTransition,

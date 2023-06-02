@@ -156,7 +156,7 @@ class _CategoriesListState extends State<CategoriesList> {
                 textDirection: TextDirection.ltr,
                 child: InkWell(
                   onTap: (){
-                    //Get.toNamed(ProductInformaitionPage, arguments: product);
+                    Get.toNamed(ProductInformationPage, arguments: product);
                   },
                   child: Container(
                     padding: const EdgeInsets.only(top: 10, right: 20),
