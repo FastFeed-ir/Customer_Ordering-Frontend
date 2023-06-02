@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:persian_number_utility/persian_number_utility.dart';
 import '../../../utils/constants.dart';
 
 class SuccessfulScreen extends StatefulWidget {
-  const SuccessfulScreen({Key? key}) : super(key: key);
-
+  SuccessfulScreen({Key? key}) : super(key: key);
+  var parameter = Get.arguments;
   @override
   _SuccessfulScreenState createState() => _SuccessfulScreenState();
 }
 
 class _SuccessfulScreenState extends State<SuccessfulScreen> {
+  late int storeId;
+  late int authCode;
+  @override
+  void initState() {
+    storeId = widget.parameter[0];
+    authCode = widget.parameter[1];
+  }
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: const Size(360, 800));
@@ -89,7 +98,7 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
                       ),
                     ),
                     Text(
-                      '123',
+                      '${authCode}'.toPersianDigit(),
                       style: TextStyle(
                         color: BlackColor,
                         fontFamily: IranSansWeb,
@@ -116,7 +125,7 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    print('Button pressed ...');
+                    Get.toNamed(LandingPage);
                   },
                   icon: Icon(
                     Icons.home,
