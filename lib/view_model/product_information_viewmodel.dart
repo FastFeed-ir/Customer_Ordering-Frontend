@@ -10,8 +10,8 @@ class ProductInformationViewModel extends ChangeNotifier {
 
   StreamController<List<Comment>> comments = StreamController<List<Comment>>();
 
-  void getComments(int storeId) async {
-    comments.add(await repository.getComments(storeId));
+  void getComments(int productId) async {
+    comments.add(await repository.getComments(productId));
     notifyListeners();
   }
 }
