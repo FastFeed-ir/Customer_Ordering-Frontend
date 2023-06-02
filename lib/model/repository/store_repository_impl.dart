@@ -8,6 +8,32 @@ class StoreRepositoryImpl extends StoreRepository {
   var dio = Dio(options);
 
   @override
+  Future<StoreRatingData> getRatings(int storeId) async {
+    var response = await dio.get('stores/$storeId/ratings/');
+    print(
+        'response: ${response.statusMessage}   responceCode: ${response.data}');
+    if (response.statusCode == 200) {
+        var storeRatingData = StoreRatingData.fromJson(response.data);
+      return storeRatingData;
+    } else {
+      throw Exception('Invalid response');
+    }
+  }
+
+  @override
+  Future<Store> getStore(int storeId) async {
+    var response = await dio.get('stores/$storeId');
+    print(
+        'response: ${response.statusMessage}   responceCode: ${response.data}');
+    if (response.statusCode == 200) {
+      var store = Store.fromJson(response.data);
+      return store;
+    } else {
+      return Store();
+    }
+  }
+
+  @override
   Future<List<Store>> getStores(int id) async {
     var response = await dio.get('stores/?business_owner_id=$id/');
     print(
@@ -54,17 +80,5 @@ class StoreRepositoryImpl extends StoreRepository {
       'stores/${store.id}/',
     );
     print('response: ${response.statusMessage}');
-  }
-
-  @override
-  Future<Store> getStore(int storeId) async {
-    var response = await dio.get('stores/$storeId');
-    print('response: ${response.statusMessage}   responceCode: ${response.data}');
-    if (response.statusCode == 200) {
-      var store = Store.fromJson(response.data);
-      return store;
-    } else {
-      return Store();
-    }
   }
 }

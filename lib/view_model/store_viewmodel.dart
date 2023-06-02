@@ -8,12 +8,20 @@ class StoreViewModel extends ChangeNotifier {
   var repository = StoreRepositoryImpl();
   StreamController<List<Store>> stores = StreamController<List<Store>>();
   late Store store;
+  late StoreRatingData storeRatingData;
+
   void getStores(int id) async {
     stores.add(await repository.getStores(id));
     notifyListeners();
   }
+
   void getStore(int storeId) async {
     store = await repository.getStore(storeId);
+    notifyListeners();
+  }
+
+  void getRatings(int storeId) async {
+    storeRatingData = await repository.getRatings(storeId);
     notifyListeners();
   }
 

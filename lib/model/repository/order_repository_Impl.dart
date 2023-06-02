@@ -3,7 +3,7 @@ import 'package:customer_ordering_frontend/model/entity/order.dart';
 import '../util/constants.dart';
 import 'order_repository.dart';
 
-class OrderRepositoryImplDart extends OrderRepository {
+class OrderRepositoryImpl extends OrderRepository {
   @override
   Future<List<int>> getOrdersProductsId(int orderId) async {
     var response = await dio.get('orders/$orderId/productsID/');
