@@ -27,6 +27,7 @@ class OrderItem {
   }
 
   Map<String, dynamic> toJson() => {
+    'id': id,
     'product': product,
     'quantity': quantity,
     'order': order,
