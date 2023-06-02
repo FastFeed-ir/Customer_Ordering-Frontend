@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:customer_ordering_frontend/model/entity/product.dart';
 import 'package:customer_ordering_frontend/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/entity/collection.dart';
-import '../model/entity/productRating.dart';
 import '../view_model/collection_view_model.dart';
 import '../view_model/productRating_view_model.dart';
 import 'categoriesList.dart';
@@ -65,7 +65,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   Widget showMenu() {
     if (collections.isEmpty && products.isEmpty) {
       if (gotFromServer) {
-        return const Center(child: Text("در حال اتصال", style: TextStyle(fontFamily: IranSansWeb, fontSize: 24,color: BlackColor, fontWeight: FontWeight.w400,)),);
+        return const Center(child: Text("...در حال اتصال", style: TextStyle(fontFamily: IranSansWeb, fontSize: 24,color: BlackColor, fontWeight: FontWeight.w400,)),);
       } else {
         return loading(60);
       }
@@ -106,21 +106,39 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           storeId: storeId,
           collections: collections,
           products: products,
-        ),        SizedBox(
+        ),
+        SizedBox(
           height: 50,
           width: 360,
           child: ElevatedButton(
-            onPressed: () {
+            onPressed: () async{
               for (var product in products) {
-                orderProducts.add(product);
+                if (!orderProducts.contains(product)){
+                  orderProducts.add(product);
+                }else {
+                  int index = orderProducts.indexOf(product);
+                  if(orderProducts[index].quantity != product.quantity) {
+                    orderProducts[index].quantity += product.quantity;
+                  }
+                }
               }
+
               orderProducts.removeWhere((element) => element.quantity == 0);
-              totalProducts = orderProducts;
-              //totalProducts.forEach((element) {print("${element.title}\t${element.quantity}");});
-              print(orderProducts.length);
+              totalProducts = await Get.toNamed(PaymentPage, arguments: orderProducts);
+              if (totalProducts != null) {
+                setState(() {
+                  if(totalProducts.isEmpty){
+                    products.forEach((element) {element.quantity = 0;});
+                  }
+                  for (var product in totalProducts) {
+                    int index = orderProducts.indexOf(product);
+                    if (index != -1) {
+                      orderProducts[index].quantity = product.quantity;
+                    }
+                  }
+                });
+              }
               orderProducts.clear();
-              //Get.toNamed(PaymentPage, arguments: totalProducts);
-              // print
             },
             child: Text(
               "تکمیل خرید",
