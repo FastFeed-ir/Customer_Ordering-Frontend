@@ -30,8 +30,9 @@ class _MyAppState extends State<MyApp> {
   late SharedPreferences prefs;
   Future<void> x() async {
     prefs = await SharedPreferences.getInstance();
-    prefs.setInt("StorId", 3);
-    prefs.setInt("tableCount", 8);
+    prefs.setInt("StorId", 4);
+    prefs.setInt("tableCount", 5);
+    prefs.setString("storeTitle",'بایرام');
   }
 
   @override
@@ -52,7 +53,7 @@ class _MyAppState extends State<MyApp> {
         return GetMaterialApp(
           getPages: [
             GetPage(name: LandingPage, page: () => LandingScreen()),
-            GetPage(name: MainMenuPage, page: () => MainMenuScreen()),
+            GetPage(name: MainMenuPage, page: () => MainMenuScreen(storeId: Get.arguments,)),
             //GetPage(name: PaymentPage, page: () => PaymentScreen()),
             //GetPage(name: MainMenuPage, page: () => MainMenuScreen()),
             GetPage(name: PaymentPage, page: () => PaymentScreen()),
