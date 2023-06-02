@@ -51,8 +51,6 @@ class _MyAppState extends State<MyApp> {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        SocketService.setCode("4");
-        SocketService.connectAndListen();
         return GetMaterialApp(
           getPages: [
             GetPage(name: LandingPage, page: () => LandingScreen()),
