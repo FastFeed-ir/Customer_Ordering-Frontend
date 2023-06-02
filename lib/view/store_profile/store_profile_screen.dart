@@ -83,7 +83,56 @@ class _StoreProfileState extends State<StoreProfile> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: profileAppBar(context),
+        appBar:PreferredSize(
+          preferredSize: Size.fromHeight(ScreenUtil().setHeight(137)),
+          child: AppBar(
+            backgroundColor: RedColor,
+            automaticallyImplyLeading: false,
+            flexibleSpace: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                final double availableWidth = constraints.maxWidth;
+                final double availableHeight = constraints.maxHeight;
+
+                final double logoHeight = availableHeight * 0.7;
+                final double titleFontSize = availableHeight * 0.12;
+                final double backIconSize = availableHeight * 0.10;
+
+                return Stack(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              WhiteLogo,
+                              height: logoHeight,
+                              fit: BoxFit.cover,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Positioned(
+                      right: availableWidth * 0.10,
+                      top: availableHeight * 0.72,
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Icon(Icons.arrow_back_ios,
+                            size: backIconSize,
+                            color:  WhiteColor),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+            elevation: 0.0,
+          ),
+        ),
         body: Material(
           child: DefaultTabController(
             length: 2,

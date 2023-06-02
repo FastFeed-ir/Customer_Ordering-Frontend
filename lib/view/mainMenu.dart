@@ -92,7 +92,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 final double availableWidth = constraints.maxWidth;
                 final double availableHeight = constraints.maxHeight;
 
-                final double logoHeight = availableHeight * 0.5;
+                final double logoHeight = availableHeight * 0.7;
                 final double titleFontSize = availableHeight * 0.12;
                 final double backIconSize = availableHeight * 0.10;
 
