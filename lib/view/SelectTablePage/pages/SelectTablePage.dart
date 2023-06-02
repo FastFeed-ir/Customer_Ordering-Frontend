@@ -172,10 +172,11 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           prefs.setInt("table", selectedIndex);
+                          var storeId = prefs.getInt('StorId');
                           if (widget.argument) {
-                            // Handle option nazar//TODO
+                            //TODO auth
                           } else {
-                            // Handle option sefaresh//TODO
+                            Get.toNamed(MainMenuPage, arguments: storeId);
                           }
                         },
                         style: ElevatedButton.styleFrom(
