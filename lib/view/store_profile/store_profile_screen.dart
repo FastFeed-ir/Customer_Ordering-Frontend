@@ -3,15 +3,16 @@ import 'package:customer_ordering_frontend/view/store_profile/components/profile
 import 'package:customer_ordering_frontend/view_model/store_profile_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../model/entity/comment.dart';
 import 'components/comment_section.dart';
 import 'components/information_section.dart';
 
 class StoreProfile extends StatefulWidget {
-  const StoreProfile({super.key, required this.storeId});
+  final storeId = Get.arguments;
 
-  final int storeId;
+  StoreProfile({super.key});
 
   @override
   State<StoreProfile> createState() => _StoreProfileState();
