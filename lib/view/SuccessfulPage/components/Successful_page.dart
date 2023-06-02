@@ -55,104 +55,106 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
           ),
         ),
         body: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Align(
-                alignment: const AlignmentDirectional(0, 0),
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                  child: Image.asset(
-                    SuccessfulImage,
-                    height: ScreenUtil().setHeight(70),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Align(
+                  alignment: const AlignmentDirectional(0, 0),
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                    child: Image.asset(
+                      SuccessfulImage,
+                      height: ScreenUtil().setHeight(70),
 
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                child: Text(
-                  'خرید موفق !',
-                  style: TextStyle(
-                    color: BlackColor,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: IranSansWeb,
-                    fontSize: ScreenUtil().setSp(28),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(25, 30, 25, 0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'کد احراز هویت:',
-                      style: TextStyle(
-                        color: BlackColor,
-                        fontFamily: IranSansWeb,
-                        fontSize: ScreenUtil().setSp(20),
-                      ),
+                      fit: BoxFit.cover,
                     ),
-                    Text(
-                      '${authCode}'.toPersianDigit(),
-                      style: TextStyle(
-                        color: BlackColor,
-                        fontFamily: IranSansWeb,
-                        fontWeight: FontWeight.bold,
-                        fontSize: ScreenUtil().setSp(36),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(30, 20, 30, 0),
-                child: Text(
-                  '\nبرای ثبت نظر و امتیاز دادن به سفارشتون QR Code روی میز رو دوباره اسکن کنید! ',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: BlackColor,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: IranSansWeb,
-                    fontSize: ScreenUtil().setSp(20),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    Get.toNamed(LandingPage);
-                  },
-                  icon: Icon(
-                    Icons.home,
-                    color: BlackColor,
-                    size: ScreenUtil().setSp(24),
-                  ),
-                  label: Text(
-                    'خانه',
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                  child: Text(
+                    'خرید موفق !',
                     style: TextStyle(
                       color: BlackColor,
+                      fontWeight: FontWeight.bold,
                       fontFamily: IranSansWeb,
-                      fontSize: ScreenUtil().setSp(24),
+                      fontSize: ScreenUtil().setSp(28),
                     ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: YellowColor,
-                    foregroundColor: BlackColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    minimumSize: Size(
-                        ScreenUtil().setWidth(145), ScreenUtil().setHeight(65)),
                   ),
                 ),
-              )
-            ],
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(25, 30, 25, 0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'کد احراز هویت:',
+                        style: TextStyle(
+                          color: BlackColor,
+                          fontFamily: IranSansWeb,
+                          fontSize: ScreenUtil().setSp(20),
+                        ),
+                      ),
+                      Text(
+                        '${authCode}'.toPersianDigit(),
+                        style: TextStyle(
+                          color: BlackColor,
+                          fontFamily: IranSansWeb,
+                          fontWeight: FontWeight.bold,
+                          fontSize: ScreenUtil().setSp(36),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(30, 20, 30, 0),
+                  child: Text(
+                    '\nبرای ثبت نظر و امتیاز دادن به سفارشتون QR Code روی میز رو دوباره اسکن کنید! ',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: BlackColor,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: IranSansWeb,
+                      fontSize: ScreenUtil().setSp(20),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      Get.toNamed(LandingPage);
+                    },
+                    icon: Icon(
+                      Icons.home,
+                      color: BlackColor,
+                      size: ScreenUtil().setSp(24),
+                    ),
+                    label: Text(
+                      'خانه',
+                      style: TextStyle(
+                        color: BlackColor,
+                        fontFamily: IranSansWeb,
+                        fontSize: ScreenUtil().setSp(24),
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: YellowColor,
+                      foregroundColor: BlackColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                      minimumSize: Size(
+                          ScreenUtil().setWidth(145), ScreenUtil().setHeight(65)),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
