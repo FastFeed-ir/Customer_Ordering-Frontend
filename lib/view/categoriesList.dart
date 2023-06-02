@@ -42,6 +42,7 @@ class _CategoriesListState extends State<CategoriesList> {
 
   @override
   void initState() {
+    super.initState();
 
     storeId = widget.storeId;
     collections = widget.collections;
@@ -97,7 +98,7 @@ class _CategoriesListState extends State<CategoriesList> {
           ],
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.6,
+          height: MediaQuery.of(context).size.height * 0.50,
           child: productsList(),
         ),
       ],
