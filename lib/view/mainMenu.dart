@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:customer_ordering_frontend/model/entity/product.dart';
 import 'package:customer_ordering_frontend/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/entity/collection.dart';
@@ -80,7 +81,56 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBarMenu(),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(ScreenUtil().setHeight(137)),
+          child: AppBar(
+            backgroundColor: RedColor,
+            automaticallyImplyLeading: false,
+            flexibleSpace: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                final double availableWidth = constraints.maxWidth;
+                final double availableHeight = constraints.maxHeight;
+
+                final double logoHeight = availableHeight * 0.5;
+                final double titleFontSize = availableHeight * 0.12;
+                final double backIconSize = availableHeight * 0.10;
+
+                return Stack(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                               WhiteLogo,
+                              height: logoHeight,
+                              fit: BoxFit.cover,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Positioned(
+                      right: availableWidth * 0.10,
+                      top: availableHeight * 0.72,
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Icon(Icons.arrow_back_ios,
+                            size: backIconSize,
+                            color:  WhiteColor),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+            elevation: 0.0,
+          ),
+        ),
         body: Container(
           margin: const EdgeInsets.all(5),
           padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
