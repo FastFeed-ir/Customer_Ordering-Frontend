@@ -40,7 +40,6 @@ class OrderRepositoryImpl extends OrderRepository {
     final newOrder = Order.fromJson(response.data);
     return newOrder;
   }
-
   @override
   Future<void> editOrder(Order order) async {
     var response = await dio.patch(
@@ -57,6 +56,7 @@ class OrderRepositoryImpl extends OrderRepository {
     );
     print('response: ${response.statusMessage}');
   }
+
 
   @override
   Future<List<int>> getOrdersProductsId(int orderId) async {
