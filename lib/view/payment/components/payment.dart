@@ -347,7 +347,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       height: 360,
       child: Column(
         children: [
-           Row(
+           const Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
@@ -476,6 +476,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           print("order.id: ${socketData.order.id}");
           print("orderItem.id: ${socketData.orderItem[0].id}");
           SocketService.sendOrder(socketData);
+          Get.toNamed(SuccessfulPage,arguments: [storeId,socketData.order.authCode]);
         },
         child: const Text(
           "ثبت سفارش",
