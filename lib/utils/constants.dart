@@ -21,6 +21,7 @@ String InformationsPage = "/informationsPage";
 String CommentsPage = "/commentsPage";
 String ScoringPage = "/scoringPage";
 String SendCommentPage = "/sendCommentPage";
+String ProductInformationPage = "/productInformationPage";
 String StoreProfilePage = "/storeProfile";
 String SearchPage = "/searchPage";
 String RatingPage = "/ratingPage";
@@ -159,7 +160,8 @@ AppBar AppBarMenu() {
     backgroundColor: RedColor,
   );
 }
-PreferredSize menuAppBar(){
+
+PreferredSize menuAppBar() {
   return PreferredSize(
       preferredSize: Size.fromHeight(ScreenUtil().setHeight(180)),
       child: AppBar(
