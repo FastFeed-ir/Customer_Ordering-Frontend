@@ -32,12 +32,10 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
               automaticallyImplyLeading: false,
               flexibleSpace: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
-                  final double availableWidth = constraints.maxWidth;
                   final double availableHeight = constraints.maxHeight;
 
                   final double logoHeight = availableHeight * 0.5;
                   final double titleFontSize = availableHeight * 0.12;
-                  final double backIconSize = availableHeight * 0.10;
 
                   return Stack(
                     children: [
@@ -65,16 +63,6 @@ class _SendCommentScreenState extends State<SendCommentScreen> {
                             ],
                           ),
                         ],
-                      ),
-                      Positioned(
-                        right: availableWidth * 0.10,
-                        top: availableHeight * 0.72,
-                        child: InkWell(
-                          onTap: () {
-                            // TODO: Handle back button tap
-                          },
-                          child: Icon(Icons.arrow_back_ios, size: backIconSize),
-                        ),
                       ),
                     ],
                   );
