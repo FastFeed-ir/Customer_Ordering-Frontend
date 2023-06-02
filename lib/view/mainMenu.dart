@@ -33,6 +33,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   double averageRating = 0;
   int commentCount = 0;
   int ratingCount = 0;
+  late ProductRatingData productRatingData = ProductRatingData();
   final _productRatingViewModel = ProductRatingViewModel();
   final _collectionViewModel = CollectionViewModel();
   Future<void> x() async {
@@ -122,23 +123,18 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
               //Get.toNamed(PaymentPage, arguments: totalProducts);
               // print
             },
-            child: Text(
+            style: buttonStyle_build(5, 5, 10, RedColor),
+            child: const Text(
               "تکمیل خرید",
               style: TextStyle(
                   fontSize: 16,
                   fontFamily: IranSansWeb,
                   fontWeight: FontWeight.bold),
             ),
-            style: buttonStyle_build(5, 5, 10, RedColor),
           ),
         ),
       ],
     );
-  }
-
-  void loadProductRating(int productId) {
-    _productRatingViewModel.getRatings(productId);
-    var productRatingData = _productRatingViewModel.productRatingData;
   }
 
   Future<void> loadFood() async {
@@ -146,20 +142,16 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     _collectionViewModel.getProducts(storeId);
     _collectionViewModel.collections.stream.listen((listCollections) {
       _collectionViewModel.products.stream.listen((listProducts) {
-        setState(() {
+        setState(() async {
           x();
           collections.addAll(listCollections);
           for (var collection in collections) {
             collection.products = [];
             for (var product in listProducts) {
               if (product.collectionId == collection.id) {
-                print(product.id!);
-                _productRatingViewModel.getRatings(product.id!);
-                // var avrageRate =_productRatingViewModel.productRatingData.averageRating;
-                // print(avrageRate)
-                product.rate =
-                    // avrageRate??
-                        0;
+                await _productRatingViewModel.getRatings(product.id!);
+                var averageRating = _productRatingViewModel.productRatingData.averageRating ?? 0;
+                product.rate = averageRating;
                 collection.products!.add(product);
                 products.add(product);
               }

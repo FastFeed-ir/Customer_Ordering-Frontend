@@ -67,7 +67,7 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: ScanPage, page: () => const ScanScreen()),
           ],
           
-          initialRoute: MainMenuPage,
+          initialRoute: LandingPage,
           // initialRoute: ScanPage, //TODO
           textDirection: TextDirection.rtl,
           defaultTransition: Transition.noTransition,
