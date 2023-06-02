@@ -21,7 +21,7 @@ Widget commentDetail(
               ),
             ),
             Text(
-              date.toPersianDate(),
+              date.toPersianDigit(),
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
