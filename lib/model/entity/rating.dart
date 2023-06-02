@@ -4,6 +4,7 @@ class Rating {
   int productId;
   Rating({this.id, required this.score, required this.productId});
 
+
   factory Rating.fromJson(Map<String, dynamic> json) {
     return Rating(
       id: json['id'],
@@ -15,4 +16,5 @@ class Rating {
         'score': score,
         'product': productId,
       };
+     
 }

@@ -1,7 +1,7 @@
-import 'package:customer_ordering_frontend/model/entity/rating.dart';
 
 import '../util/constants.dart';
-import 'rating_repository.dart';
+import 'package:customer_ordering_frontend/model/entity/rating.dart';
+import 'package:customer_ordering_frontend/model/repository/rating_repository.dart';
 
 class RatingRepositoryImpl extends RatingRepository {
   @override
