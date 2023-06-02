@@ -149,8 +149,7 @@ class _StoreProfileState extends State<StoreProfile> {
                           child: Text(
                             'اطلاعات',
                             style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
                             ),
                           ),
                         ),
@@ -158,8 +157,7 @@ class _StoreProfileState extends State<StoreProfile> {
                           child: Text(
                             'نظرات',
                             style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
                             ),
                           ),
                         ),
@@ -176,7 +174,7 @@ class _StoreProfileState extends State<StoreProfile> {
                     child: TabBarView(
                       children: [
                         !_gotFromServerStore
-                            ? loading()
+                            ? loading(54)
                             : informationSection(
                                 title,
                                 city,
@@ -185,7 +183,7 @@ class _StoreProfileState extends State<StoreProfile> {
                                 instagramPageLink,
                               ),
                         !_gotFromServerComments
-                            ? loading()
+                            ? loading(54)
                             : commentSection(_commentsAndOrders),
                       ],
                     ),
@@ -199,21 +197,4 @@ class _StoreProfileState extends State<StoreProfile> {
     );
   }
 
-  Widget loading() {
-    return Container(
-      padding: EdgeInsets.only(
-        left: 16.0.w,
-        top: 8.0.h,
-        right: 16.0.w,
-      ),
-      // width: 1920.w,
-      // height: 700.h,
-      child: const Center(
-        child: CircularProgressIndicator(
-          strokeWidth: 4.0,
-          valueColor: AlwaysStoppedAnimation<Color>(RedColor),
-        ),
-      ),
-    );
-  }
 }
