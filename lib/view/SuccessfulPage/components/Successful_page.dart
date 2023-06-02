@@ -66,7 +66,6 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
                   child: Image.asset(
                     SuccessfulImage,
                     width: ScreenUtil().setWidth(258),
-                    height: ScreenUtil().setHeight(70),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -85,7 +84,7 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(25, 30, 25, 0),
-                child: Row(
+                child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -102,7 +101,8 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
                       style: TextStyle(
                         color: BlackColor,
                         fontFamily: IranSansWeb,
-                        fontSize: ScreenUtil().setSp(20),
+                        fontWeight: FontWeight.bold,
+                        fontSize: ScreenUtil().setSp(36),
                       ),
                     ),
                   ],
