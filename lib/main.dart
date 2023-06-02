@@ -83,8 +83,7 @@ class _MyAppState extends State<MyApp> {
             //GetPage(name: SendCommentPage, page: () => SendCommentScreen()),
             GetPage(name: ScanPage, page: () => const ScanScreen()),
             GetPage(
-                name: ProductInformationPage,
-                page: () => const ProductInformation()),
+                name: ProductInformationPage, page: () => ProductInformation()),
           ],
 
           initialRoute: ProductInformationPage,
