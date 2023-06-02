@@ -99,7 +99,7 @@ class _ScanScreenState extends State<ScanScreen> {
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(ScaningPage),
+              image: AssetImage(landingPage),
               fit: BoxFit.cover,
             ),
           ),
