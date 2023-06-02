@@ -65,7 +65,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBarMenu(),
+        appBar: menuAppBar(),
         body: Container(
           margin: EdgeInsets.all(5),
           padding: EdgeInsets.only(top: 5, left: 10, right: 10),
@@ -75,25 +75,27 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     );
   }
   Widget buildMenu(){
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        StoreDetails(
-          storeId: storeId,
-          name: storeRatingData.name ?? "فست فید",
-          commentCount: storeRatingData.commentCount ?? 0,
-          ratingCount: storeRatingData.ratingCount ?? 0,
-          averageRating: storeRatingData.averageRating ?? 0,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        CategoriesList(
-          storeId: storeId,
-          collections: collections,
-          products: products,
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          StoreDetails(
+            storeId: storeId,
+            name: storeRatingData.name ?? "فست فید",
+            commentCount: storeRatingData.commentCount ?? 0,
+            ratingCount: storeRatingData.ratingCount ?? 0,
+            averageRating: storeRatingData.averageRating ?? 0,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          CategoriesList(
+            storeId: storeId,
+            collections: collections,
+            products: products,
+          ),
+        ],
+      ),
     );
   }
 

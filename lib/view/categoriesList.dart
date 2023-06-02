@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:customer_ordering_frontend/view/serach1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
@@ -65,17 +64,18 @@ class _CategoriesListState extends State<CategoriesList> {
                   color: BlackColor,
                 ),
                 onPressed: () {
-                  Navigator.push(
+                  searchProduct = products;
+                  Get.toNamed(SearchPage);
+                  /*Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SearchPagee(
-                        products: products,
+                      builder: (context) => SearchScreen(
                         onSearch: (List<Product> results) {
                           setState(() {});
                         },
                       ),
                     ),
-                  );
+                  );*/
                 },
               ),
             ),

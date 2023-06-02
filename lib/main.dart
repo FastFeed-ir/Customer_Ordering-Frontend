@@ -1,4 +1,5 @@
 import 'package:customer_ordering_frontend/view/mainMenu.dart';
+import 'package:customer_ordering_frontend/view/serach.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -6,8 +7,6 @@ import 'package:material_color_gen/material_color_gen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'utils/constants.dart';
 import 'view/ratingPage/pages/rating_page.dart';
-import 'view/search.dart';
-
 import 'model/repository/socket_service.dart';
 import 'view/payment/components/payment.dart';
 import 'view/ScanPage/pages/ScanPage.dart';
@@ -53,7 +52,7 @@ class _MyAppState extends State<MyApp> {
         return GetMaterialApp(
           getPages: [
             GetPage(name: LandingPage, page: () => LandingScreen()),
-            GetPage(name: MainMenuPage, page: () => MainMenuScreen(storeId: Get.arguments,)),
+            GetPage(name: MainMenuPage, page: () => MainMenuScreen()),
             //GetPage(name: PaymentPage, page: () => PaymentScreen()),
             //GetPage(name: MainMenuPage, page: () => MainMenuScreen()),
             GetPage(name: PaymentPage, page: () => PaymentScreen()),
@@ -67,7 +66,7 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: ScanPage, page: () => const ScanScreen()),
           ],
           
-          initialRoute: LandingPage,
+          initialRoute: MainMenuPage,
           // initialRoute: ScanPage, //TODO
           textDirection: TextDirection.rtl,
           defaultTransition: Transition.noTransition,

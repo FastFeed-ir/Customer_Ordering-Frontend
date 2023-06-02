@@ -4,44 +4,53 @@ import '../model/entity/product.dart';
 import '../utils/constants.dart';
 import 'categoriesList.dart';
 
-class SearchPagee extends StatefulWidget {
-  final List<Product> products;
-  final Function(List<Product>) onSearch;
+class SearchScreen extends StatefulWidget {
+  //final List<Product> products;
+  //final Function(List<Product>) onSearch;
 
-  const SearchPagee({Key? key, required this.products, required this.onSearch})
+  const SearchScreen(
+      {Key? key, /*required this.products, required this.onSearch*/})
       : super(key: key);
 
   @override
-  _SearchPageeState createState() => _SearchPageeState();
+  _SearchScreenState createState() => _SearchScreenState();
 }
 
-class _SearchPageeState extends State<SearchPagee> {
-  late List<Product> searchResults;
+class _SearchScreenState extends State<SearchScreen> {
+  late List<Product> searchResults = [];
 
   @override
   void initState() {
     super.initState();
-    searchResults = widget.products;
+    //searchResults = searchProduct;
   }
 
   void _search(String keyword) {
     setState(() {
       if (keyword.isNotEmpty) {
-        searchResults = widget.products
-            .where((product) => product.title.contains(keyword))
-            .toList();
+        /*for (var item in searchProduct) {
+          if (item.title.contains(keyword)) {
+            searchResults.add(item);
+          }
+        }*/
+        searchResults.addAll(searchProduct.where((product) => product.title.contains(keyword)));
       } else {
-        searchResults = widget.products;
+        searchResults = searchProduct;
       }
     });
-    widget.onSearch(searchResults);
+    onSearch(searchResults);
   }
-
+  onSearch (List<Product> results) {
+    setState(() {});
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('جستجو'),
+        leading: BackButton(
+
+        ),
       ),
       body: Column(
         children: [
@@ -65,22 +74,39 @@ class _SearchPageeState extends State<SearchPagee> {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(product.title,
-                          style: const TextStyle(
-                              fontFamily: IranSansWeb, fontSize: 24)),
+                      Text(
+                        product.title,
+                        style: const TextStyle(
+                            fontFamily: IranSansWeb, fontSize: 24),
+                      ),
                     ],
                   ),
                   subtitle: Column(
                     children: [
-                      Text(
-                        'قیمت: ${product.unitPrice}تومان',
-                        style: const TextStyle(
-                            fontFamily: IranSansWeb, fontSize: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            ' قیمت:',
+                            style: const TextStyle(
+                                fontFamily: IranSansWeb, fontSize: 20),
+                          ),
+                          Text(
+                            ' ${product.unitPrice.round()} '.seRagham().toPersianDigit(),
+                            style: const TextStyle(
+                                fontFamily: IranSansWeb, fontSize: 20),
+                          ),
+                          Text(
+                            ' تومان ',
+                            style: const TextStyle(
+                                fontFamily: IranSansWeb, fontSize: 20),
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 10,
                       ),
-                      FoodCounter(index: index),
+                      searchCounter(product),
                     ],
                   ),
                 );
@@ -91,27 +117,8 @@ class _SearchPageeState extends State<SearchPagee> {
       ),
     );
   }
-}
-
-class FoodCounter extends StatefulWidget {
-  final int index;
-
-  FoodCounter({required this.index});
-
-  @override
-  State<FoodCounter> createState() => _FoodCounterState();
-}
-
-class _FoodCounterState extends State<FoodCounter> {
-  late int index;
-
-  @override
-  void initState() {
-    index = widget.index;
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget searchCounter(Product product) {
+    int index = searchProduct.indexOf(product);
     return Container(
       height: 100,
       width: 170,
@@ -126,7 +133,7 @@ class _FoodCounterState extends State<FoodCounter> {
                 child: ElevatedButton(
                   onPressed: () {
                     setState(
-                      () {
+                          () {
                         searchProduct[index].quantity++;
                       },
                     );
@@ -147,7 +154,7 @@ class _FoodCounterState extends State<FoodCounter> {
                 child: ElevatedButton(
                   onPressed: () {
                     setState(
-                      () {
+                          () {
                         if (searchProduct[index].quantity > 0) {
                           searchProduct[index].quantity--;
                         }
