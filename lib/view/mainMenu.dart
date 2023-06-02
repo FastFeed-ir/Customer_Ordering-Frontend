@@ -61,7 +61,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           margin: EdgeInsets.all(5),
           padding: EdgeInsets.only(top: 5, left: 10, right: 10),
           child: !gotFromServer
-              ? loading()
+              ? loading(14)
               : Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [

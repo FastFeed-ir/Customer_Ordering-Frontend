@@ -62,9 +62,9 @@ class _ScanScreenState extends State<ScanScreen> {
           prefs.setInt("tableCount", tableCount);
           print("set Table Count: $tableCount");
           Get.toNamed(LandingPage);
-          // var storeName= _storeViewModel.store.title!;
-          // prefs.setString("storeTitle",storeName);
-          // print("set Store Title: $storeName");
+          var storeName= _storeViewModel.store.title!;
+          prefs.setString("storeTitle",storeName);
+          print("set Store Title: $storeName");
         } else {
           showSnackbar('لطفا اشتراک رستوران را چک کنید!');
           return; // Exit the method early if store is not found
