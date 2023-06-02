@@ -21,7 +21,7 @@ String InformationsPage = "/informationsPage";
 String CommentsPage = "/commentsPage";
 String ScoringPage = "/scoringPage";
 String SendCommentPage = "/sendCommentPage";
-
+String StoreProfilePage = "/storeProfile";
 String SearchPage = "/searchPage";
 String RatingPage = "/ratingPage";
 
