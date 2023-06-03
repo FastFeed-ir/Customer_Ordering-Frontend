@@ -31,17 +31,17 @@ class _MyAppState extends State<MyApp> {
   late SharedPreferences prefs;
   Future<void> x() async {
     prefs = await SharedPreferences.getInstance();
-    prefs.setInt("StorId", 4);
-    prefs.setInt("tableCount", 5);
-    prefs.setString("storeTitle",'بایرام');
-    prefs.setDouble("ratingCount", 84);
-    prefs.setInt("commentCount", 7);
-    prefs.setDouble("averageRating", 4.37);
+    prefs.setInt("StorId", 22);
+    prefs.setInt("tableCount", 7);
+    prefs.setString("storeTitle",'عرفان');
+    prefs.setDouble("ratingCount", 0);
+    prefs.setInt("commentCount", 0);
+    prefs.setDouble("averageRating", 0);
   }
 
   @override
   initState() {
-    // x();
+    x();
     super.initState();
   }
 
@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
         return GetMaterialApp(
           getPages: [
             GetPage(name: LandingPage, page: () => LandingScreen()),
-            GetPage(name: MainMenuPage, page: () => MainMenuScreen(storeId: 4,)),
+            GetPage(name: MainMenuPage, page: () => MainMenuScreen(storeId: Get.arguments,)),
             GetPage(name: PaymentPage, page: () => PaymentScreen()),
             GetPage(name: SelectTablePage, page: () => SelectTableScreen(argument: Get.arguments)),
             GetPage(name: SuccessfulPage, page: () => SuccessfulScreen()),
@@ -66,8 +66,8 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: ScanPage, page: () => const ScanScreen()),
           ],
           
-          // initialRoute: MainMenuPage,
-          initialRoute: ScanPage, //TODO
+          initialRoute: LandingPage,
+          // initialRoute: ScanPage, //TODO
           textDirection: TextDirection.rtl,
           defaultTransition: Transition.noTransition,
           theme: ThemeData(
