@@ -54,7 +54,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
 
     loadFood().then(
       (_) => Timer(
-        const Duration(milliseconds: 500),
+        const Duration(milliseconds: 2000),
         () {
           setState(
             () {
