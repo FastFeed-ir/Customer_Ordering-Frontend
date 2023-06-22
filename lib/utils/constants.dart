@@ -44,7 +44,7 @@ String Tick2 = "assets/tick2.png";
 String Zabdar = "assets/zabdar.png";
 String RestaurantLogoDef = "assets/restarauntLogo.png";
 String WhiteLogo = "assets/logo_white.png";
-String RatingLogo = "rating.png";
+String RatingLogo = "assets/rating.png";
 String ErrotLogo = "assets/error.png";
 String VerifyLogo = "assets/verify.png";
 String EmptyImg = "assets/emptyImage.png";
@@ -102,6 +102,7 @@ Widget buildInfoDialog(BuildContext context, String? text, String? Phrase) {
           onPressed: () {
             Navigator.of(context).pop();
           },
+          style: buttonStyle_build(30, 30, 10, YellowColor),
           child: Text(
             'متوجه شدم',
             style: TextStyle(
@@ -110,7 +111,6 @@ Widget buildInfoDialog(BuildContext context, String? text, String? Phrase) {
               fontSize: 24.sp,
             ),
           ),
-          style: buttonStyle_build(30, 30, 10, YellowColor),
         ),
       ),
     ],
