@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import '../../../utils/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -48,7 +50,7 @@ class _CommentVerifyErrorWidgetState extends State<CommentVerifyErrorWidget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                 child: ElevatedButton(
                   onPressed: () {
-                    print('Button pressed ...');
+                    Get.toNamed(LandingPage);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: YellowColor,
