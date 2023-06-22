@@ -1,6 +1,6 @@
 class Rating {
   int? id;
-  int score;
+  double score;
   int productId;
   Rating({this.id, required this.score, required this.productId});
 

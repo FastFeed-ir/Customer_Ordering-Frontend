@@ -175,7 +175,7 @@ class _ScoringScreenState extends State<ScoringScreen> {
               child: ElevatedButton(
                 onPressed: () {
                   for (var id in _Ids) {
-                    Rating rating = Rating(productId: id, score: _stars as int);
+                    Rating rating = Rating(productId: id, score: _stars );
                     _ratingViewModel
                         .addRating(rating)
                         .asStream()
