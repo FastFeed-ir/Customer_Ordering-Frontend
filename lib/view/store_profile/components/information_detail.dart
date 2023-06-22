@@ -1,3 +1,4 @@
+import 'package:customer_ordering_frontend/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 Widget informationDetail(
@@ -6,7 +7,7 @@ Widget informationDetail(
   String subtitle,
 ) {
   return Container(
-    padding: const EdgeInsets.all(24),
+    padding: const EdgeInsets.fromLTRB(20,10,20,10),
     color: Colors.white,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -19,8 +20,9 @@ Widget informationDetail(
               '$title:',
               style: const TextStyle(
                 color: Colors.black,
+                fontFamily: IranSansWeb,
                 fontWeight: FontWeight.bold,
-                fontSize: 24.0,
+                fontSize: 20.0,
               ),
             ),
           ],
@@ -29,12 +31,12 @@ Widget informationDetail(
         Text(
           subtitle,
           style: const TextStyle(
+            fontFamily: IranSansWeb,
             color: Colors.black,
             fontWeight: FontWeight.bold,
-            fontSize: 16.0,
+            fontSize: 20.0,
           ),
         ),
-        const SizedBox(height: 16.0),
       ],
     ),
   );

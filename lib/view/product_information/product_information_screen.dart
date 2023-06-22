@@ -99,7 +99,6 @@ class _ProductInformationState extends State<ProductInformation> {
             children: [
               Container(
                 width: double.infinity,
-                height: 320.0,
                 color: Colors.white,
                 child: SingleChildScrollView(
                   child: Column(
@@ -110,6 +109,7 @@ class _ProductInformationState extends State<ProductInformation> {
                       Text(
                         widget.product.title,
                         style: const TextStyle(
+                          fontFamily: IranSansWeb,
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 24.0,
@@ -119,6 +119,7 @@ class _ProductInformationState extends State<ProductInformation> {
                       Text(
                         widget.product.description ?? '',
                         style: const TextStyle(
+                          fontFamily: IranSansWeb,
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0,
@@ -127,26 +128,6 @@ class _ProductInformationState extends State<ProductInformation> {
                     ],
                   ),
                 ),
-              ),
-              Container(
-                color: Colors.white,
-                alignment: Alignment.centerRight,
-                child: const Padding(
-                  padding: EdgeInsets.all(24.0),
-                  child: Text(
-                    'نظر کاربران',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24.0,
-                    ),
-                  ),
-                ),
-              ),
-              const Divider(
-                thickness: 2,
-                height: 2,
-                color: Colors.black,
               ),
               Expanded(
                   child:

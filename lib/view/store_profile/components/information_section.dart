@@ -1,3 +1,4 @@
+import 'package:customer_ordering_frontend/utils/constants.dart';
 import 'package:customer_ordering_frontend/view/store_profile/components/information_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
@@ -18,27 +19,41 @@ Widget informationSection(
         child: Text(
           title,
           style: const TextStyle(
-              color: Colors.black, fontSize: 32.0, fontWeight: FontWeight.bold),
+              fontFamily: IranSansWeb,
+              color: Colors.black,
+              fontSize: 32.0,
+              fontWeight: FontWeight.bold),
         ),
       ),
-      Container(
-        color: Colors.white,
-        alignment: Alignment.centerRight,
-        padding: const EdgeInsets.fromLTRB(0, 0, 24, 16),
-        child: Text(
-          city,
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 16.0,
+      Visibility(
+        visible: (city.length != 0),
+        child: Container(
+          color: Colors.white,
+          alignment: Alignment.centerRight,
+          padding: const EdgeInsets.fromLTRB(0, 0, 24, 16),
+          child: Text(
+            city,
+            style: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontFamily: IranSansWeb,
+              fontSize: 16.0,
+            ),
           ),
         ),
       ),
-      informationDetail(Icons.location_on_outlined, 'آدرس', address),
-      const Divider(
-        thickness: 2,
-        height: 2,
-        color: Colors.black,
+      SizedBox(height: 16,),
+      Visibility(
+        visible: (address.length != 0),
+        child: informationDetail(Icons.location_on_outlined, 'آدرس', address),
+      ),
+      Visibility(
+        visible: (address.length != 0),
+        child: const Divider(
+          thickness: 2,
+          height: 2,
+          color: Colors.black,
+        ),
       ),
       informationDetail(
           Icons.phone_outlined, 'تلفن', telephoneNumber.toPersianDigit()),
@@ -47,8 +62,19 @@ Widget informationSection(
         height: 2,
         color: Colors.black,
       ),
-      informationDetail(
-          Icons.facebook_outlined, 'فضای مجازی', instagramPageLink),
+      Visibility(
+        visible: (instagramPageLink.length != 0),
+        child:
+            informationDetail(Icons.telegram, 'فضای مجازی', instagramPageLink),
+      ),
+      Visibility(
+        visible: (instagramPageLink.length != 0),
+        child: const Divider(
+          thickness: 2,
+          height: 2,
+          color: Colors.black,
+        ),
+      ),
     ],
   );
 }

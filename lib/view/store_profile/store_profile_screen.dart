@@ -28,7 +28,7 @@ class _StoreProfileState extends State<StoreProfile> {
   String address = '';
   String telephoneNumber = '';
   String instagramPageLink = '';
-  String noData = 'بدون اطلاعات';
+  String noData = '';
   late int storeId;
   @override
   void initState() {
@@ -149,6 +149,8 @@ class _StoreProfileState extends State<StoreProfile> {
                           child: Text(
                             'اطلاعات',
                             style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: IranSansWeb,
                               fontSize: 16,
                             ),
                           ),
@@ -157,6 +159,8 @@ class _StoreProfileState extends State<StoreProfile> {
                           child: Text(
                             'نظرات',
                             style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: IranSansWeb,
                               fontSize: 16,
                             ),
                           ),

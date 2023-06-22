@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 
+import '../../../utils/constants.dart';
+
 Widget commentDetail(
     String author, String date, String comment, List<String> orders) {
   return Container(
@@ -15,50 +17,54 @@ Widget commentDetail(
             Text(
               author,
               style: const TextStyle(
+                fontFamily: IranSansWeb,
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: 24.0,
+                fontSize: 18,
               ),
             ),
             Text(
               date.toPersianDigit(),
               style: const TextStyle(
+                fontFamily: IranSansWeb,
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: 16.0,
+                fontSize: 12.0,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 16.0),
+        const SizedBox(height: 8.0),
         Text(
           comment,
           style: const TextStyle(
+            fontFamily: IranSansWeb,
             color: Colors.black,
             fontWeight: FontWeight.bold,
-            fontSize: 16.0,
+            fontSize: 14.0,
           ),
         ),
-        const SizedBox(height: 16.0),
+        const SizedBox(height: 8.0),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
               for (final order in orders)
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: Container(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(4.0),
                     decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: GrayColor,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Text(
                       order,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
+                        fontFamily: IranSansWeb,
                         color: Colors.black,
-                        fontSize: 16.0,
+                        fontSize: 10.0,
                       ),
                     ),
                   ),

@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 // Colors
 const Color WhiteColor = Color(0xFFFFFFFF);
 const Color BaseColor = Color(0xfff5f5f5);
+const Color GrayColor = Color(0xffd3d7db);
 const Color RedColor = Color(0xffBD271B);
 const Color YellowColor = Color(0xffF5C137);
 const Color BlackColor = Color(0xff000000);
@@ -58,8 +59,8 @@ Widget titleStyle(String title) {
   return RichText(
     text: TextSpan(
       text: title,
-      style: TextStyle(
-        fontSize: 29.0,
+      style: const TextStyle(
+        fontSize: 24.0,
         fontWeight: FontWeight.bold,
         fontFamily: IranSansWeb,
         color: BlackColor,
@@ -81,7 +82,7 @@ ButtonStyle buttonStyle_build(
     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
       RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(radius),
-        side: BorderSide(color: BlackColor),
+        side: const BorderSide(color: BlackColor),
       ),
     ),
   );
@@ -90,7 +91,7 @@ ButtonStyle buttonStyle_build(
 Widget buildInfoDialog(BuildContext context, String? text, String? Phrase) {
   return AlertDialog(
     title: Text(text!),
-    content: Column(
+    content: const Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[],
@@ -118,7 +119,7 @@ Widget buildInfoDialog(BuildContext context, String? text, String? Phrase) {
 
 Widget loading(double size) {
   return Container(
-    padding: EdgeInsets.only(
+    padding: const EdgeInsets.only(
       left: 15.0,
       top: 5.0,
       right: 15.0,
@@ -128,7 +129,7 @@ Widget loading(double size) {
     child: Center(
       child: SpinKitCircle(
         size: size.r,
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
         itemBuilder: (context, index) {
           final colors = [YellowColor, RedColor];
           final color = colors[index % colors.length];
@@ -154,7 +155,7 @@ AppBar AppBarMenu() {
       ),
     ),
     //actions: [],
-    leading: BackButton(
+    leading: const BackButton(
       color: WhiteColor,
     ),
     backgroundColor: RedColor,

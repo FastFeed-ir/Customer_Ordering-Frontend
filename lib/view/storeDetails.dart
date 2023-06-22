@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import '../utils/constants.dart';
@@ -23,7 +24,7 @@ class _StoreDetailsState extends State<StoreDetails> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // TODO sotre name API
-        titleStyle(widget.name??"فست فید"),
+        titleStyle(widget.name??"فست فید",),
         storeInfo(),
         const SizedBox(height: 10,),
         storeComments(),
@@ -39,7 +40,7 @@ class _StoreDetailsState extends State<StoreDetails> {
         totalScores(),
         Container(
           width: 2,
-          height: 50,
+          height: ScreenUtil().setHeight(50),
           color: BlackColor,
         ),
         // TODO more Information
@@ -57,9 +58,9 @@ class _StoreDetailsState extends State<StoreDetails> {
       children: [
         Text(
           ("$scoreAvgStr از $totalAvg"),
-          style: const TextStyle(
+          style:  TextStyle(
             fontFamily: IranSansWeb,
-            fontSize: 19,
+            fontSize: ScreenUtil().setSp(16),
             color: BlackColor,
           ),
         ),
@@ -76,8 +77,8 @@ class _StoreDetailsState extends State<StoreDetails> {
               ),
               TextSpan(
                 text: ("$totalScoreStr امتیاز "),
-                style: const TextStyle(
-                  fontSize: 15.0,
+                style:  TextStyle(
+                  fontSize: ScreenUtil().setSp(12),
                   fontWeight: FontWeight.w500,
                   fontFamily: IranSansWeb,
                   color: Colors.black,
@@ -95,11 +96,11 @@ class _StoreDetailsState extends State<StoreDetails> {
       onTap: (){
         Get.toNamed(StoreProfilePage, arguments: widget.storeId);
       },
-      child: Column(
+      child:  Column(
         children: [
-          Icon(Icons.info_outline, size: 22),
-          SizedBox(height: 15,),
-          Text('اطلاعات بیشتر', style: TextStyle(fontSize: 15, fontFamily: IranSansWeb),
+          Icon(Icons.info_outline, size: ScreenUtil().setSp(22),),
+          SizedBox(height: ScreenUtil().setHeight(12),),
+          Text('اطلاعات بیشتر', style: TextStyle(fontSize: ScreenUtil().setSp(12), fontFamily: IranSansWeb),
           ),
         ],
       ),
@@ -109,7 +110,7 @@ class _StoreDetailsState extends State<StoreDetails> {
 
   Widget storeComments() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+      padding:  EdgeInsets.symmetric(horizontal: ScreenUtil().setHeight(32), vertical: ScreenUtil().setWidth(16),),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -132,8 +133,8 @@ class _StoreDetailsState extends State<StoreDetails> {
           ),
           TextSpan(
             text: (" $totalCommentsStr  نظر  "),
-            style: const TextStyle(
-              fontSize: 15.0,
+            style:  TextStyle(
+              fontSize: ScreenUtil().setSp(12),
               fontWeight: FontWeight.w500,
               fontFamily: IranSansWeb,
               color: BlackColor,
@@ -157,8 +158,8 @@ class _StoreDetailsState extends State<StoreDetails> {
           children: [
             TextSpan(
               text: text,
-              style: const TextStyle(
-                fontSize: 15.0,
+              style:  TextStyle(
+                fontSize: ScreenUtil().setSp(12),
                 fontWeight: FontWeight.w500,
                 fontFamily: IranSansWeb,
                 color: BlackColor,
