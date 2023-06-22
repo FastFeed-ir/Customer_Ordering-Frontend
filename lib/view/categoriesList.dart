@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:customer_ordering_frontend/view/serach.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import '../model/entity/Rating.dart';
@@ -54,33 +55,38 @@ class _CategoriesListState extends State<CategoriesList> {
   Widget build(BuildContext context) {
     void updateQuantities(List<Product> updatedProducts) {
       setState(() {
-        products = [...updatedProducts]; // update the products list with the new quantities
+        products = [
+          ...updatedProducts
+        ]; // update the products list with the new quantities
       });
     }
+
     return Column(
       children: [
         Row(
           children: [
             SizedBox(
-              width: 30,
-              height: 30,
+              width: ScreenUtil().setWidth(30),
+              height: ScreenUtil().setHeight(30),
               child: IconButton(
                 icon: const Icon(
                   Icons.search,
                   size: 24,
                   color: BlackColor,
                 ),
-                onPressed: () async{
+                onPressed: () async {
                   List<Product> updatedProducts = await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => SearchScreen(
                         searchProducts: products,
-                        onSearch: updateQuantities, // pass updateQuantities as a callback
+                        onSearch:
+                            updateQuantities, // pass updateQuantities as a callback
                       ),
                     ),
                   );
-                  if (updatedProducts != null) { // check if the user pressed back or not
+                  if (updatedProducts != null) {
+                    // check if the user pressed back or not
                     setState(() {
                       products = [...updatedProducts];
                     });
@@ -91,7 +97,7 @@ class _CategoriesListState extends State<CategoriesList> {
             const SizedBox(width: 5),
             const SizedBox(width: 5),
             SizedBox(
-                height: 35,
+                height: ScreenUtil().setHeight(35),
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: categoryBuild()),
           ],
@@ -120,9 +126,7 @@ class _CategoriesListState extends State<CategoriesList> {
             margin: const EdgeInsets.only(left: 10),
             width: 100,
             decoration: BoxDecoration(
-              color: _selectedCategoryId == index
-                  ? RedColor
-                  : WhiteColor,
+              color: _selectedCategoryId == index ? RedColor : WhiteColor,
               border: Border.all(color: BlackColor),
               borderRadius: BorderRadius.circular(50),
             ),
@@ -130,9 +134,7 @@ class _CategoriesListState extends State<CategoriesList> {
               child: Text(
                 collections[index].title,
                 style: TextStyle(
-                  color: _selectedCategoryId == index
-                      ? WhiteColor
-                      : RedColor,
+                  color: _selectedCategoryId == index ? WhiteColor : RedColor,
                   height: 1.0,
                 ),
               ),
@@ -155,7 +157,7 @@ class _CategoriesListState extends State<CategoriesList> {
               return Directionality(
                 textDirection: TextDirection.ltr,
                 child: InkWell(
-                  onTap: (){
+                  onTap: () {
                     Get.toNamed(ProductInformationPage, arguments: product);
                   },
                   child: Container(
@@ -167,42 +169,44 @@ class _CategoriesListState extends State<CategoriesList> {
                         ),
                       ),
                     ),
-                    height: 200,
+                    height: ScreenUtil().setHeight(200),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          width: 200,
-                          height: 150,
+                          width: ScreenUtil().setWidth(200),
+                          height: ScreenUtil().setHeight(150),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
-                                width: 100,
-                                height: 100,
+                                width: ScreenUtil().setWidth(100),
+                                height: ScreenUtil().setHeight(100),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
                                   child: product.image == null
                                       ? Image.asset(
-                                    EmptyImg,
-                                    width: 100,
-                                    height: 100,
-                                    fit: BoxFit.cover,
-                                  )
+                                          EmptyImg,
+                                          width: ScreenUtil().setWidth(100),
+                                          height: ScreenUtil().setHeight(100),
+                                          fit: BoxFit.cover,
+                                        )
                                       : Image.memory(
-                                    base64.decode(product.image!),
-                                    fit: BoxFit.cover,
-                                    width: 100,
-                                    height: 100,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Image.asset(
-                                        EmptyImg,
-                                        width: 100,
-                                        height: 100,
-                                        fit: BoxFit.cover,
-                                      );
-                                    },
-                                  ),
+                                          base64.decode(product.image!),
+                                          fit: BoxFit.cover,
+                                          width: ScreenUtil().setWidth(100),
+                                          height: ScreenUtil().setHeight(100),
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Image.asset(
+                                              EmptyImg,
+                                              width: ScreenUtil().setWidth(100),
+                                              height:
+                                                  ScreenUtil().setHeight(100),
+                                              fit: BoxFit.cover,
+                                            );
+                                          },
+                                        ),
                                 ),
                               ),
                               if (product.image == null)
@@ -211,6 +215,9 @@ class _CategoriesListState extends State<CategoriesList> {
                                     child: CircularProgressIndicator(),
                                   ),
                                 ),
+                              SizedBox(
+                                height: 8,
+                              ),
                               foodCounter(product),
                             ],
                           ),
@@ -221,51 +228,54 @@ class _CategoriesListState extends State<CategoriesList> {
                             children: [
                               const SizedBox(height: 20),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  RichText(
-                                    text: TextSpan(
-                                      children: [
-                                        TextSpan(
-                                          text: "${(product.rate ?? 0)}"
-                                              .toPersianDigit(),
-                                          style: const TextStyle(
-                                            color: BlackColor,
-                                            fontFamily: IranSansWeb,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        const WidgetSpan(
-                                          child: Icon(
-                                            Icons.star_border,
-                                            color: YellowColor,
-                                            size: 24,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
                                   Text(
                                     product.title,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontFamily: IranSansWeb,
-                                      fontSize: 22,
+                                      fontSize: ScreenUtil().setSp(20),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ],
                               ),
-                              const SizedBox(
-                                height: 10,
+                              SizedBox(
+                                height: ScreenUtil().setHeight(4),
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: "${(product.rate ?? 0)}"
+                                          .toPersianDigit(),
+                                      style: TextStyle(
+                                        color: BlackColor,
+                                        fontFamily: IranSansWeb,
+                                        fontSize: ScreenUtil().setSp(12),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    WidgetSpan(
+                                      child: Icon(
+                                        Icons.star_border,
+                                        color: YellowColor,
+                                        size: ScreenUtil().setSp(20),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: ScreenUtil().setHeight(8),
                               ),
                               Container(
                                 alignment: Alignment.centerRight,
                                 child: Text(
                                   (product.description!),
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: IranSansWeb,
-                                    fontSize: 16,
+                                    fontSize: ScreenUtil().setSp(12),
                                   ),
                                   maxLines: 2,
                                   textAlign: TextAlign.right,
@@ -280,11 +290,11 @@ class _CategoriesListState extends State<CategoriesList> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    const Text(
+                                    Text(
                                       "تومان",
                                       style: TextStyle(
                                         fontFamily: IranSansWeb,
-                                        fontSize: 16,
+                                        fontSize: ScreenUtil().setSp(12),
                                       ),
                                     ),
                                     const SizedBox(
