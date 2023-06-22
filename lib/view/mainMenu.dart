@@ -83,7 +83,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(ScreenUtil().setHeight(137)),
+          preferredSize: Size.fromHeight(ScreenUtil().setHeight(70)),
           child: AppBar(
             backgroundColor: RedColor,
             automaticallyImplyLeading: false,
@@ -94,7 +94,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
 
                 final double logoHeight = availableHeight * 0.7;
                 final double titleFontSize = availableHeight * 0.12;
-                final double backIconSize = availableHeight * 0.10;
+                final double backIconSize = availableHeight * 0.25;
 
                 return Stack(
                   children: [
@@ -115,7 +115,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                     ),
                     Positioned(
                       right: availableWidth * 0.10,
-                      top: availableHeight * 0.72,
+                      top: availableHeight * 0.1,
+                      bottom: availableHeight *0.1,
                       child: InkWell(
                         onTap: () {
                           Get.back();
@@ -132,13 +133,12 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             elevation: 0.0,
           ),
         ),
-        body: SingleChildScrollView(
-          child: Container(
+        body: Container(
             margin: const EdgeInsets.all(5),
             padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
             child: showMenu(),
           ),
-        ),
+
       ),
     );
   }
@@ -154,8 +154,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           ratingCount: ratingCount ,
           averageRating: averageRating,
         ),
-        const SizedBox(
-          height: 10,
+         SizedBox(
+          height: ScreenUtil().setHeight(5),
         ),
         CategoriesList(
           storeId: storeId,
@@ -163,8 +163,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           products: products,
         ),
         SizedBox(
-          height: 50,
-          width: 360,
+          height: ScreenUtil().setWidth(50),
+          width: ScreenUtil().setHeight(360),
           child: ElevatedButton(
             onPressed: () async{
               for (var product in products) {
