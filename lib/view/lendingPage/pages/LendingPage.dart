@@ -36,7 +36,7 @@ class _LandingScreenState extends State<LandingScreen> {
                     style: TextStyle(
                       color: RedColor,
                       fontFamily: IranSansWeb,
-                      fontSize: ScreenUtil().setSp(46),
+                      fontSize: ScreenUtil().setSp(36),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
