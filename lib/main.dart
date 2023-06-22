@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   initState() {
-    x();
+    // x();
     super.initState();
   }
 
@@ -66,8 +66,8 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: ScanPage, page: () => const ScanScreen()),
           ],
           
-          initialRoute: LandingPage,
-          // initialRoute: ScanPage, //TODO
+          // initialRoute: LandingPage,
+          initialRoute: ScanPage, //TODO
           textDirection: TextDirection.rtl,
           defaultTransition: Transition.noTransition,
           theme: ThemeData(
