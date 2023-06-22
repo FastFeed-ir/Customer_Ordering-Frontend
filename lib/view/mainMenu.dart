@@ -54,7 +54,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
 
     loadFood().then(
       (_) => Timer(
-        const Duration(milliseconds: 2000),
+        const Duration(milliseconds: 1500),
         () {
           setState(
             () {
@@ -93,7 +93,6 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 final double availableHeight = constraints.maxHeight;
 
                 final double logoHeight = availableHeight * 0.7;
-                final double titleFontSize = availableHeight * 0.12;
                 final double backIconSize = availableHeight * 0.25;
 
                 return Stack(
@@ -162,6 +161,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           collections: collections,
           products: products,
         ),
+        const SizedBox(height: 5,),
         SizedBox(
           height: ScreenUtil().setWidth(50),
           width: ScreenUtil().setHeight(360),
