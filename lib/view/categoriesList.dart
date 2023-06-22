@@ -102,6 +102,7 @@ class _CategoriesListState extends State<CategoriesList> {
                 child: categoryBuild()),
           ],
         ),
+        const SizedBox(height: 5,),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.50,
           child: productsList(),
@@ -215,7 +216,7 @@ class _CategoriesListState extends State<CategoriesList> {
                                     child: CircularProgressIndicator(),
                                   ),
                                 ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               foodCounter(product),
