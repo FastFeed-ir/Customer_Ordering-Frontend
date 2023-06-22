@@ -107,134 +107,136 @@ class _SelectTableScreenState extends State<SelectTableScreen> {
         ),
         body: numberOfOptions == 0
             ? loading(ScreenUtil().setSp(56))
-            : SafeArea(
-                top: true,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Align(
-                      alignment: const AlignmentDirectional(0, 0),
-                      child: Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
-                        child: Text(
-                          'انتخاب میز',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: BlackColor,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: IranSansWeb,
-                            fontSize: ScreenUtil().setSp(24),
+            : SingleChildScrollView(
+              child: SafeArea(
+                  top: true,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Align(
+                        alignment: const AlignmentDirectional(0, 0),
+                        child: Padding(
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                          child: Text(
+                            'انتخاب میز',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: BlackColor,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: IranSansWeb,
+                              fontSize: ScreenUtil().setSp(24),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Align(
-                      alignment: const AlignmentDirectional(0, 0),
-                      child: Padding(
-                        padding:
-                            EdgeInsets.only(top: ScreenUtil().setHeight(20)),
-                        child: DropdownButton<String>(
-                          value: dropdownValue,
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropdownValue = newValue!;
-                              selectedIndex =
-                                  options.indexOf(dropdownValue) + 1;
-                            });
-                          },
-                          items: options.map((String option) {
-                            return DropdownMenuItem<String>(
-                              value: option,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(option),
-                              ),
-                            );
-                          }).toList(),
-                          style: TextStyle(
-                            color: BlackColor,
-                            fontFamily: IranSansWeb,
-                            fontSize: ScreenUtil().setSp(20),
-                          ),
-                          hint: Text(
-                            'میز 1',
+                      Align(
+                        alignment: const AlignmentDirectional(0, 0),
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(top: ScreenUtil().setHeight(20)),
+                          child: DropdownButton<String>(
+                            value: dropdownValue,
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                dropdownValue = newValue!;
+                                selectedIndex =
+                                    options.indexOf(dropdownValue) + 1;
+                              });
+                            },
+                            items: options.map((String option) {
+                              return DropdownMenuItem<String>(
+                                value: option,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(option),
+                                ),
+                              );
+                            }).toList(),
                             style: TextStyle(
-                              fontFamily: 'Poppins',
+                              color: BlackColor,
+                              fontFamily: IranSansWeb,
+                              fontSize: ScreenUtil().setSp(20),
+                            ),
+                            hint: Text(
+                              'میز 1',
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: ScreenUtil().setSp(20),
+                              ),
+                            ),
+                            underline: Container(),
+                            dropdownColor: WhiteColor,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0, ScreenUtil().setHeight(20), 0, 0),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            prefs.setInt("table", selectedIndex);
+                            var storeId = prefs.getInt('StorId');
+                            if (widget.argument) {
+                              await _orderViewModel.getLastOrder(storeId!, selectedIndex);
+                              prefs.setInt("lastOrderId",_orderViewModel.lastOrderId );
+                              var authCode=_orderViewModel.lastOrder.authCode!;
+                              await showDialog(
+                                context: context,
+                                builder: (dialogContext) {
+                                  return GestureDetector(
+                                    onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                    child: Dialog(
+                                      insetPadding: MediaQuery.of(dialogContext).viewInsets,
+                                      child: SizedBox(
+                                        height: 280,
+                                        width: 270,
+                                        child: CommentVerifyWidget(authCode: authCode),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ).then((value) => setState(() {}));
+                            } else {
+                              Get.toNamed(MainMenuPage, arguments: storeId);
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(ScreenUtil().setWidth(145),
+                                ScreenUtil().setHeight(45)),
+                            padding: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            backgroundColor:
+                                widget.argument ? YellowColor : RedColor,
+                          ),
+                          child: Text(
+                            'تایید',
+                            style: TextStyle(
+                              color: widget.argument ? BlackColor : WhiteColor,
+                              fontFamily: IranSansWeb,
                               fontSize: ScreenUtil().setSp(20),
                             ),
                           ),
-                          underline: Container(),
-                          dropdownColor: WhiteColor,
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                          0, ScreenUtil().setHeight(20), 0, 0),
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          prefs.setInt("table", selectedIndex);
-                          var storeId = prefs.getInt('StorId');
-                          if (widget.argument) {
-                            await _orderViewModel.getLastOrder(storeId!, selectedIndex);
-                            prefs.setInt("lastOrderId",_orderViewModel.lastOrderId );
-                            var authCode=_orderViewModel.lastOrder.authCode!;
-                            await showDialog(
-                              context: context,
-                              builder: (dialogContext) {
-                                return GestureDetector(
-                                  onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
-                                  child: Dialog(
-                                    insetPadding: MediaQuery.of(dialogContext).viewInsets,
-                                    child: SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.35,
-                                      width: MediaQuery.of(context).size.width * 0.75,
-                                      child: CommentVerifyWidget(authCode: authCode),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ).then((value) => setState(() {}));
-                          } else {
-                            Get.toNamed(MainMenuPage, arguments: storeId);
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(ScreenUtil().setWidth(145),
-                              ScreenUtil().setHeight(45)),
-                          padding: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          backgroundColor:
-                              widget.argument ? YellowColor : RedColor,
-                        ),
-                        child: Text(
-                          'تایید',
-                          style: TextStyle(
-                            color: widget.argument ? BlackColor : WhiteColor,
-                            fontFamily: IranSansWeb,
-                            fontSize: ScreenUtil().setSp(20),
+                      Align(
+                        alignment: const AlignmentDirectional(0, 0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0, ScreenUtil().setHeight(56), 0, 0),
+                          child: Image.asset(
+                            FastfeedLogo,
+                            height: ScreenUtil().setHeight(200),
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                    ),
-                    Align(
-                      alignment: const AlignmentDirectional(0, 0),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            0, ScreenUtil().setHeight(56), 0, 0),
-                        child: Image.asset(
-                          FastfeedLogo,
-                          height: ScreenUtil().setHeight(200),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
+            ),
       ),
     );
   }
