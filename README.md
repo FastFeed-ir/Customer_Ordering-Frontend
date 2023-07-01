@@ -24,3 +24,8 @@ The customer enters the application and scans the QR code that shows the subscri
 By clicking on placing an order, the store menu set by the restaurateur/café owner will be shown to the customer and he can choose the number of dishes in different categories; He can also quickly access the desired food by using the search function.<br>
 After registering the items, he goes to the final order registration page and enters the details if necessary and also views his current shopping cart. By clicking on the order registration button, the order will be displayed automatically in the ordering app of the business owner at <a href="https://github.com/FastFeed-ir/Owner_Ordering-Frontend">this</a> address.<br>
 On the successful purchase page, an authentication code will be displayed to register a comment. By scanning again and selecting the option to register a comment, he can enter the authentication code to order his opinion and score without logging in.
+## Preview
+ | **Scanning**      | **Show Comments and Informations**     | 
+|------------|-------------| 
+|  <img src="https://cdn-images-1.medium.com/max/1600/1*Px0kTaFj9fnY2VJdrWGJgA.gif" width="250"> |  <img src="https://cdn-images-1.medium.com/max/1600/1*GfM4eb_y_rM6BaAgDYBWZA.gif" width="250"> |
+
