@@ -1,7 +1,7 @@
 # Customer_Ordering-Frontend
 This is a <a href="https://github.com/flutter/flutter">Flutter</a> project for an online menu presentation application for restaurants and coffeeShops, which has been developed in <a href="https://github.com/FastFeed-ir/FastFeed-Backend">this</a> repository, and APIs are used in this project with the <a href="https://pub.dev/packages/dio">Dio</a> package; It also uses the <a href="https://pub.dev/packages/socket_io_client">socket_io_client</a> package for instant ordering.
 ## Architecture
-This code is written using the <a href="http://github.com/jitsm555/flutter-mvvm/tree/master/lib">MVVM</a> architecture.
+This code is written using the <a href="http://github.com/jitsm555/flutter-mvvm/">MVVM</a> architecture.
 ## Clone project
 
 
