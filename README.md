@@ -27,6 +27,12 @@ On the successful purchase page, an authentication code will be displayed to reg
 ## Preview
  | **Scanning**      | **Show Comments and Informations**     | 
 |------------|-------------| 
-|  <img src="![SCANNING](https://github.com/FastFeed-ir/Customer_Ordering-Frontend/assets/75057732/e62e03a6-c685-4813-9c40-632730e4fd77)
-" width="250"> |  <img src="https://cdn-images-1.medium.com/max/1600/1*GfM4eb_y_rM6BaAgDYBWZA.gif" width="250"> |
+|  <img src="![SCANNING_1](https://github.com/FastFeed-ir/Customer_Ordering-Frontend/assets/75057732/75c54449-1f41-4302-b04e-aee4f692c5f4)
+" width="250"> |  <img src="![SHOW-COMMENTS-AND-INFORMATIONS](https://github.com/FastFeed-ir/Customer_Ordering-Frontend/assets/75057732/8eab75fd-2a22-4e2a-bc81-46bef98c3140)
+" width="250"> |
+ | **Search and Ordering**      | **Commenting**     | 
+|------------|-------------| 
+|  <img src="![SEARCH-AND-ORDERING](https://github.com/FastFeed-ir/Customer_Ordering-Frontend/assets/75057732/9dce6015-1d96-4711-a1cc-ca34a5d95d75)
+" width="250"> |  <img src="![COMMENTING_1](https://github.com/FastFeed-ir/Customer_Ordering-Frontend/assets/75057732/303a9429-2139-4b0c-b387-9e7165807a40)
+" width="250"> |
 
