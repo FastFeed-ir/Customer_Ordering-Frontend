@@ -27,5 +27,6 @@ On the successful purchase page, an authentication code will be displayed to reg
 ## Preview
  | **Scanning**      | **Show Comments and Informations**     | 
 |------------|-------------| 
-|  <img src="https://cdn-images-1.medium.com/max/1600/1*Px0kTaFj9fnY2VJdrWGJgA.gif" width="250"> |  <img src="https://cdn-images-1.medium.com/max/1600/1*GfM4eb_y_rM6BaAgDYBWZA.gif" width="250"> |
+|  <img src="![SCANNING](https://github.com/FastFeed-ir/Customer_Ordering-Frontend/assets/75057732/e62e03a6-c685-4813-9c40-632730e4fd77)
+" width="250"> |  <img src="https://cdn-images-1.medium.com/max/1600/1*GfM4eb_y_rM6BaAgDYBWZA.gif" width="250"> |
 
