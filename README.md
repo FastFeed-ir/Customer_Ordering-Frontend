@@ -30,3 +30,10 @@ On the successful purchase page, an authentication code will be displayed to reg
 |  <img src="https://github.com/FastFeed-ir/Customer_Ordering-Frontend/assets/75057732/a2828f84-6b25-4713-b5e2-f952f6f3d395" width="250"> |  <img src="https://github.com/FastFeed-ir/Customer_Ordering-Frontend/assets/75057732/8eab75fd-2a22-4e2a-bc81-46bef98c3140.gif" width="250"> |
  | **Search and Ordering**      | **Commenting**     | 
 |  <img src="https://github.com/FastFeed-ir/Customer_Ordering-Frontend/assets/75057732/9dce6015-1d96-4711-a1cc-ca34a5d95d75" width="250"> |  <img src="https://github.com/FastFeed-ir/Customer_Ordering-Frontend/assets/75057732/303a9429-2139-4b0c-b387-9e7165807a40" width="250"> |
+## Try it
+You can download the output apk file of this code from <a href="https://github.com/FastFeed-ir/Owner_Ordering-Frontend">this</a> link; Also try subscribing with the QR code from this URL:
+
+```
+http://fastfeed.ir/2/4/
+```
+
