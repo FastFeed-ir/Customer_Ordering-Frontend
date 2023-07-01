@@ -27,9 +27,8 @@ On the successful purchase page, an authentication code will be displayed to reg
 ## Preview
  | **Scanning**      | **Show Comments and Informations**     | 
 |------------|-------------| 
-|  <img src="https://github.com/FastFeed-ir/Customer_Ordering-Frontend/assets/75057732/75c54449-1f41-4302-b04e-aee4f692c5f4
-" width="250"> |  <img src="https://github.com/FastFeed-ir/Customer_Ordering-Frontend/assets/75057732/8eab75fd-2a22-4e2a-bc81-46bef98c3140
-" width="250"> |
+|  <img src="https://github.com/FastFeed-ir/Customer_Ordering-Frontend/assets/75057732/75c54449-1f41-4302-b04e-aee4f692c5f4.gif" width="250"> |  <img src="https://github.com/FastFeed-ir/Customer_Ordering-Frontend/assets/75057732/8eab75fd-2a22-4e2a-bc81-46bef98c3140.gif" width="250"> |
+|  <img src="https://cdn-images-1.medium.com/max/1600/1*Px0kTaFj9fnY2VJdrWGJgA.gif" width="250"> |  <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/75057732/250280759-75c54449-1f41-4302-b04e-aee4f692c5f4.gif" width="250"> |
  | **Search and Ordering**      | **Commenting**     | 
 |------------|-------------| 
 |  <img src="https://github.com/FastFeed-ir/Customer_Ordering-Frontend/assets/75057732/9dce6015-1d96-4711-a1cc-ca34a5d95d75
